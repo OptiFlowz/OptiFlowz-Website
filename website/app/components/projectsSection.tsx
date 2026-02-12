@@ -6,7 +6,7 @@ export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const [arrowY, setArrowY] = useState(0);
-  const [activeDots, setActiveDots] = useState<Set<number>>(new Set([0]));
+  const [activeDots, setActiveDots] = useState<Set<number>>(new Set([]));
   const [visibleSections, setVisibleSections] = useState<Set<number>>(
     new Set()
   );
@@ -28,6 +28,7 @@ export default function ProjectsSection() {
         dotRect.top - timelineRect.top + dotRect.height / 2
       );
     });
+
     dotPositions.current = positions;
   }, []);
 
@@ -52,12 +53,12 @@ export default function ProjectsSection() {
   }, []);
 
   useEffect(() => {
-    recalcDots();
+    // recalcDots();
 
     const handleScroll = () => {
       if (!sectionRef.current || !timelineRef.current) return;
 
-      recalcDots();
+      // recalcDots();
 
       const sectionRect = sectionRef.current.getBoundingClientRect();
       const timelineRect = timelineRef.current.getBoundingClientRect();
@@ -83,11 +84,14 @@ export default function ProjectsSection() {
       const newArrowY = progress * timelineHeight;
       setArrowY(newArrowY);
 
-      const newActive = new Set<number>();
+      const newActive = activeDots;
       dotPositions.current.forEach((pos, i) => {
-        if (newArrowY >= pos - 10) {
+        console.log("posiion: " + pos)
+
+        if (!activeDots.has(i) && newArrowY >= pos - 17) 
           newActive.add(i);
-        }
+        else if(i != 0 && activeDots.has(i) && newArrowY < pos + 17)
+          newActive.delete(i);
       });
       setActiveDots(newActive);
     };
@@ -133,15 +137,19 @@ export default function ProjectsSection() {
           {/* Dots */}
           <div
             className={`tl-dot tl-dot-0 ${activeDots.has(0) ? `active` : ""}`}
+            style={{top: `${activeDots.has(0) ? arrowY-7 : '-7'}px`}}
           />
           <div
             className={`tl-dot tl-dot-1 ${activeDots.has(1) ? "active" : ""}`}
+            style={{top: `${activeDots.has(1) ? arrowY-7 : "calc(25% + 20px)"}px`}}
           />
           <div
             className={`tl-dot tl-dot-2 ${activeDots.has(2) ? "active" : ""}`}
+            style={{top: `${activeDots.has(2) ? arrowY-7 : "calc(55% + 10px)"}px`}}
           />
           <div
             className={`tl-dot tl-dot-3 ${activeDots.has(3) ? "active" : ""}`}
+            style={{top: `${activeDots.has(3) ? arrowY-7 : "calc(82% + 10px)"}px`}}
           />
         </div>
 

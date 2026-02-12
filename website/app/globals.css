@@ -357,10 +357,11 @@ main{
   transition: color 0.3s ease, transform .2s ease, top .1s ease;
   pointer-events: none;
   filter: drop-shadow(0 0 0px transparent);
+  will-change: top;
 }
 
 .tl-arrow.active {
-  color: var(--blueAccent2);
+  /* color: var(--blueAccent2); */
   filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
 }
 .tl-arrow.active.up{
@@ -371,7 +372,7 @@ main{
 .tl-dot {
   position: absolute;
   left: 50%;
-  transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 50%, 0);
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -388,6 +389,7 @@ main{
   width: 24px;
   height: 24px;
   transform: translate3d(-50%, -5px, 0);
+  will-change: top;
 }
 
 /* Dot positions — aligned to each content block */
