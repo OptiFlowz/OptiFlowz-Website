@@ -107,6 +107,10 @@ export default function ProjectsSection() {
 
   return (
     <section className="projects-section" ref={sectionRef}>
+      <div className="grid-wrapper">
+        <span></span>
+        <span></span>
+      </div>
       <div className="projects-timeline-layout">
         {/* Timeline */}
         <div className="tl-track" ref={timelineRef}>
