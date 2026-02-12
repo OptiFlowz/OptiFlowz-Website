@@ -354,7 +354,7 @@ main{
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   z-index: 5;
-  transition: color 0.3s ease, transform .2s ease, top .1s ease;
+  transition: color 0.3s ease, transform .2s ease;
   pointer-events: none;
   filter: drop-shadow(0 0 0px transparent);
   will-change: top;
@@ -379,7 +379,7 @@ main{
   background: #0b1121;
   border: 2px solid #2a3548;
   z-index: 3;
-  transition: all .4s ease, top .1s ease;
+  transition: all .4s ease, top 0s;
 }
 
 .tl-dot.active {
@@ -389,7 +389,6 @@ main{
   width: 24px;
   height: 24px;
   transform: translate3d(-50%, -5px, 0);
-  will-change: top;
 }
 
 /* Dot positions — aligned to each content block */

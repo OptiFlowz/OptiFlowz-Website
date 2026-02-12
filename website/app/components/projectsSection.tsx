@@ -53,7 +53,7 @@ export default function ProjectsSection() {
   }, []);
 
   useEffect(() => {
-    // recalcDots();
+    recalcDots();
 
     const handleScroll = () => {
       if (!sectionRef.current || !timelineRef.current) return;
