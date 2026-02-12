@@ -38,7 +38,14 @@ function Header(){
                 >About Us</Link>
             </nav>
 
-            <Link href="/contact" className="button">Get In Contact{ArrowSVG}</Link>
+            <Link 
+                href="#contactForm"
+                className="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("contactForm")?.scrollIntoView({behavior: "smooth"});
+                }}
+            >Get In Contact{ArrowSVG}</Link>
         </header>
     );   
 }

@@ -1,4 +1,3 @@
-// components/ProjectsSection.tsx
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -12,6 +11,10 @@ export default function ProjectsSection() {
     new Set()
   );
   const dotPositions = useRef<number[]>([]);
+  //TRACK ARROR DIRECTION
+  const [isDirectionUp, setIsDirectionUp] = useState(false);
+  const isDirectionUpRef = useRef(false);
+  const lastDirection = useRef(0);
 
   const recalcDots = useCallback(() => {
     const dots = document.querySelectorAll(".tl-dot");
@@ -69,6 +72,14 @@ export default function ProjectsSection() {
         Math.max(scrolledInto / totalScrollable, 0),
         1
       );
+
+      const isScrollingUp = progress < lastDirection.current;
+      if (isScrollingUp !== isDirectionUpRef.current) {
+        isDirectionUpRef.current = isScrollingUp;
+        setIsDirectionUp(isScrollingUp);
+      }
+      lastDirection.current = progress;
+      
       const newArrowY = progress * timelineHeight;
       setArrowY(newArrowY);
 
@@ -99,7 +110,7 @@ export default function ProjectsSection() {
 
           {/* Scrolling arrow */}
           <div
-            className={`tl-arrow ${arrowY > 0 ? "active" : ""}`}
+            className={`tl-arrow ${arrowY > 0 ? "active" : ""} ${isDirectionUp ? "up" : ''}`}
             style={{ top: `${arrowY}px` }}
           >
             <svg
@@ -121,7 +132,7 @@ export default function ProjectsSection() {
 
           {/* Dots */}
           <div
-            className={`tl-dot tl-dot-0 ${activeDots.has(0) ? "active" : ""}`}
+            className={`tl-dot tl-dot-0 ${activeDots.has(0) ? `active` : ""}`}
           />
           <div
             className={`tl-dot tl-dot-1 ${activeDots.has(1) ? "active" : ""}`}
@@ -257,6 +268,7 @@ export default function ProjectsSection() {
 
           {/* You could be next - Section 3 */}
           <div
+            id="contactForm"
             className={`project-card-wrapper ${visibleSections.has(3) ? "visible" : ""}`}
           >
             <div className="project-label">
