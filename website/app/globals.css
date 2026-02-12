@@ -1,8 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Solitreo&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #090A0B;
+
+  --gabarito: "Gabarito", sans-serif;
+  --solitreo: "Solitreo", cursive;
+
+  /* ROUND BORDER RADIUS */
+  --bR: calc(infinity * 1px);
+
+  --borderC1: rgba(255, 255, 255, .3);
+  --borderC2: rgba(255, 255, 255, .05);
+
+  --backgroundC2: rgba(255, 255, 255, .03);
+
+  --blueAccent1: #003E8E;
+  --blueAccent2: #338CFF;
+  --blueAccent3: #4C9AFF;
+
+  --blueButtonGradient: linear-gradient(-90deg, var(--blueAccent1), var(--blueAccent2), var(--blueAccent3));
+
+  --textC2: rgba(255, 255, 255, .6);
+}
+
+*{
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Gabarito", sans-serif;
 }
 
 @theme inline {
@@ -23,4 +51,176 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+  position: fixed;
+  inset-inline: 0;
+  margin-inline: auto;
+  margin-top: 10px;
+  width: fit-content;
+  z-index: 999;
+}
+header div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+  padding: 14px 18px;
+  width: max(500px, 70vw);
+  background-color: rgba(255, 255, 255, .05);
+  border-radius: var(--bR);
+  backdrop-filter: blur(30px);
+}
+header > div::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: var(--bR);
+  background: linear-gradient(45deg, var(--borderC1), var(--borderC2));
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+header nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+header a{
+  cursor: pointer;
+}
+header .getInContact{
+  padding: 8px 20px;
+  border-radius: var(--bR);
+  font-weight: 500;
+  font-size: .9rem;
+  position: relative;
+  background-image: var(--blueButtonGradient);
+}
+header .getInContact::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: var(--bR);
+  background: linear-gradient(45deg, white, var(--borderC2));
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+main.mainPage{
+  width: 100vw;
+}
+main.mainPage .first .hero{
+  width: 100%;
+  padding-block: 200px 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 3.3rem;
+  line-height: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+main.mainPage .first .hero{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
+main.mainPage .first .optiflowz{
+  display: inline;
+  font-family: var(--solitreo);
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, .7);
+  background-image: linear-gradient(-90deg, #0A66DF, #a3cbff);
+}
+
+main.mainPage .background{
+  z-index: -1;
+}
+main.mainPage .background video{
+  filter: blur(5px) brightness(.5);
+  inset: 0;
+  width: 100%;;
+  position: absolute;
+}
+main.mainPage .background .topShadow{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(180deg, var(--background), transparent);
+}
+main.mainPage .background .bottomShadow{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient(0deg, var(--background), transparent);
+}
+
+main.mainPage .first .areas{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-inline: 100px;
+}
+main.mainPage .first .areas span{
+  border-radius: 20px;
+  position: relative;
+  padding: 30px;
+  background-color: var(--backgroundC2);
+}
+main.mainPage .first .areas span:nth-child(2){
+  padding-block: 40px 70px;
+  background-color: transparent;
+  background-image: linear-gradient(135deg, rgba(51, 140, 255, .1), rgba(255, 255, 255, .1));
+}
+main.mainPage .first .areas span::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--borderC1), var(--borderC2));
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+main.mainPage .first .areas span:nth-child(2)::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--blueAccent2), var(--borderC2));
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+main.mainPage .first .areas span h3{
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+main.mainPage .first .areas span p{
+  margin-top: 15px;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--textC2);
 }
