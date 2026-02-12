@@ -174,36 +174,30 @@ export default function ProjectsSection() {
               <h3>EAES Video Corner</h3>
             </div>
             <div className="project-card">
-              <div className="project-card-preview">
-                <div className="project-logo-badge">
-                  <span className="eaes-logo-text">EAES</span>
-                  <span className="eaes-logo-sub">video corner</span>
-                </div>
-                <div className="project-mockup">
-                  <img
-                    src="/eaes-mockup.webp"
-                    alt="EAES Video Corner Platform"
-                    className="mockup-image"
-                  />
-                </div>
-              </div>
+              <img
+                src="/eaes-mockup.webp"
+                alt="EAES Video Corner Platform"
+                className="mockup-image"
+              />
               <div className="project-card-info">
-                <h4>Custom Video Platform for Surgical Education</h4>
-                <p>
-                  Developed for EAES, VideoCorner is a custom streaming
-                  platform serving surgical education across Europe.
-                </p>
-                <p>
-                  We built a scalable infrastructure to host complex medical
-                  curricula and deliver high-performance video content to
-                  thousands of professionals.
-                </p>
+                <div className="project-card-about">
+                  <h4>Custom Video Platform for Surgical Education</h4>
+                  <p>
+                    Developed for EAES, VideoCorner is a custom streaming
+                    platform serving surgical education across Europe.
+                  </p>
+                  <p>
+                    We built a scalable infrastructure to host complex medical
+                    curricula and deliver high-performance video content to
+                    thousands of professionals.
+                  </p>
+                </div>
                 <div className="project-tags">
                   <span className="tag">React</span>
                   <span className="tag">Video Streaming</span>
                   <span className="tag">EdTech</span>
                 </div>
-                <a href="#" className="visit-btn">
+                <a href="https://videocorner.eaes.eu/" target="_blank" className="button">
                   Visit website
                   <svg
                     width="16"
@@ -230,32 +224,30 @@ export default function ProjectsSection() {
               <h3>SAES Membership system</h3>
             </div>
             <div className="project-card">
-              <div className="project-card-preview">
-                <div className="project-mockup">
-                  <img
-                    src="/saes-mockup.webp"
-                    alt="SAES Membership System"
-                    className="mockup-image"
-                  />
-                </div>
-              </div>
+              <img
+                src="/saes-mockup.webp"
+                alt="SAES Membership System"
+                className="mockup-image"
+              />
               <div className="project-card-info">
-                <h4>Course &amp; Certification System</h4>
-                <p>
-                  A custom platform for the Association of Endoscopic
-                  Surgeons of Serbia (UEHS).
-                </p>
-                <p>
-                  We built an integrated course system for managing
-                  educational programs and automated certification,
-                  simplifying their entire training and tracking process.
-                </p>
+                <div className="project-card-about">
+                  <h4>Course &amp; Certification System</h4>
+                  <p>
+                    A custom platform for the Association of Endoscopic
+                    Surgeons of Serbia (UEHS).
+                  </p>
+                  <p>
+                    We built an integrated course system for managing
+                    educational programs and automated certification,
+                    simplifying their entire training and tracking process.
+                  </p>
+                </div>
                 <div className="project-tags">
                   <span className="tag">Wordpress</span>
                   <span className="tag">FinTech</span>
                   <span className="tag">EdTech</span>
                 </div>
-                <a href="#" className="visit-btn">
+                <a href="https://uehs.org.rs/" target="_blank" className="button">
                   Visit website
                   <svg
                     width="16"
@@ -334,7 +326,7 @@ export default function ProjectsSection() {
                       rows={4}
                     />
                   </div>
-                  <button type="submit" className="send-btn">
+                  <button type="submit" className="button self-end white">
                     Send Message
                     <svg
                       width="16"
