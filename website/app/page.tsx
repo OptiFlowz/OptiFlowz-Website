@@ -1,58 +1,70 @@
 import Image from "next/image";
-import Header from "./components/header/header";
 import type { Metadata } from 'next'
-import { DisplaySVG, RocketSVG, VideocamSVG } from "./constants";
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Welcome to the homepage of Optiflowz'
+  title: 'OptiFlowz - Custom video platforms, scalable web applications, and business automation',
+  description: 'Custom video platforms, scalable web applications, and business automation'
 }
 
 export default function Home() {
   return (
-    <main className="mainPage">
-      <Header />
+    <main>
+      <section className="hero">
+        <h1>Build Smarter.<br/>
+          Automate Faster.<br/>
+          Scale with <p className="accentText">OptiFlowz</p>
+        </h1>
 
-      <div className="first">
-        <div className="hero">
-          <h2>Build Smarter.<br/>Automate Faster.<br/>Slace with <p className="optiflowz">OptiFlowz</p></h2>
+        <Image 
+            src="/heroImage.webp"
+            alt="Logo"
+            width={500}
+            height={500}
+            style={{width: "400px", height: "400px"}}
+            priority
+        />
+      </section>
 
-          <div className="background">
-            <span className="topShadow"></span>
-            <video src="/homeBg.mp4" muted autoPlay loop />
-            <span className="bottomShadow"></span>
-          </div>
-
+      <section className="services">
+        <div>
           <Image 
-              src="/heroImage.webp"
-              alt="Logo"
-              width={500}
-              height={500}
-              style={{width: "400px", height: "400px"}}
-              priority
+            src="/videocam.webp"
+            alt="Logo"
+            width={100}
+            height={100}
+            style={{width: "80px", height: "80px"}}
+            priority
           />
+          <h2>Custom Video Platforms</h2>
+          <p>Enterprise-grade streaming solutions tailored to your brand. From corporate training to global distribution, we build high-performance platforms that scale.</p>            
         </div>
 
-        <div className="areas">
-          <span>
-            {VideocamSVG}
-            <h3>Custom Video Platforms</h3>
-            <p>Enterprise-grade streaming solutions tailored to your brand. From corporate training to global distribution, we build high-performance platforms that scale.</p>            
-          </span>
-
-          <span>
-            {DisplaySVG}
-            <h3>Web Design & Development</h3>
-            <p>Modern, responsive websites built with cutting-edge technology. From landing pages to complex web applications, we bring your vision to life.</p>            
-          </span>
-
-          <span>
-            {RocketSVG}
-            <h3>Business Automation</h3>
-            <p>Streamline your workflows and eliminate repetitive tasks. We create custom automation solutions that save time and reduce costs.</p>            
-          </span>
+        <div className="accentService">
+          <Image 
+            src="/webdesign.webp"
+            alt="Logo"
+            width={100}
+            height={100}
+            style={{width: "80px", height: "80px"}}
+            priority
+          />
+          <h2>Web Design & Development</h2>
+          <p>Modern, responsive websites built with cutting-edge technology. From landing pages to complex web applications, we bring your vision to life.</p>            
         </div>
-      </div>
+
+        <div>
+          <Image 
+            src="/automation.webp"
+            alt="Logo"
+            width={100}
+            height={100}
+            style={{width: "80px", height: "80px"}}
+            priority
+          />
+          <h2>Business Automation</h2>
+          <p>Streamline your workflows and eliminate repetitive tasks. We create custom automation solutions that save time and reduce costs.</p>            
+        </div>
+      </section>
     </main>
   );
 }
