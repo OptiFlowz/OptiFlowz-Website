@@ -49,7 +49,7 @@ export default function ServicesHome() {
         </p>
       </div>
 
-      {/* Center — appears 1st (no delay) */}
+      Center — appears 1st (no delay)
       <div
         className={`service-item accentService ${visible ? "visible" : ""}`}
         style={{ transitionDelay: "0s" }}
