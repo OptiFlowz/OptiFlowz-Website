@@ -1,9 +1,14 @@
+// app/components/ScrollArrow.tsx
 "use client";
 
-import { memo, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowSVG } from "../constants";
 
-function ScrollArrow({direction}: {direction: "left" | "right"}) {
+export default function ScrollArrow({
+  direction,
+}: {
+  direction: "left" | "right";
+}) {
   const wrapperRef = useRef<HTMLSpanElement>(null);
   const arrowRef = useRef<HTMLSpanElement>(null);
   const initialProgress = useRef<number | null>(null);
@@ -12,6 +17,8 @@ function ScrollArrow({direction}: {direction: "left" | "right"}) {
     const wrapper = wrapperRef.current;
     const arrow = arrowRef.current;
     if (!wrapper || !arrow) return;
+
+    let raf = 0;
 
     const getProgress = () => {
       const rect = wrapper.getBoundingClientRect();
@@ -45,11 +52,12 @@ function ScrollArrow({direction}: {direction: "left" | "right"}) {
       const translateX = direction === "left" ? -offset : offset;
 
       arrow.style.transform = `translateX(${translateX}px)`;
+
+      raf = requestAnimationFrame(update);
     };
 
-    window.addEventListener("scroll", update);
-
-    return () => window.removeEventListener("scroll", update);
+    raf = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(raf);
   }, [direction]);
 
   return (
@@ -61,5 +69,3 @@ function ScrollArrow({direction}: {direction: "left" | "right"}) {
     </span>
   );
 }
-
-export default memo(ScrollArrow);

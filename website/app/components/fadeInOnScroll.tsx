@@ -1,3 +1,4 @@
+// e.g. app/components/FadeInOnScroll.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -22,7 +23,7 @@ export default function FadeInOnScroll({
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect();
+          observer.disconnect(); // only animate once
         }
       },
       { threshold }

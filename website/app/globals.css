@@ -239,10 +239,6 @@ header a{
   position: relative;
 }
 
-header nav a.active{
-  pointer-events: none;
-}
-
 header nav a::before{
   content: "";
   position: absolute;
@@ -890,7 +886,6 @@ main{
 .leftService img, .rightService img{
   width: 650px;
   border-radius: 20px;
-  z-index: 1;
 }
 
 .leftService div, .rightService div{
@@ -958,7 +953,6 @@ main{
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  z-index: 0;
 }
 
 .rightService div .line-wrapper .arrow{
