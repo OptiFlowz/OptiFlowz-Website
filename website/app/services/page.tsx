@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowSVG } from "../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
-import ScrollArrow from "@/app/components/ScrollArrow";
+import ScrollArrow from "@/app/components/scrollArrow";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - Services",

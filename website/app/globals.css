@@ -53,6 +53,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
   overflow-x: hidden;
 }
 
@@ -159,15 +160,19 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  min-height: 70vh;
   overflow: hidden;
   z-index: -1;
 }
 
-.background video{
-  width: 100%;
+.background img, .background video{
+  width: 100vw;;
+  min-height: 70vh;
+  object-fit: cover;
   opacity: 0.4;
   filter: blur(5px);
   z-index: 1;
+  pointer-events: none;
 }
 
 .background .topShadow{
@@ -219,7 +224,7 @@ header::before{
   padding: 1px;
   border-radius: var(--bR);
   background: linear-gradient(60deg, var(--borderC1), var(--borderC2));
-  -webkit-mask: 
+  -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -259,6 +264,7 @@ header nav a.active::before{
   width: 100%;
 }
 
+/* Hamburger button */
 header .mobileMenuButton{
   display: none;
   width: 60px;
@@ -267,6 +273,8 @@ header .mobileMenuButton{
   align-items: flex-end;
   gap: 5px;
   cursor: pointer;
+  border: 0;
+  background: transparent;
   border-radius: var(--bR);
   padding: 10px 15px;
   transition: background-color .2s ease;
@@ -281,10 +289,130 @@ header .mobileMenuButton span{
   height: 3px;
   background-color: white;
   border-radius: 3px;
+  transition: transform .2s ease, opacity .2s ease, width .2s ease;
 }
 
 header .mobileMenuButton span:nth-child(1){
   width: calc(100% - 10px);
+}
+
+/* --- HAMBURGER -> X --- */
+header .mobileMenuButton.open span:nth-child(1){
+  width: 100%;
+  transform: translateY(8px) rotate(45deg);
+}
+
+header .mobileMenuButton.open span:nth-child(2){
+  opacity: 0;
+}
+
+header .mobileMenuButton.open span:nth-child(3){
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- OVERLAY --- */
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 998;
+}
+
+.mobileMenuOverlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- DRAWER --- */
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(360px, 85vw);
+  transform: translateX(110%);
+  transition: transform .25s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.mobileDrawer.open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.mobileDrawerInner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  background-color: rgba(20, 20, 20, .75);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  border-left: 1px solid var(--borderC1);
+}
+
+/* Top area (only X button) */
+.mobileDrawerTop {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobileCloseButton {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  padding: 8px 15px;
+  border-radius: var(--bR);
+  transition: background-color .2s ease;
+}
+
+.mobileCloseButton:hover {
+  background-color: var(--backgroundC2);
+}
+
+/* Links inside drawer */
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.mobileLinks a {
+  padding: 10px 15px;
+  border-radius: var(--bR);
+  transition: background-color .2s ease;
+}
+
+.mobileLinks a.contactLink{
+  display: flex;
+  justify-content: space-between;
+  background: var(--blueButtonGradient);
+  transition: filter .2s ease;
+}
+
+.mobileLinks a.contactLink:hover{
+  filter: brightness(1.2);
+}
+
+.mobileLinks a:hover {
+  background-color: rgba(255,255,255,.06);
+}
+
+.mobileLinks a.active {
+  background-color: rgba(255,255,255,.10);
+}
+
+/* Contact link styled same as other options */
+.mobileLinks a.contactLink {
+  /* isto kao ostali linkovi; ovo je samo hook ako budeš hteo kasnije razliku */
 }
 
 /* MAIN */
@@ -302,6 +430,12 @@ main{
 }
 
 .mainTitle{
+  font-size: 2.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.mainTitlePP{
   font-size: 2.5rem;
   width: 100%;
   text-align: left;
@@ -368,8 +502,8 @@ main{
   gap: 0.75rem;
   background-color: var(--backgroundC2);
   border-radius: 20px;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   padding: 25px 30px;
   padding-bottom: 50px;
 }
@@ -871,44 +1005,6 @@ main{
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* ===== RESPONSIVE ===== */
-
-@media (max-width: 768px) {
-  .projects-section {
-    padding: 60px 16px;
-  }
-
-  .projects-timeline-layout {
-    gap: 20px;
-  }
-
-  .projects-title {
-    font-size: 1.8rem;
-  }
-
-  .project-card {
-    flex-direction: column;
-  }
-
-  .project-card-preview {
-    min-width: unset;
-  }
-
-  .project-card-info {
-    min-width: unset;
-  }
-
-  .contact-card {
-    flex-direction: column;
-  }
-
-  .contact-right {
-    min-width: unset;
-    border-left: none;
-    border-top: 1px solid rgba(59, 130, 246, 0.2);
-  }
-}
-
 /* SERVICES PAGE */
 
 .leftService, .rightService{
@@ -1012,16 +1108,71 @@ main{
   transform: rotate(180deg);
 }
 
+/* PRIVACY POLICY */
+
+.pp-main{
+  gap: 3rem;
+}
+
+.pp-main section{
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: var(--backgroundC2);
+  border-radius: 20px;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  padding: 25px 30px;
+  padding-bottom: 40px;
+}
+
+.pp-main section::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: 20px;
+  background: linear-gradient(60deg, var(--borderC1), var(--borderC2));
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.pp-main a{
+  color: var(--blueAccent3);
+  position: relative;
+}
+
+.pp-main a::before{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  width: 0%;
+  background-color: var(--foreground);
+  transition: width .2s ease;
+}
+
+.pp-main a:hover::before{
+  width: 100%;
+}
+
 /* FOOTER */
 
 footer{
   position: relative;
   width: 100vw;
-  background-color: var(--backgroundC2);
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  border-top: 1px solid var(--borderC2);
 }
 
 footer .footerBg{
@@ -1031,9 +1182,9 @@ footer .footerBg{
   width: 100%;
   height: 100%;
   filter: blur(10px);
-  opacity: 0.5;
+  opacity: 0.4;
   object-fit: cover;
-  z-index: -1;
+  z-index: 1;
 }
 
 footer .footerWrap{
@@ -1041,6 +1192,7 @@ footer .footerWrap{
   width: calc(100% - 40px);
   max-width: var(--contentWidth);
   margin: auto;
+  z-index: 2;
 }
 
 footer .footerWrap > div{
@@ -1091,7 +1243,7 @@ footer .links{
 }
 
 footer .links nav{
-  width: 200px;
+  width: 240px;
   position: relative;
   background-color: var(--backgroundC2);
   padding: 20px;
@@ -1182,6 +1334,35 @@ footer .copyright{
   .leftService img, .rightService img{
     width: 500px;
   }
+  .projects-section {
+    padding: 60px 16px;
+  }
+  .projects-timeline-layout {
+    gap: 20px;
+  }
+  .project-card-about{
+    max-width: 550px;;
+  }
+  .projects-title {
+    font-size: 1.8rem;
+  }
+  .project-card {
+    flex-direction: column;
+  }
+  .project-card-preview {
+    min-width: unset;
+  }
+  .project-card-info {
+    min-width: unset;
+  }
+  .contact-card {
+    flex-direction: column;
+  }
+  .contact-right {
+    min-width: unset;
+    border-left: none;
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+  }
 }
 
 @media (max-width: 950px){
@@ -1228,6 +1409,9 @@ footer .copyright{
   }
   header .mobileMenuButton{
     display: flex;
+  }
+  header nav {
+    display: none;
   }
   main{
     gap: 3rem;
@@ -1282,6 +1466,9 @@ footer .copyright{
 }
 
 @media (max-width: 500px){
+  .leftService img, .rightService img{
+    border-radius: 10px;
+  }
   footer .links{
     gap: 1rem;
     justify-content: center;
@@ -1295,5 +1482,14 @@ footer .copyright{
   }
   footer .links nav{
     width: 100%;
+  }
+}
+
+@media (max-width: 400px){
+  .hero{
+    margin-inline: 20px;
+  }
+  .hero h1{
+    font-size: 1.75rem;
   }
 }

@@ -92,7 +92,7 @@ function Footer(){
                         </nav>
                         <nav>
                             <h3>Contact</h3>
-                            <p>OptiFlowz d.o.o - Belgrade, Serbia</p>
+                            <p>OptiFlowz LLC – 30 N Gould St Ste R, Sheridan, WY 82801, USA</p>
                             <p>Monday–Friday 09:00–17:00</p>
                             <Link href="mailto:office@optiflowz.com">office@optiflowz.com</Link>
                         </nav>

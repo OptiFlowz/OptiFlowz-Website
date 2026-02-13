@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import ProjectsSection from "@/app/components/projectsSection";
-import ServicesHome from "@/app/components/ServicesHome";
-import HeroSection from "@/app/components/HeroSection";
+import ServicesHome from "@/app/components/servicesHome";
+import HeroSection from "@/app/components/heroSection";
 
 export const metadata: Metadata = {
   title:
