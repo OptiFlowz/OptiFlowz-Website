@@ -39,7 +39,7 @@ function Header(){
             </nav>
 
             <Link 
-                href="#contactForm"
+                href="/#contactForm"
                 className="button"
                 onClick={(e) => {
                     e.preventDefault();

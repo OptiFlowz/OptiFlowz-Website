@@ -1,37 +1,71 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowSVG } from "../constants";
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const [arrowY, setArrowY] = useState(0);
-  const [activeDots, setActiveDots] = useState<Set<number>>(new Set([]));
-  const [visibleSections, setVisibleSections] = useState<Set<number>>(
-    new Set()
-  );
-  const dotPositions = useRef<number[]>([]);
-  //TRACK ARROR DIRECTION
+  const arrowRef = useRef<HTMLDivElement>(null);
+
+  // Fade-in cards
+  const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
+
+  // Dot positions (px inside timeline)
+  const [dotTops, setDotTops] = useState<number[]>([]);
+  const dotPositionsRef = useRef<number[]>([]);
+
+  // Active dots
+  const [activeDots, setActiveDots] = useState<Set<number>>(new Set());
+
+  // Smooth arrow motion
+  const targetY = useRef(0);
+  const currentY = useRef(0);
+
+  // Arrow direction
   const [isDirectionUp, setIsDirectionUp] = useState(false);
-  const isDirectionUpRef = useRef(false);
-  const lastDirection = useRef(0);
+  const directionRef = useRef(false);
+  const lastRawYRef = useRef(0);
+
+  const setsEqual = (a: Set<number>, b: Set<number>) => {
+    if (a.size !== b.size) return false;
+    for (const v of a) if (!b.has(v)) return false;
+    return true;
+  };
+
+  // offsetTop helper (ignores transforms)
+  const getOffsetTopWithin = (el: HTMLElement, ancestor: HTMLElement) => {
+    let top = 0;
+    let node: HTMLElement | null = el;
+
+    while (node && node !== ancestor) {
+      top += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+    return top;
+  };
 
   const recalcDots = useCallback(() => {
-    const dots = document.querySelectorAll(".tl-dot");
     const timeline = timelineRef.current;
-    if (!timeline || dots.length === 0) return;
-    const timelineRect = timeline.getBoundingClientRect();
-    const positions: number[] = [];
-    dots.forEach((dot) => {
-      const dotRect = (dot as HTMLElement).getBoundingClientRect();
-      positions.push(
-        dotRect.top - timelineRect.top + dotRect.height / 2
-      );
+    const section = sectionRef.current;
+    if (!timeline || !section) return;
+
+    const anchors = section.querySelectorAll<HTMLElement>("[data-tl-anchor]");
+    if (!anchors.length) return;
+
+    const timelineTopInSection = getOffsetTopWithin(timeline, section);
+
+    const positions = Array.from(anchors).map((el) => {
+      const anchorTopInSection = getOffsetTopWithin(el, section);
+      const anchorCenterInSection = anchorTopInSection + el.offsetHeight / 2;
+      return anchorCenterInSection - timelineTopInSection; // px inside timeline
     });
 
-    dotPositions.current = positions;
+    dotPositionsRef.current = positions;
+    setDotTops(positions);
   }, []);
 
+  // Fade-in observers
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     const cards = document.querySelectorAll(".project-card-wrapper");
@@ -45,6 +79,7 @@ export default function ProjectsSection() {
         },
         { threshold: 0.15 }
       );
+
       observer.observe(card);
       observers.push(observer);
     });
@@ -52,56 +87,94 @@ export default function ProjectsSection() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Recalc when sections reveal (because transforms go to 0)
+  useEffect(() => {
+    requestAnimationFrame(() => recalcDots());
+    const t = setTimeout(() => recalcDots(), 700); // match your 0.7s transition
+    return () => clearTimeout(t);
+  }, [visibleSections, recalcDots]);
+
+  // rAF loop: smooth arrow + active dots
+  useEffect(() => {
+    let raf = 0;
+
+    const loop = () => {
+      const dy = targetY.current - currentY.current;
+      currentY.current += dy * 0.12; // smoothing
+
+      if (arrowRef.current) {
+        arrowRef.current.style.top = `${currentY.current}px`;
+      }
+
+      const firstDot = dotPositionsRef.current[0];
+      if (arrowRef.current && typeof firstDot === "number") {
+        const HIDE_OFFSET = 1; // malo “ranije” da nestane (tjunuj)
+        const shouldHide = currentY.current < firstDot - HIDE_OFFSET;
+        arrowRef.current.classList.toggle("hiddenDot", shouldHide);
+      }
+
+      const pos = dotPositionsRef.current;
+      const next = new Set<number>();
+      for (let i = 0; i < pos.length; i++) {
+        if (currentY.current >= pos[i] - 8) next.add(i);
+      }
+
+      setActiveDots((prev) => (setsEqual(prev, next) ? prev : next));
+
+      raf = requestAnimationFrame(loop);
+    };
+
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Scroll -> compute targetY (NO morphing)
   useEffect(() => {
     recalcDots();
 
     const handleScroll = () => {
-      if (!sectionRef.current || !timelineRef.current) return;
+      const section = sectionRef.current;
+      const timeline = timelineRef.current;
+      if (!section || !timeline) return;
 
-      // recalcDots();
-
-      const sectionRect = sectionRef.current.getBoundingClientRect();
-      const timelineRect = timelineRef.current.getBoundingClientRect();
+      const sectionRect = section.getBoundingClientRect();
+      const timelineRect = timeline.getBoundingClientRect();
       const timelineHeight = timelineRect.height;
 
-      const viewportTrigger = window.innerHeight * 0.35;
+      const viewportTrigger = window.innerHeight * 0.25;
       const scrolledInto = viewportTrigger - sectionRect.top;
-      const totalScrollable =
-        sectionRect.height - window.innerHeight * 0.5;
+      const totalScrollable = sectionRect.height - window.innerHeight * 0.4;
 
-      const progress = Math.min(
-        Math.max(scrolledInto / totalScrollable, 0),
-        1
-      );
+      const progress = Math.min(Math.max(scrolledInto / totalScrollable, 0), 1);
+      const rawY = progress * timelineHeight;
 
-      const isScrollingUp = progress < lastDirection.current;
-      if (isScrollingUp !== isDirectionUpRef.current) {
-        isDirectionUpRef.current = isScrollingUp;
-        setIsDirectionUp(isScrollingUp);
+      // direction (based on rawY)
+      const isUp = rawY < lastRawYRef.current;
+      lastRawYRef.current = rawY;
+      if (isUp !== directionRef.current) {
+        directionRef.current = isUp;
+        setIsDirectionUp(isUp);
       }
-      lastDirection.current = progress;
-      
-      const newArrowY = progress * timelineHeight;
-      setArrowY(newArrowY);
 
-      const newActive = activeDots;
-      dotPositions.current.forEach((pos, i) => {
-        console.log("posiion: " + pos)
-
-        if (!activeDots.has(i) && newArrowY >= pos - 17) 
-          newActive.add(i);
-        else if(i != 0 && activeDots.has(i) && newArrowY < pos + 17)
-          newActive.delete(i);
-      });
-      setActiveDots(newActive);
+      // direct target (no magnet/snap/morph)
+      targetY.current = rawY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", recalcDots);
+
+    // Ensure correct measurements after layout/fonts/images
+    requestAnimationFrame(() => recalcDots());
+    setTimeout(() => recalcDots(), 50);
+    window.addEventListener("load", recalcDots);
+
     handleScroll();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", recalcDots);
+      window.removeEventListener("load", recalcDots);
     };
   }, [recalcDots]);
 
@@ -118,8 +191,9 @@ export default function ProjectsSection() {
 
           {/* Scrolling arrow */}
           <div
-            className={`tl-arrow ${arrowY > 0 ? "active" : ""} ${isDirectionUp ? "up" : ''}`}
-            style={{ top: `${arrowY}px` }}
+            ref={arrowRef}
+            className={`tl-arrow ${isDirectionUp ? "up" : ""}`}
+            style={{ top: "0px" }} // updated via rAF
           >
             <svg
               width="18"
@@ -139,22 +213,15 @@ export default function ProjectsSection() {
           </div>
 
           {/* Dots */}
-          <div
-            className={`tl-dot tl-dot-0 ${activeDots.has(0) ? `active` : ""}`}
-            style={{top: `${activeDots.has(0) ? arrowY-7 : '-7'}px`}}
-          />
-          <div
-            className={`tl-dot tl-dot-1 ${activeDots.has(1) ? "active" : ""}`}
-            style={{top: `${activeDots.has(1) ? arrowY-7 : "calc(25% + 20px)"}px`}}
-          />
-          <div
-            className={`tl-dot tl-dot-2 ${activeDots.has(2) ? "active" : ""}`}
-            style={{top: `${activeDots.has(2) ? arrowY-7 : "calc(55% + 10px)"}px`}}
-          />
-          <div
-            className={`tl-dot tl-dot-3 ${activeDots.has(3) ? "active" : ""}`}
-            style={{top: `${activeDots.has(3) ? arrowY-7 : "calc(82% + 10px)"}px`}}
-          />
+          {dotTops.map((top, i) => (
+            <div
+              key={i}
+              className={`tl-dot ${activeDots.has(i) ? "active" : ""}`}
+              style={{ top: `${top}px` }}
+            >
+              {ArrowSVG}
+            </div>
+          ))}
         </div>
 
         {/* Content */}
@@ -162,7 +229,9 @@ export default function ProjectsSection() {
           {/* Our Projects - Section 0 */}
           <div className="project-card-wrapper visible">
             <div className="projects-intro">
-              <h2 className="projects-title">Our Projects</h2>
+              <h2 className="projects-title" data-tl-anchor>
+                Our Projects
+              </h2>
               <p className="projects-subtitle">
                 Explore how we help industry leaders scale through custom
                 engineering and high-performance digital solutions.
@@ -171,11 +240,9 @@ export default function ProjectsSection() {
           </div>
 
           {/* EAES Video Corner - Section 1 */}
-          <div
-            className={`project-card-wrapper ${visibleSections.has(1) ? "visible" : ""}`}
-          >
+          <div className={`project-card-wrapper ${visibleSections.has(1) ? "visible" : ""}`}>
             <div className="project-label">
-              <h3>EAES Video Corner</h3>
+              <h3 data-tl-anchor>EAES Video Corner</h3>
             </div>
             <div className="project-card">
               <img
@@ -201,7 +268,12 @@ export default function ProjectsSection() {
                   <span className="tag">Video Streaming</span>
                   <span className="tag">EdTech</span>
                 </div>
-                <a href="https://videocorner.eaes.eu/" target="_blank" className="button">
+                <a
+                  href="https://videocorner.eaes.eu/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button"
+                >
                   Visit website
                   <svg
                     width="16"
@@ -221,11 +293,9 @@ export default function ProjectsSection() {
           </div>
 
           {/* SAES Membership System - Section 2 */}
-          <div
-            className={`project-card-wrapper ${visibleSections.has(2) ? "visible" : ""}`}
-          >
+          <div className={`project-card-wrapper ${visibleSections.has(2) ? "visible" : ""}`}>
             <div className="project-label">
-              <h3>SAES Membership system</h3>
+              <h3 data-tl-anchor>SAES Membership system</h3>
             </div>
             <div className="project-card">
               <img
@@ -251,7 +321,12 @@ export default function ProjectsSection() {
                   <span className="tag">FinTech</span>
                   <span className="tag">EdTech</span>
                 </div>
-                <a href="https://uehs.org.rs/" target="_blank" className="button">
+                <a
+                  href="https://uehs.org.rs/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button"
+                >
                   Visit website
                   <svg
                     width="16"
@@ -276,15 +351,15 @@ export default function ProjectsSection() {
             className={`project-card-wrapper ${visibleSections.has(3) ? "visible" : ""}`}
           >
             <div className="project-label">
-              <h3>You could be next...</h3>
+              <h3 data-tl-anchor>You could be next...</h3>
             </div>
+
             <div className="contact-card">
               <div className="contact-left">
                 <h4>Contact us</h4>
                 <p>
-                  Have a project in mind? Fill out the form to share your
-                  vision with us. We&apos;re here to help bring your ideas
-                  to life.
+                  Have a project in mind? Fill out the form to share your vision
+                  with us. We&apos;re here to help bring your ideas to life.
                 </p>
                 <div className="contact-logo">
                   <img
@@ -294,6 +369,7 @@ export default function ProjectsSection() {
                   />
                 </div>
               </div>
+
               <div className="contact-right">
                 <div className="contact-form-header">
                   <div className="form-dots">
@@ -302,10 +378,8 @@ export default function ProjectsSection() {
                     <span className="form-dot" />
                   </div>
                 </div>
-                <form
-                  className="contact-form"
-                  onSubmit={(e) => e.preventDefault()}
-                >
+
+                <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
                   <div className="form-group">
                     <label htmlFor="fullName">Full Name*</label>
                     <input
@@ -314,14 +388,12 @@ export default function ProjectsSection() {
                       placeholder="Enter your full name..."
                     />
                   </div>
+
                   <div className="form-group">
                     <label htmlFor="email">Email*</label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="Enter your email..."
-                    />
+                    <input type="email" id="email" placeholder="Enter your email..." />
                   </div>
+
                   <div className="form-group">
                     <label htmlFor="message">Message*</label>
                     <textarea
@@ -330,6 +402,7 @@ export default function ProjectsSection() {
                       rows={4}
                     />
                   </div>
+
                   <button type="submit" className="button self-end white">
                     Send Message
                     <svg
@@ -349,7 +422,10 @@ export default function ProjectsSection() {
               </div>
             </div>
           </div>
+
+          {/* /Section 3 */}
         </div>
+        {/* /projects-content */}
       </div>
     </section>
   );

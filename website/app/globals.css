@@ -104,7 +104,7 @@ body {
   color: var(--blueAccent2);
 }
 
-.button.white svg{
+.button.white svg path{
   stroke: var(--blueAccent2);
 }
 
@@ -137,6 +137,19 @@ body {
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+}
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* BACKGROUND */
@@ -218,10 +231,32 @@ header nav{
   align-items: center;
   justify-content: center;
   gap: 1.75rem;
+  margin-left: 40px;
 }
 
 header a{
   cursor: pointer;
+  position: relative;
+}
+
+header nav a::before{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  width: 0%;
+  background-color: var(--foreground);
+  transition: width .2s ease;
+}
+
+header nav a:hover::before{
+  width: 100%;
+}
+
+header nav a.active::before{
+  width: 100%;
 }
 
 /* MAIN */
@@ -236,6 +271,12 @@ main{
   width: calc(100% - 40px);
   max-width: var(--contentWidth);
   z-index: 1;
+}
+
+.mainTitle{
+  font-size: 2.5rem;
+  width: 100%;
+  text-align: left;
 }
 
 .hero{
@@ -257,6 +298,33 @@ main{
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.hero-h1 {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.hero-h1.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero-image {
+  opacity: 0;
+  transform: translateX(60px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: 0.15s;
+}
+
+.hero-image.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .services div{
@@ -321,6 +389,19 @@ main{
   line-height: 1.4;
 }
 
+.service-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.service-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* GRID */
 
 .grid-wrapper{
@@ -339,7 +420,7 @@ main{
   height: 100%;
   opacity: 0.07;
   background-image: linear-gradient(#ffffff 2px, transparent 2px), linear-gradient(to right, #ffffff 2px, transparent 2px);
-  background-size: 25px 25px;
+  background-size: 30px 30px;
   background-color: #090a0b;
 }
 
@@ -372,79 +453,91 @@ main{
 
 /* ===== TIMELINE TRACK ===== */
 
+/* track */
 .tl-track {
   position: relative;
-  width: 20px;
+  width: 28px;            /* malo više mesta */
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 
+/* dashed line (opciono lepše kontrolisano) */
 .tl-dashed-line {
   position: absolute;
-  top: 0;
+  inset: 0;
   left: 50%;
+  width: 2px;
   transform: translateX(-50%);
-  width: 0;
-  height: 100%;
-  border-left: 2px dashed var(--borderC1);
-}
-
-/* Scrolling Arrow */
-.tl-arrow {
-  position: absolute;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  z-index: 5;
-  transition: color 0.3s ease, transform .2s ease;
-  pointer-events: none;
-  filter: drop-shadow(0 0 0px transparent);
-  will-change: top;
-}
-
-.tl-arrow.active {
-  /* color: var(--blueAccent2); */
-}
-.tl-arrow.active.up{
-  transform: rotate(180deg) translate3d(50%, 50%, 0);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--borderC1) 0 10px,
+    transparent 10px 18px
+  );
+  opacity: 0.9;
 }
 
 /* Dots */
 .tl-dot {
   position: absolute;
   left: 50%;
-  transform: translate3d(-50%, 50%, 0);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  top: 0; /* top ćeš davati inline iz JS */
+  transform: translate3d(-50%, -50%, 0); /* BITNO: centar je top */
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
   background: var(--background);
   border: 2px solid var(--borderC1);
   z-index: 3;
-  transition: all .4s ease, top 0s;
+  transition: transform 260ms cubic-bezier(.2,.8,.2,1),
+              background 260ms ease,
+              border-color 260ms ease,
+              box-shadow 260ms ease;
+}
+
+.tl-dot svg{
+  width: 17px;
+  height: 17px;
 }
 
 .tl-dot.active {
   background: var(--blueAccent2);
-  border-color: white;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-  width: 32px;
-  height: 32px;
-  transform: translate3d(-50%, -9px, 0);
+  border-color: #fff;
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.55);
+  transform: translate3d(-50%, -50%, 0) scale(1.55);
 }
 
-/* Dot positions — aligned to each content block */
-.tl-dot-0 {
-  top: -7px;
+/* Arrow kao “moving dot” */
+.tl-arrow {
+  position: absolute;
+  left: 50%;
+  top: 0; /* top ćeš davati inline iz JS */
+  width: 35px;
+  height: 35px;
+  border-radius: 999px;
+  background: var(--background);
+  border: 2px solid var(--borderC1);
+  display: grid;
+  place-items: center;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 5;
+  pointer-events: none;
+  will-change: top;
+  transform-origin: center center;
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 150ms ease;
 }
-.tl-dot-1 {
-  top: calc(25% + 20px);
+
+.tl-arrow.hiddenDot {
+  opacity: 0;
 }
-.tl-dot-2 {
-  top: calc(55% + 10px);
+
+.tl-arrow svg {
+  transition: transform 180ms ease, opacity 180ms ease;
 }
-.tl-dot-3 {
-  top: calc(82% + 10px);
+
+.tl-arrow.up svg {
+  transform: rotate(180deg);
 }
 
 /* ===== CONTENT ===== */
@@ -453,7 +546,7 @@ main{
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 7.5rem;
+  gap: 8rem;
 }
 
 /* Intro */
@@ -516,7 +609,7 @@ main{
 
 .mockup-image {
   position: relative;
-  width: 500px;
+  width: 550px;
   aspect-ratio: 16 / 9;
   height: auto;
   flex-shrink: 0;
@@ -780,6 +873,108 @@ main{
   }
 }
 
+/* SERVICES PAGE */
+
+.leftService, .rightService{
+  display: flex;
+}
+
+.rightService{
+  flex-direction: row-reverse;
+}
+
+.leftService img, .rightService img{
+  width: 650px;
+  border-radius: 20px;
+}
+
+.leftService div, .rightService div{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rightService div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.leftService div p{
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.rightService div p{
+  text-align: right;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-right: 30px;
+  margin-top: 20px;
+}
+
+.leftService div a{
+  margin-left: 30px;
+}
+
+.rightService div a{
+  margin-right: 30px;
+}
+
+.leftService div .line-wrapper, .rightService div .line-wrapper{
+  position: relative;
+  width: 100%;
+}
+
+.leftService div .line-wrapper .line, .rightService div .line-wrapper .line{
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    to right,
+    var(--borderC1) 0 15px,
+    transparent 15px 25px
+  );
+  opacity: 0.9;
+}
+
+.leftService div .line-wrapper .arrow, .rightService div .line-wrapper .arrow{
+  position: absolute;
+  right: -23px;
+  bottom: -16px;
+  background: var(--blueButtonGradient);
+  width: 36px;
+  border: 2px solid white;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.rightService div .line-wrapper .arrow{
+  right: auto;
+  left: -30px;
+  bottom: -16px;
+}
+
+.leftService div .line-wrapper .arrow svg{
+  transform: rotate(180deg);
+}
+
+.leftService div .line-wrapper .arrow,
+.rightService div .line-wrapper .arrow {
+  will-change: transform;
+  transition: none;
+}
+
+.leftService div .line-wrapper .arrow svg {
+  transform: rotate(180deg);
+}
+
 /* FOOTER */
 
 footer{
@@ -867,7 +1062,7 @@ footer .links nav{
   display: flex;
   border-radius: 15px;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.75rem;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
@@ -889,17 +1084,36 @@ footer .links nav::before{
 
 footer .links nav h3{
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   font-size: 1.15rem;
 }
 
 footer .links nav a, footer .links nav p{
+  width: fit-content;
+  line-height: 1.2;
   opacity: 0.6;
   transition: opacity .2s ease;
+  position: relative;
 }
 
 footer .links nav a:hover, footer .links nav p:hover{
   opacity: 1;
+}
+
+footer nav a::before{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  width: 0%;
+  background-color: var(--foreground);
+  transition: width .2s ease;
+}
+
+footer nav a:hover::before{
+  width: 100%;
 }
 
 footer .copyright{
