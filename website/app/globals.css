@@ -1507,6 +1507,9 @@ footer .copyright{
   .projects-intro, .project-card-wrapper{
     width: calc(100vw - 40px);
   }
+  .grid-wrapper{
+    display: none;
+  }
   footer .links{
     gap: 1rem;
     justify-content: center;
