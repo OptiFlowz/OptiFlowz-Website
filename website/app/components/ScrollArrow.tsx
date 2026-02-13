@@ -1,14 +1,9 @@
-// app/components/ScrollArrow.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { ArrowSVG } from "../constants";
 
-export default function ScrollArrow({
-  direction,
-}: {
-  direction: "left" | "right";
-}) {
+function ScrollArrow({direction}: {direction: "left" | "right"}) {
   const wrapperRef = useRef<HTMLSpanElement>(null);
   const arrowRef = useRef<HTMLSpanElement>(null);
   const initialProgress = useRef<number | null>(null);
@@ -17,8 +12,6 @@ export default function ScrollArrow({
     const wrapper = wrapperRef.current;
     const arrow = arrowRef.current;
     if (!wrapper || !arrow) return;
-
-    let raf = 0;
 
     const getProgress = () => {
       const rect = wrapper.getBoundingClientRect();
@@ -52,12 +45,11 @@ export default function ScrollArrow({
       const translateX = direction === "left" ? -offset : offset;
 
       arrow.style.transform = `translateX(${translateX}px)`;
-
-      raf = requestAnimationFrame(update);
     };
 
-    raf = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(raf);
+    window.addEventListener("scroll", update);
+
+    return () => window.removeEventListener("scroll", update);
   }, [direction]);
 
   return (
@@ -69,3 +61,5 @@ export default function ScrollArrow({
     </span>
   );
 }
+
+export default memo(ScrollArrow);

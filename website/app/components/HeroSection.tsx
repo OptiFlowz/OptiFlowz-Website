@@ -1,10 +1,9 @@
-// app/components/HeroSection.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function HeroSection() {
+function HeroSection() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -33,3 +32,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
+export default memo(HeroSection);
