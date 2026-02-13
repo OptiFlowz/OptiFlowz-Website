@@ -88,7 +88,7 @@ function Footer(){
                             <Link href="/services">Services</Link>
                             <Link href="/about-us">About Us</Link>
                             <Link href="/privacy-policy">Privacy Policy</Link>
-                            <Link href="/attrtibution">Attribution</Link>
+                            <Link href="/attribution">Attribution</Link>
                         </nav>
                         <nav>
                             <h3>Contact</h3>

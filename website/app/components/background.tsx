@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function Background(){
 
     return (
@@ -10,4 +12,4 @@ function Background(){
 
 }
 
-export default Background;
+export default memo(Background);

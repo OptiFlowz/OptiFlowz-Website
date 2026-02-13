@@ -6,8 +6,8 @@ import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import ScrollArrow from "@/app/components/ScrollArrow";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Contact",
-  description: "Contact Optiflowz to start building your brand",
+  title: "OptiFlowz - Services",
+  description: "OptiFlowz offers services such as custom video platforms, web design and development and business automation",
 };
 
 export default function Services() {

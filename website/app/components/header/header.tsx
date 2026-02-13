@@ -46,6 +46,12 @@ function Header(){
                     document.getElementById("contactForm")?.scrollIntoView({behavior: "smooth"});
                 }}
             >Get In Contact{ArrowSVG}</Link>
+
+            <button className="mobileMenuButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
     );   
 }

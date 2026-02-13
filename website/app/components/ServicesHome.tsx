@@ -1,12 +1,16 @@
-// app/components/ServicesHome.tsx
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function ServicesHome() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+
+  const totalImages = 3;
+  const [inView, setInView] = useState(false);
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  const visible = useMemo(() => inView && loadedCount >= totalImages, [inView, loadedCount]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -15,7 +19,7 @@ export default function ServicesHome() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setInView(true);
           observer.disconnect();
         }
       },
@@ -25,6 +29,14 @@ export default function ServicesHome() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // make sure we don't over-increment if something re-renders
+  const markLoaded = useRef(new Set<string>());
+  const onImgDone = (key: string) => {
+    if (markLoaded.current.has(key)) return;
+    markLoaded.current.add(key);
+    setLoadedCount((c) => c + 1);
+  };
 
   return (
     <section className="services" ref={sectionRef}>
@@ -40,12 +52,13 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
+          onLoadingComplete={() => onImgDone("videocam")}
         />
         <h2>Custom Video Platforms</h2>
         <p>
           Enterprise-grade streaming solutions tailored to your brand. From
-          corporate training to global distribution, we build
-          high-performance platforms that scale.
+          corporate training to global distribution, we build high-performance
+          platforms that scale.
         </p>
       </div>
 
@@ -61,12 +74,12 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
+          onLoadingComplete={() => onImgDone("webdesign")}
         />
         <h2>Web Design &amp; Development</h2>
         <p>
-          Modern, responsive websites built with cutting-edge technology.
-          From landing pages to complex web applications, we bring your
-          vision to life.
+          Modern, responsive websites built with cutting-edge technology. From
+          landing pages to complex web applications, we bring your vision to life.
         </p>
       </div>
 
@@ -82,12 +95,12 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
+          onLoadingComplete={() => onImgDone("automation")}
         />
         <h2>Business Automation</h2>
         <p>
-          Streamline your workflows and eliminate repetitive tasks. We
-          create custom automation solutions that save time and reduce
-          costs.
+          Streamline your workflows and eliminate repetitive tasks. We create
+          custom automation solutions that save time and reduce costs.
         </p>
       </div>
     </section>
