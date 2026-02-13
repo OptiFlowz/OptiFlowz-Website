@@ -332,7 +332,7 @@ header .mobileMenuButton.open span:nth-child(3){
   top: 0;
   right: 0;
   height: 100dvh;
-  width: min(360px, 85vw);
+  width: min(300px, 75vw);
   transform: translateX(110%);
   transition: transform .25s ease;
   z-index: 1000;
@@ -350,9 +350,9 @@ header .mobileMenuButton.open span:nth-child(3){
   flex-direction: column;
   gap: 14px;
   padding: 18px;
-  background-color: rgba(20, 20, 20, .75);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+  background-color: rgba(20, 23, 30, .6);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-left: 1px solid var(--borderC1);
 }
 
@@ -775,6 +775,7 @@ main{
 .project-card {
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
 }
 
 .mockup-image {
@@ -1334,34 +1335,8 @@ footer .copyright{
   .leftService img, .rightService img{
     width: 500px;
   }
-  .projects-section {
-    padding: 60px 16px;
-  }
-  .projects-timeline-layout {
-    gap: 20px;
-  }
-  .project-card-about{
-    max-width: 550px;;
-  }
-  .projects-title {
-    font-size: 1.8rem;
-  }
-  .project-card {
-    flex-direction: column;
-  }
-  .project-card-preview {
-    min-width: unset;
-  }
-  .project-card-info {
-    min-width: unset;
-  }
-  .contact-card {
-    flex-direction: column;
-  }
-  .contact-right {
-    min-width: unset;
-    border-left: none;
-    border-top: 1px solid rgba(59, 130, 246, 0.2);
+  .mockup-image{
+    width: 500px;
   }
 }
 
@@ -1378,27 +1353,30 @@ footer .copyright{
     height: 275px !important;
   }
   .services{
-    max-width: 700px;
+    max-width: 800px;
     width: 100%;
-    gap: 1rem;
+    gap: 0rem;
     flex-direction: column;
   }
-  .services div{
-    max-width: 600px;
+  .services div, .services div.accentService{
+    background-color: transparent;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
-  .services div:nth-child(1){
-    align-self: flex-start;
-  }
-  .services div:nth-child(3){
-    align-self: flex-start;
-  }
-  .services div:nth-child(2){
-    align-self: flex-end;
+  .services div::before{
+    display: none;
   }
   .leftService div p, .rightService div p{
     font-size: 1rem;
   }
   .leftService img, .rightService img{
+    width: 400px;
+  }
+  .projects-content{
+    gap: 2rem;
+  }
+  .mockup-image{
     width: 400px;
   }
 }
@@ -1435,6 +1413,51 @@ footer .copyright{
     object-position: left;
     object-fit: cover;
   }
+  .projects-section {
+    padding: 60px 16px;
+  }
+  .projects-timeline-layout {
+    gap: 20px;
+    justify-content: center;
+  }
+  .project-card-about, .mockup-image{
+    width: 100%;
+    max-width: 1000px;
+  }
+  .projects-content{
+    gap: 5rem;
+  }
+  .projects-intro, .project-card-wrapper{
+    width: fit-content;
+    flex-grow: 0;
+    flex: none;
+  }
+  .projects-title {
+    font-size: 1.8rem;
+    width: fit-content;
+  }
+  .project-card {
+    flex-direction: column;
+  }
+  .project-card-preview {
+    min-width: unset;
+  }
+  .project-card-info {
+    min-width: unset;
+  }
+  .contact-card {
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .contact-right {
+    min-width: unset;
+    border-left: none;
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  .contact-logo-img{
+    display: none;
+  }
   footer .footerWrap > div{
     flex-direction: column;
   }
@@ -1469,6 +1492,21 @@ footer .copyright{
   .leftService img, .rightService img{
     border-radius: 10px;
   }
+  .services{
+    gap: 2rem;
+  }
+  .services div, .services div.accentService{
+    padding: 5px;
+  }
+  .tl-track{
+    display: none;
+  }
+  .projects-content{
+    gap: 2.5rem;
+  }
+  .projects-intro, .project-card-wrapper{
+    width: calc(100vw - 40px);
+  }
   footer .links{
     gap: 1rem;
     justify-content: center;
@@ -1491,5 +1529,15 @@ footer .copyright{
   }
   .hero h1{
     font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 350px){
+  .hero{
+    margin-inline: 10px;
+    padding-inline: 10px;
+  }
+  .hero h1{
+    font-size: 1.5rem;
   }
 }
