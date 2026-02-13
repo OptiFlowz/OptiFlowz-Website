@@ -1489,6 +1489,13 @@ footer .copyright{
 }
 
 @media (max-width: 500px){
+  .hero{
+    margin-inline: 0px;
+    padding-inline: 0px;
+  }
+  .hero h1{
+    font-size: 9vw;
+  }
   .leftService img, .rightService img{
     border-radius: 10px;
   }
@@ -1523,24 +1530,5 @@ footer .copyright{
   }
   footer .links nav{
     width: 100%;
-  }
-}
-
-@media (max-width: 400px){
-  .hero{
-    margin-inline: 20px;
-  }
-  .hero h1{
-    font-size: 1.75rem;
-  }
-}
-
-@media (max-width: 350px){
-  .hero{
-    margin-inline: 10px;
-    padding-inline: 10px;
-  }
-  .hero h1{
-    font-size: 1.5rem;
   }
 }
