@@ -94,23 +94,26 @@ export default function ProjectsSection() {
     return () => clearTimeout(t);
   }, [visibleSections, recalcDots]);
 
-  // rAF loop: smooth arrow + active dots
+  // Smooth arrow + active dots (optimized with IntersectionObserver)
   useEffect(() => {
+    const arrow = arrowRef.current;
+    const section = sectionRef.current;
+    if (!arrow || !section) return;
+
     let raf = 0;
+    let isVisible = false;
 
     const loop = () => {
       const dy = targetY.current - currentY.current;
-      currentY.current += dy * 0.12; // smoothing
+      currentY.current += dy * 0.12;
 
-      if (arrowRef.current) {
-        arrowRef.current.style.top = `${currentY.current}px`;
-      }
+      arrow.style.top = `${currentY.current}px`;
 
       const firstDot = dotPositionsRef.current[0];
-      if (arrowRef.current && typeof firstDot === "number") {
-        const HIDE_OFFSET = 1; // malo “ranije” da nestane (tjunuj)
+      if (typeof firstDot === "number") {
+        const HIDE_OFFSET = 1;
         const shouldHide = currentY.current < firstDot - HIDE_OFFSET;
-        arrowRef.current.classList.toggle("hiddenDot", shouldHide);
+        arrow.classList.toggle("hiddenDot", shouldHide);
       }
 
       const pos = dotPositionsRef.current;
@@ -121,13 +124,36 @@ export default function ProjectsSection() {
 
       setActiveDots((prev) => (setsEqual(prev, next) ? prev : next));
 
-      raf = requestAnimationFrame(loop);
+      if (isVisible) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        raf = 0;
+      }
     };
 
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // IntersectionObserver to detect if section is visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+
+        if (isVisible && raf === 0) {
+          raf = requestAnimationFrame(loop);
+        } else if (!isVisible && raf !== 0) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      if (raf !== 0) cancelAnimationFrame(raf);
+    };
   }, []);
+
 
   // Scroll -> compute targetY (NO morphing)
   useEffect(() => {

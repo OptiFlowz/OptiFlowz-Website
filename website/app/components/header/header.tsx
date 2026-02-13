@@ -1,12 +1,12 @@
 'use client';
 
-import { memo, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ArrowSVG } from "@/app/constants";
 
-function Header() {
+export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -158,5 +158,3 @@ function Header() {
     </>
   );
 }
-
-export default memo(Header);

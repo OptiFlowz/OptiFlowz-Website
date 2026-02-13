@@ -1,7 +1,7 @@
 "use client"
-import { memo, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-function Background() {
+export default function Background() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -50,5 +50,3 @@ function Background() {
     </div>
   );
 }
-
-export default memo(Background);

@@ -1,4 +1,3 @@
-// e.g. app/components/FadeInOnScroll.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
