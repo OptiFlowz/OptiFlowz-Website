@@ -34,7 +34,7 @@ function Header(){
 
                 <Link
                     href="/about-us"
-                    className={pathname === "/about-us" ? "active" : ''}
+                    className={pathname === "/aboutUs" ? "active" : ''}
                 >About Us</Link>
             </nav>
 
