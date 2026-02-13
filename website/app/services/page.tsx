@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowSVG } from "../constants";
-import FadeInOnScroll from "@/app/components/FadeInOnScroll";
+import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import ScrollArrow from "@/app/components/ScrollArrow";
 
 export const metadata: Metadata = {

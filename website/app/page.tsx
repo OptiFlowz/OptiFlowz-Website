@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ProjectsSection from "@/app/components/ProjectsSection";
+import ProjectsSection from "@/app/components/projectsSection";
 import ServicesHome from "@/app/components/ServicesHome";
 import HeroSection from "@/app/components/HeroSection";
 
