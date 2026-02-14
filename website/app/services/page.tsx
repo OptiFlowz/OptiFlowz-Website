@@ -66,7 +66,7 @@ export default function Services() {
       <FadeInOnScroll>
         <section className="leftService">
           <Image
-            src="/services/AutomationBanner.webp"
+            src="/services/BuAutomationBanner.webp"
             alt="Automation Banner"
             width={1280}
             height={720}
