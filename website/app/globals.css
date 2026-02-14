@@ -437,12 +437,14 @@ main{
 
 .mainTitlePP{
   font-size: 2.5rem;
+  line-height: 1.1;
   width: 100%;
   text-align: left;
 }
 
 .smallTitle{
   font-size: 1.5rem;
+  line-height: 1.1;
   width: 100%;
   font-weight: 600;
   text-align: left;

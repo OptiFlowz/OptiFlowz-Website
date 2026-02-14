@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function AboutUs() {
     return(
-        <main>
+        <main className="pp-main">
             <FadeInOnScroll>
-                <h1 className="mainTitle">About Us</h1>
+                <h1 className="mainTitlePP">About Us</h1>
             </FadeInOnScroll>
             <FadeInOnScroll>
                 <section>
