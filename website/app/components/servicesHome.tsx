@@ -52,7 +52,7 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
-          onLoadingComplete={() => onImgDone("videocam")}
+          onLoad={() => onImgDone("videocam")}
         />
         <h2>Custom Video Platforms</h2>
         <p>
@@ -74,7 +74,7 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
-          onLoadingComplete={() => onImgDone("webdesign")}
+          onLoad={() => onImgDone("webdesign")}
         />
         <h2>Web Design &amp; Development</h2>
         <p>
@@ -95,7 +95,7 @@ export default function ServicesHome() {
           height={100}
           style={{ width: "80px", height: "80px" }}
           priority
-          onLoadingComplete={() => onImgDone("automation")}
+          onLoad={() => onImgDone("automation")}
         />
         <h2>Business Automation</h2>
         <p>

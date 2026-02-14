@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Header />
         <Background />
-        {/* <script type="module" src="https://cdn.jsdelivr.net/gh/OptiFlowz/OptiFlowz-Main-Chat@latest/index.js"></script> */}
+        <script type="module" src="https://cdn.jsdelivr.net/gh/OptiFlowz/OptiFlowz-Main-Chat@0.0.8/index.js"></script>
         {children}
         <Footer />
       </body>

@@ -68,6 +68,11 @@ body {
 
 /* CUSTOM CLASSES */
 
+#optiflowz-chat-textarea, .optiflowz-rating-content{
+  color: black;
+  line-height: 1.25;
+}
+
 .grecaptcha-badge { 
     visibility: hidden !important;
 }
