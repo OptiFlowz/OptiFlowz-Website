@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowSVG } from "@/app/constants";
 
@@ -15,10 +15,16 @@ export default function Header() {
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((v) => !v);
 
+  const router = useRouter();
+
   const scrollToContact = (e?: React.MouseEvent) => {
     e?.preventDefault();
     closeMenu();
-    document.getElementById("contactForm")?.scrollIntoView({ behavior: "smooth" });
+
+    if (pathname !== "/")
+      router.push("/#contactForm");
+    else
+      document.getElementById("contactForm")?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -146,7 +152,7 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/#contactForm"
+              href="#contactForm"
               className="contactLink"
               onClick={scrollToContact}
             >
