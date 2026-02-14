@@ -374,9 +374,9 @@ export default function ProjectsSection() {
 
           {/* You could be next - Section 3 */}
           <div
-            id="contactForm"
-            className={`project-card-wrapper ${visibleSections.has(3) ? "visible" : ""}`}
+            className={`project-card-wrapper relative ${visibleSections.has(3) ? "visible" : ""}`}
           >
+            <span className="opacity-0 pointer-events-none absolute top-[-15vh] max-[800px]:top-[-7vh]" id="contactForm">a</span>
             <div className="project-label">
               <h3 data-tl-anchor>You could be next...</h3>
             </div>
