@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowSVG } from "../constants";
+import ContactForm from "./contactForm";
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -380,73 +381,7 @@ export default function ProjectsSection() {
               <h3 data-tl-anchor>You could be next...</h3>
             </div>
 
-            <div className="contact-card">
-              <div className="contact-left">
-                <h4>Contact us</h4>
-                <p>
-                  Have a project in mind? Fill out the form to share your vision
-                  with us. We&apos;re here to help bring your ideas to life.
-                </p>
-                <div className="contact-logo">
-                  <img
-                    src="/logo.webp"
-                    alt="OptiFlowz Logo"
-                    className="contact-logo-img"
-                  />
-                </div>
-              </div>
-
-              <div className="contact-right">
-                <div className="contact-form-header">
-                  <div className="form-dots">
-                    <span className="form-dot" />
-                    <span className="form-dot" />
-                    <span className="form-dot" />
-                  </div>
-                </div>
-
-                <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
-                  <div className="form-group">
-                    <label htmlFor="fullName">Full Name*</label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      placeholder="Enter your full name..."
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email">Email*</label>
-                    <input type="email" id="email" placeholder="Enter your email..." />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="message">Message*</label>
-                    <textarea
-                      id="message"
-                      placeholder="Enter message..."
-                      rows={4}
-                    />
-                  </div>
-
-                  <button type="submit" className="button self-end white">
-                    Send Message
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </form>
-              </div>
-            </div>
+            <ContactForm />
           </div>
 
           {/* /Section 3 */}
