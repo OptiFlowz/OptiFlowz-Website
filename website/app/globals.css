@@ -593,6 +593,23 @@ main{
   transform: translateY(0);
 }
 
+@keyframes accentFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.service-item.accentService.floating {
+  animation: accentFloat 3.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-item.accentService.floating {
+    animation: none;
+  }
+}
+
 /* GRID */
 
 .grid-wrapper{
@@ -1397,6 +1414,9 @@ footer .copyright{
   }
   .services div::before{
     display: none;
+  }
+  .service-item.accentService.visible {
+    animation: none;
   }
   .leftService div p, .rightService div p{
     font-size: 1rem;
