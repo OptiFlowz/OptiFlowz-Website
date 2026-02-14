@@ -26,7 +26,7 @@ export default function Footer(){
                             />
                             <h2>OptiFlowz</h2>
                         </Link>
-                        <p>OptiFlowz is a business automation agency helping service-based companies streamline their operations, improve efficiency, and grow with smart, AI-powered systems. We deliver scalable solutions tailored to your unique workflows.</p>
+                        <p>OptiFlowz helps service-based businesses grow by building high-performing video platforms, modern websites, and automation systems that remove friction from daily operations. We design and develop scalable, AI-powered workflows tailored to how you work—so you can run smoother, respond faster, and scale with confidence.</p>
                         <div className="socials">
                             <Link href="https://www.instagram.com/optiflowz/" target="_blank">
                                 <Image 

@@ -1505,6 +1505,10 @@ footer .copyright{
   .services div, .services div.accentService{
     padding: 5px;
   }
+  .services div img{
+    width: 65px !important;
+    height: 65px !important;
+  }
   .tl-track{
     display: none;
   }
