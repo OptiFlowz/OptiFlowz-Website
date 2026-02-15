@@ -82,6 +82,10 @@ export default function Header() {
             Services
           </Link>
 
+          <Link href="/pricing" className={pathname === "/pricing" ? "active" : ""}>
+            Pricing
+          </Link>
+
           <Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>
             About Us
           </Link>
@@ -144,11 +148,27 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/pricing"
+              className={pathname === "/pricing" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Pricing
+            </Link>
+
+            <Link
               href="/about-us"
               className={pathname === "/about-us" ? "active" : ""}
               onClick={closeMenu}
             >
               About Us
+            </Link>
+
+            <Link
+              href="/privacy-policy"
+              className={pathname === "/privacy-policy" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Privacy Policy
             </Link>
 
             <Link

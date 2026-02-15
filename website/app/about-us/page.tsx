@@ -1,5 +1,6 @@
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - About Us",
@@ -13,21 +14,34 @@ export default function AboutUs() {
                 <h1 className="mainTitlePP">About Us</h1>
             </FadeInOnScroll>
             <FadeInOnScroll>
+                <Image
+                    className="aboutUsImage"
+                    src="/BelgradeBanner.webp"
+                    alt="Business Automation"
+                    width={1600}
+                    height={900}
+                    priority
+                />
+                <span className="aboutUsImageAccent">
+                    <p className="accentText">Belgrade</p>
+                </span>
+            </FadeInOnScroll>
+            <FadeInOnScroll>
                 <section>
-                    <h2 className="smallTitle">We Build the Digital Infrastructure for Growth.</h2>
-                    <p>From high-performance video platforms to seamless business automation, we transform complex ideas into scalable digital realities.</p>
+                    <h2 className="smallTitle">Digital Infrastructure Built to Scale.</h2>
+                    <p>From high-performance video architectures to seamless business automation, we transform complex visions into scalable digital realities.</p>
                 </section>
             </FadeInOnScroll>
             <FadeInOnScroll>
                 <section>
-                    <h2 className="smallTitle">Innovation Driven by Efficiency.</h2>
-                    <p>At OptiFlowz, we believe that technology should be a multiplier, not a bottleneck. We are a team of engineers and strategists dedicated to helping service-based companies streamline their operations and dominate their niche. Whether it's a custom streaming engine or a bespoke automation flow, we build with one goal in mind: Scalability.</p>
+                    <h2 className="smallTitle">Rooted in Belgrade, Scaling Globally</h2>
+                    <p>At OptiFlowz, we believe technology should be a multiplier, never a bottleneck. Operating from the heart of Belgrade’s rising tech scene, our team of engineers and strategists helps service-based companies streamline operations and dominate their niche. Whether we’re building a custom streaming engine or a bespoke automation flow, we build for one thing: <span className="accentText">Limitless Scalability</span>.</p>
                 </section>
             </FadeInOnScroll>
             <FadeInOnScroll>
                 <section className="teamSection">
                     <h2 className="smallTitle">The Team</h2>
-                    <p>The engineers and designers behind OptiFlowz. We build the systems that keep your business scaling.</p>
+                    <p>The architects behind the flow. We are a specialized collective of engineers and designers dedicated to building the systems that keep your business growing.</p>
                 </section>
             </FadeInOnScroll>
         </main>

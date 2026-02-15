@@ -35,7 +35,7 @@ export default function FadeInOnScroll({
   return (
     <div
       ref={ref}
-      className={`fade-in-section w-full ${visible ? "visible" : ""} ${className}`}
+      className={`fade-in-section w-full relative ${visible ? "visible" : ""} ${className}`}
     >
       {children}
     </div>
