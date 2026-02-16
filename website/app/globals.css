@@ -68,9 +68,20 @@ body {
 
 /* CUSTOM CLASSES */
 
-#optiflowz-chat-textarea, .optiflowz-rating-content{
-  color: black;
+#optiflowz-chat-textarea{
   line-height: 1.25;
+}
+
+.optiflowz-rating-content button{
+  line-height: 1.1;
+}
+
+.optiflowz-rating-content .optiflowz-rating-buttons button.selected{
+  line-height: 1.6;
+}
+
+.optiflowz-rating-content .optiflowz-rating-actions button{
+  height: 35px !important;
 }
 
 .grecaptcha-badge { 
