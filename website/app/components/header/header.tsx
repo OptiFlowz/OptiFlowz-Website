@@ -78,10 +78,6 @@ export default function Header() {
             Home
           </Link>
 
-          <Link href="/services" className={pathname === "/services" ? "active" : ""}>
-            Services
-          </Link>
-
           <Link href="/pricing" className={pathname === "/pricing" ? "active" : ""}>
             Pricing
           </Link>
@@ -137,14 +133,6 @@ export default function Header() {
           <div className="mobileLinks">
             <Link href="/" className={pathname === "/" ? "active" : ""} onClick={closeMenu}>
               Home
-            </Link>
-
-            <Link
-              href="/services"
-              className={pathname === "/services" ? "active" : ""}
-              onClick={closeMenu}
-            >
-              Services
             </Link>
 
             <Link

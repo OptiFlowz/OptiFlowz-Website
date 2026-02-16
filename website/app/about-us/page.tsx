@@ -1,6 +1,7 @@
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - About Us",
@@ -12,19 +13,6 @@ export default function AboutUs() {
         <main className="pp-main">
             <FadeInOnScroll>
                 <h1 className="mainTitlePP">About Us</h1>
-            </FadeInOnScroll>
-            <FadeInOnScroll>
-                <Image
-                    className="aboutUsImage"
-                    src="/BelgradeBanner.webp"
-                    alt="Business Automation"
-                    width={1600}
-                    height={900}
-                    priority
-                />
-                <span className="aboutUsImageAccent">
-                    <p className="accentText">Belgrade</p>
-                </span>
             </FadeInOnScroll>
             <FadeInOnScroll>
                 <section>
@@ -42,6 +30,64 @@ export default function AboutUs() {
                 <section className="teamSection">
                     <h2 className="smallTitle">The Team</h2>
                     <p>The architects behind the flow. We are a specialized collective of engineers and designers dedicated to building the systems that keep your business growing.</p>
+                </section>
+            </FadeInOnScroll>
+            <FadeInOnScroll>
+                <section>
+                    <h2 className="smallTitle">Our socials</h2>
+                    <p>If you so choose, follow our socials</p>
+                    <div className="socials">
+                            <Link href="https://www.instagram.com/optiflowz/" target="_blank">
+                                <Image 
+                                    src="/social/instagramSVG.svg"
+                                    alt="Instagram Logo"
+                                    width={50}
+                                    height={50}
+                                    style={{width: "30px", height: "30px"}}
+                                    priority
+                                />
+                            </Link>
+                            <Link href="/" target="_blank">
+                                <Image 
+                                    src="/social/facebookSVG.svg"
+                                    alt="Facebook Logo"
+                                    width={50}
+                                    height={50}
+                                    style={{width: "30px", height: "30px"}}
+                                    priority
+                                />
+                            </Link>
+                            <Link href="https://www.linkedin.com/company/optiflowz/" target="_blank">
+                                <Image 
+                                    src="/social/linkedInSVG.svg"
+                                    alt="LinkedIn Logo"
+                                    width={50}
+                                    height={50}
+                                    style={{width: "30px", height: "30px"}}
+                                    priority
+                                />
+                            </Link>
+                            <Link href="/" target="_blank">
+                                <Image 
+                                    src="/social/XSVG.svg"
+                                    alt="X Logo"
+                                    width={50}
+                                    height={50}
+                                    style={{width: "30px", height: "30px"}}
+                                    priority
+                                />
+                            </Link>
+                            <Link href="https://www.youtube.com/@OptiFlowz" target="_blank">
+                                <Image 
+                                    src="/social/YouTubeSVG.svg"
+                                    alt="YouTube Logo"
+                                    width={50}
+                                    height={50}
+                                    style={{width: "30px", height: "30px"}}
+                                    priority
+                                />
+                            </Link>
+                        </div>
                 </section>
             </FadeInOnScroll>
         </main>

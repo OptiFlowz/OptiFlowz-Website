@@ -1,22 +1,14 @@
+"use client";
+
+import FadeInOnScroll from "./fadeInOnScroll";
 import Image from "next/image";
-import type { Metadata } from "next";
+import ScrollArrow from "./scrollArrow";
 import Link from "next/link";
 import { ArrowSVG } from "../constants";
-import FadeInOnScroll from "@/app/components/fadeInOnScroll";
-import ScrollArrow from "@/app/components/scrollArrow";
 
-export const metadata: Metadata = {
-  title: "OptiFlowz - Services",
-  description: "OptiFlowz offers services such as custom video platforms, web design and development and business automation",
-};
-
-export default function Services() {
+export default function ServicesHomeVer2() {
   return (
-    <main>
-      <FadeInOnScroll>
-        <h1 className="mainTitle">Services</h1>
-      </FadeInOnScroll>
-
+    <>
       <FadeInOnScroll>
         <section className="leftService">
           <Image
@@ -28,14 +20,11 @@ export default function Services() {
           />
           <div>
             <p>
-              Enterprise-grade streaming solutions tailored to your brand.
-              From corporate training to global distribution, we build
+              Enterprise-grade streaming solutions tailored to your brand. From
+              corporate training to global distribution, we build
               high-performance platforms that scale.
             </p>
             <ScrollArrow direction="left" />
-            <Link href="/#contactForm" className="button white">
-              Need these services?{ArrowSVG}
-            </Link>
           </div>
         </section>
       </FadeInOnScroll>
@@ -56,9 +45,6 @@ export default function Services() {
               vision to life.
             </p>
             <ScrollArrow direction="right" />
-            <Link href="/#contactForm" className="button">
-              Need these services?{ArrowSVG}
-            </Link>
           </div>
         </section>
       </FadeInOnScroll>
@@ -79,12 +65,9 @@ export default function Services() {
               costs.
             </p>
             <ScrollArrow direction="left" />
-            <Link href="/#contactForm" className="button white">
-              Need these services?{ArrowSVG}
-            </Link>
           </div>
         </section>
       </FadeInOnScroll>
-    </main>
+    </>
   );
 }

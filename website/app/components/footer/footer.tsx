@@ -84,7 +84,6 @@ export default function Footer(){
                         <nav>
                             <h3>Quick Links</h3>
                             <Link href="/">Home</Link>
-                            <Link href="/services">Services</Link>
                             <Link href="/services">Pricing</Link>
                             <Link href="/about-us">About Us</Link>
                             <Link href="/privacy-policy">Privacy Policy</Link>
