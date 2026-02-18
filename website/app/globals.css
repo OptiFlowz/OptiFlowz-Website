@@ -2,8 +2,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #090A0B;
+  --background: #090A0B;
+  --foreground: #ededed;
 
   --gabarito: "Gabarito", sans-serif;
   --solitreo: "Solitreo", cursive;
@@ -40,13 +40,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #090A0B;
-    --foreground: #ededed;
-  }
 }
 
 html{
