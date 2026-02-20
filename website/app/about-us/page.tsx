@@ -37,7 +37,7 @@ export default function AboutUs() {
                     <h2 className="smallTitle">Our socials</h2>
                     <p>If you so choose, follow our socials</p>
                     <div className="socials">
-                            <Link href="https://www.instagram.com/optiflowz/" target="_blank">
+                            <Link className="noLineHover" href="https://www.instagram.com/optiflowz/" target="_blank">
                                 <Image 
                                     src="/social/instagramSVG.svg"
                                     alt="Instagram Logo"
@@ -47,7 +47,7 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link href="/" target="_blank">
+                            <Link className="noLineHover" href="/" target="_blank">
                                 <Image 
                                     src="/social/facebookSVG.svg"
                                     alt="Facebook Logo"
@@ -57,7 +57,7 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link href="https://www.linkedin.com/company/optiflowz/" target="_blank">
+                            <Link className="noLineHover" href="https://www.linkedin.com/company/optiflowz/" target="_blank">
                                 <Image 
                                     src="/social/linkedInSVG.svg"
                                     alt="LinkedIn Logo"
@@ -67,7 +67,7 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link href="/" target="_blank">
+                            <Link className="noLineHover" href="/" target="_blank">
                                 <Image 
                                     src="/social/XSVG.svg"
                                     alt="X Logo"
@@ -77,7 +77,7 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link href="https://www.youtube.com/@OptiFlowz" target="_blank">
+                            <Link className="noLineHover" href="https://www.youtube.com/@OptiFlowz" target="_blank">
                                 <Image 
                                     src="/social/YouTubeSVG.svg"
                                     alt="YouTube Logo"

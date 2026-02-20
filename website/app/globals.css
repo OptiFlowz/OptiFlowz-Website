@@ -84,8 +84,8 @@ body {
 .accentText{
   display: inline;
   font-family: var(--solitreo);
-  background-clip: text;
   color: transparent;
+  background-clip: text;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
   background-image: linear-gradient(-90deg, #0A66DF, #a3cbff);
 }
@@ -518,6 +518,16 @@ main{
 .hero-image.visible {
   opacity: 1;
   transform: translateX(0);
+}
+
+.hero-h1 .accentText {
+  animation: glowSize 1s .5s ease;
+}
+
+@keyframes glowSize {
+  0%{ filter: brightness(1); }
+  50%{ filter: brightness(2); }
+  100%{ filter: brightness(1); }
 }
 
 /* GRID */
