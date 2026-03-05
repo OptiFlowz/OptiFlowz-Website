@@ -222,51 +222,69 @@ body {
 }
 
 /* BLOG */
+
+article h1{
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 article h2{
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.3;
   margin-block: 2.5rem 1rem;
+}
+
+article h3{
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin-top: 7px;
+  color: var(--textC2);
 }
 
 article p:has(img) + h2{
   margin-top: 0.5rem;
 }
 
-article > p{
+article > p, article > blockquote{
   background-color: var(--backgroundC3);
   border-radius: 20px;
   border: 1px solid var(--borderC1);
-  padding: 26px;
+  padding: 20px 25px;
+  font-size: 1.1rem;
   width: fit-content;
+  margin-top: 1rem;
 }
 
 article > p + p{
   margin-top: 0.5rem;
 }
 
+article > blockquote p{
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
 article > p > img{
-  width: min(max(40%, 280px), 550px);
+  width: 100%;
+  max-width: 600px;
   border-radius: 20px;
 }
 
 article > p:has(img){
+  width: 100%;
   margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding: 0px;
   background-color: transparent;
   border: none;
 }
 
-article p:has(+ ul){
-  /* background: none; */
-  padding-block: 10px;
-  /* border: none; */
-  margin-top: 1rem;
-}
-
 article ul{
-  margin-block: 1rem;
+  margin-top: 1rem;
   font-size: 1.1rem;
   color: var(--textC3);
-  /* border: 1px solid var(--borderC1); */
   padding: 14px;
   border-radius: 20px;
   width: fit-content;
@@ -279,7 +297,7 @@ article ul li{
 
 article p + ul{
   margin-top: 0;
-  padding-block: 6px 1rem;
+  padding-block: 6px 0rem;
 }
 
 article ul li{
@@ -316,6 +334,7 @@ article ul li{
 
 .articleItem div h3{
   font-size: 1.3rem;
+  line-height: 1.3;
 }
 
 /* HEADER */
@@ -1598,6 +1617,17 @@ footer .copyright{
   .leftService div .line-wrapper, .rightService div .line-wrapper{
     display: none;
   }
+  .articleItem{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .articleItem img{
+    width: 100%;
+  }
+  .articleItem div{
+    margin-top: 0px;
+  }
 }
 
 @media (max-width: 500px){
@@ -1643,6 +1673,9 @@ footer .copyright{
 }
 
 @media (max-width: 450px){
+  .articleItem div h3{
+    font-size: 1.1rem;
+  }
   footer .links{
     gap: 1rem;
     flex-direction: column;
