@@ -2,7 +2,9 @@
 title: "The art of the side hustle"
 category: "business"
 date: "02-02-2026"
+banner: "/footerBg.webp"
 ---
+![Blog image](/footerBg.webp)
 
 # The Art of the Side Hustle
 

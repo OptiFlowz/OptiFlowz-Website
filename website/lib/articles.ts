@@ -12,10 +12,8 @@ function getSortedArticles(): ArticleItem[] {
 
     const allArticlesData = fileNames.map((fileName) => {
         const id = fileName.replace(/\.md$/, "");
-    
         const fullPath = path.join(articlesDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, "utf8");
-    
         const matterResult = matter(fileContents);
 
         return {
@@ -51,10 +49,8 @@ export function getCatogorisedArticles(): Record<string, ArticleItem[]> {
 }
 
 export async function getArticleData(id: ArticleItem["id"]) {
-    console.log("From getArticleData, received id: ", id);
     const fullPath = path.join(articlesDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
-
     const matterResult = matter(fileContents);
     const processed = await remark()
         .use(html)
