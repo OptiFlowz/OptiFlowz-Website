@@ -15,7 +15,7 @@ export default function Pricing() {
       <FadeInOnScroll>
         <h1 className="mainTitle">Pricing</h1>
       </FadeInOnScroll>
-      <FadeInOnScroll>
+      <FadeInOnScroll delay={100}>
         <section>
           <h2 className="smallTitle">Video Corner pricing</h2>
           <p>Our latest Video Corner pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
@@ -29,13 +29,13 @@ export default function Pricing() {
           </div>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll>
+      <FadeInOnScroll delay={200}>
         <section>
           <h2 className="smallTitle">Website development and Business automation pricing</h2>
           <p>We're currently fine-tuning our standard packages. In the meantime, let's talk about a solution that fits your exact budget and scope.</p>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll>
+      <FadeInOnScroll delay={300}>
         <ContactForm />
       </FadeInOnScroll>
     </main>

@@ -86,8 +86,8 @@ export default function Footer(){
                             <Link href="/">Home</Link>
                             <Link href="/services">Pricing</Link>
                             <Link href="/about-us">About Us</Link>
+                            <Link href="/blog">Blog</Link>
                             <Link href="/privacy-policy">Privacy Policy</Link>
-                            <Link href="/attribution">Attribution</Link>
                         </nav>
                         <nav>
                             <h3>Contact</h3>

@@ -14,25 +14,25 @@ export default function AboutUs() {
             <FadeInOnScroll>
                 <h1 className="mainTitlePP">About Us</h1>
             </FadeInOnScroll>
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={100}>
                 <section>
                     <h2 className="smallTitle">Digital Infrastructure Built to Scale.</h2>
                     <p>From high-performance video architectures to seamless business automation, we transform complex visions into scalable digital realities.</p>
                 </section>
             </FadeInOnScroll>
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={200}>
                 <section>
                     <h2 className="smallTitle">Rooted in Belgrade, Scaling Globally</h2>
                     <p>At OptiFlowz, we believe technology should be a multiplier, never a bottleneck. Operating from the heart of Belgrade’s rising tech scene, our team of engineers and strategists helps service-based companies streamline operations and dominate their niche. Whether we’re building a custom streaming engine or a bespoke automation flow, we build for one thing: <span className="accentText">Limitless Scalability</span>.</p>
                 </section>
             </FadeInOnScroll>
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={300}>
                 <section className="teamSection">
                     <h2 className="smallTitle">The Team</h2>
                     <p>The architects behind the flow. We are a specialized collective of engineers and designers dedicated to building the systems that keep your business growing.</p>
                 </section>
             </FadeInOnScroll>
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={400}>
                 <section>
                     <h2 className="smallTitle">Our socials</h2>
                     <p>If you so choose, follow our socials</p>

@@ -19,15 +19,15 @@ export default function Blog() {
                 <h1 className="mainTitle">Blog</h1>
                 <p>Read our latest news and updates</p>
             </FadeInOnScroll>
-                <FadeInOnScroll>
-                    <section className="blogSection">
-                        <p>Blog is currently in development</p>
-                        {articles !== null && 
-                            Object.keys(articles).map(article => (
-                              <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
-                            ))}
-                    </section>
-                </FadeInOnScroll>
+            <FadeInOnScroll delay={100}>
+                <section className="blogSection">
+                    <p>Latest posts</p>
+                    {articles !== null && 
+                        Object.keys(articles).map(article => (
+                            <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
+                        ))}
+                </section>
+            </FadeInOnScroll>
         </main>
     )
 }

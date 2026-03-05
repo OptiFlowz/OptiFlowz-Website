@@ -156,6 +156,14 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/blog"
+              className={pathname === "/blog" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Blog
+            </Link>
+
+            <Link
               href="/privacy-policy"
               className={pathname === "/privacy-policy" ? "active" : ""}
               onClick={closeMenu}

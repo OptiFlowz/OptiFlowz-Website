@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
                 </h1>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={100}>
                 <section>
                     <h2 className="smallTitle">Introduction</h2>
                     <p>
@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={200}>
                 <section>
                     <h2 className="smallTitle">Definitions</h2>
                     <ul>
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={300}>
                 <section>
                     <h2 className="smallTitle">Information Collection and Use</h2>
                     <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
@@ -54,7 +54,7 @@ export default function PrivacyPolicy() {
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={400}>
                 <section>
                     <h2 className="smallTitle">Use of Data</h2>
                     <p>OptiFlowz uses the collected data for various purposes:</p>
@@ -68,7 +68,7 @@ export default function PrivacyPolicy() {
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={500}>
                 <section>
                     <h2 className="smallTitle">Legal Basis for Processing (GDPR)</h2>
                     <p>If you are from the European Economic Area (EEA), OptiFlowz's legal basis for collecting and using personal information depends on the context in which we collect it. We may process your data because:</p>
@@ -81,21 +81,21 @@ export default function PrivacyPolicy() {
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={600}>
                 <section>
                     <h2 className="smallTitle">Your Data Protection Rights</h2>
                     <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights, including the right to access, update, or delete the information we have on you, the right of rectification, and the right to object.</p>
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={700}>
                 <section>
                     <h2 className="smallTitle">Service Providers</h2>
                     <p>We may employ third party companies to facilitate our Service, such as <strong>Google Analytics</strong> for monitoring traffic and <strong>Google Ads/Facebook</strong> for remarketing purposes.</p>
                 </section>
             </FadeInOnScroll>
 
-            <FadeInOnScroll>
+            <FadeInOnScroll delay={800}>
                 <section className="contactSection">
                     <h2 className="smallTitle">Contact Us</h2>
                     <p>If you have any questions about this Privacy Policy, please contact us:</p>
