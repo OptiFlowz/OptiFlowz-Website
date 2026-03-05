@@ -219,6 +219,12 @@ body {
   z-index: 2;
 }
 
+/* BLOG */
+article > p > img{
+  width: 500px;
+  border-radius: 15px;
+}
+
 /* HEADER */
 
 header{
