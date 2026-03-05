@@ -19,7 +19,14 @@ export default function Pricing() {
         <section>
           <h2 className="smallTitle">Video Corner pricing</h2>
           <p>Our latest Video Corner pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
-          <Link className="button noLineHover" href="/OptiFlowz_Video_Corner_Pricing_Feb2026.pdf" target="_blank">Get pricing{ArrowSVG}</Link>
+          <div className="flex gap-4 max-[435px]:flex-col max-[435px]:mt-3!">
+            <Link className="button white noLineHover max-[435px]:w-full! max-[435px]:justify-center" href="/services/custom-video-platform">
+              Read more {ArrowSVG}
+            </Link>
+            <Link className="button noLineHover max-[435px]:w-full! max-[435px]:justify-center" href="/OptiFlowz_Video_Corner_Pricing_Feb2026.pdf" target="_blank">
+              Get pricing{ArrowSVG}
+            </Link>
+          </div>
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll>

@@ -11,7 +11,6 @@ export default function Background() {
     v.muted = true;
     v.playsInline = true;
 
-    // iOS Safari legacy atribut
     v.setAttribute("playsinline", "");
     v.setAttribute("webkit-playsinline", "");
 
@@ -39,13 +38,6 @@ export default function Background() {
         aria-hidden="true"
         tabIndex={-1}
       />
-      {/* <Image
-            src="/homeBg.gif"
-            alt="Logo"
-            width={500}
-            height={500}
-            priority
-        /> */}
       <span className="bottomShadow" />
     </div>
   );
