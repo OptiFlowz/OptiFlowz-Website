@@ -10,7 +10,7 @@ export default async function Article({params}: Props){
     const articleData = await getArticleData(articleSlug);
     
     return(
-        <main className="pp-main">
+        <main className="article-main">
             <article dangerouslySetInnerHTML={{__html: articleData.contentHtml}} />
         </main>
     )

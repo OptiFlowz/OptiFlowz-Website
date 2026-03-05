@@ -220,6 +220,11 @@ body {
 }
 
 /* BLOG */
+article{
+  place-items: center;
+  text-align: center;
+}
+
 article > p > img{
   width: 500px;
   border-radius: 15px;
