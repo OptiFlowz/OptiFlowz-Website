@@ -41,7 +41,7 @@ export default function Pricing() {
     },
     {
       label: "Chromecast & AirPlay",
-      image: { src: "/video-platform/ChromecastAirPlayBanner.webp", alt: "Chromecast & AirPlay" },
+      image: { src: "/video-platform/ChromecastAirplayBanner.webp", alt: "Chromecast & AirPlay" },
       title: "Chromecast & AirPlay integration",
       description: [
         "Ability to cast videos to TV or other devices via Chromecast and AirPlay.",
