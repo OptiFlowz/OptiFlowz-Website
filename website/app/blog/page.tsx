@@ -21,7 +21,8 @@ export default function Blog() {
             <FadeInOnScroll delay={100}>
                 <section className="blogSection">
                     <p>Latest posts</p>
-                    {articles !== null && 
+                    <div className="articleList">
+                        {articles !== null && 
                         // Object.keys(articles).map(article => (
                         //     <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
                         // ))}
@@ -30,6 +31,7 @@ export default function Blog() {
                                 <ArticleListItem key={article.id} props={article} />
                             ))
                         ))}
+                    </div>
                 </section>
             </FadeInOnScroll>
         </main>
