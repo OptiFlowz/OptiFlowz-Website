@@ -25,7 +25,7 @@ export default function ServicesHomeVer2() {
               high-performance platforms that scale.
             </p>
             <ScrollArrow direction="left" />
-            <Link className="button" href="/services/custom-video-platform">
+            <Link className="button white" href="/services/custom-video-platform">
               Read more {ArrowSVG}
             </Link>
           </div>

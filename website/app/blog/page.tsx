@@ -16,7 +16,7 @@ export default function Blog() {
     return(
         <main className="pp-main">
             <FadeInOnScroll>
-                <h1 className="mainTitle">Blog</h1>
+                <h1 className="mainTitlePP">Blog</h1>
                 <p>Read our latest news and updates</p>
             </FadeInOnScroll>
             <FadeInOnScroll delay={100}>

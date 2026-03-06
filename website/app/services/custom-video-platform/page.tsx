@@ -13,7 +13,7 @@ export default function Pricing() {
 
   const sections: TimelineSectionItem[] = [
     {
-      label: "Playlists with Autoplay",
+      label: "Watch start to finish",
       image: { src: "/video-platform/PlaylistsBanner.webp", alt: "Playlists with Autoplay" },
       title: "Playlists with Autoplay",
       description: [
@@ -22,25 +22,34 @@ export default function Pricing() {
       ],
     },
     {
-      label: "Video Chapters",
+      label: "Just hit upload. We'll take it from there.",
+      image: { src: "/video-platform/AutomatedBanner.webp", alt: "Playlists with Autoplay" },
+      title: "Automated video processing and taxonomy",
+      description: [
+        "Upload your file and let our AI handle the busy work. It automatically builds out your chapters, captions, and SEO tags, turning a simple video file into a fully organized, accessible training module without you lifting a finger.",
+        "(Don't worry, you can always edit the AI's work if you want to make adjustments.)",
+      ],
+    },
+    {
+      label: "Universal accessibility",
+      image: { src: "/video-platform/MultiLingualSubitlesBanner.webp", alt: "Multilingual subtitles" },
+      title: "Multilingual subtitles/captions",
+      description: [
+        "Choose the languages you want, and our AI automatically generates subtitles/captions in those languages. Users choose the subtitle language during playback.",
+        "Accessibility for deaf and hard-ofhearing users, plus support for multinational teams.",
+      ],
+    },
+    {
+      label: "Get straight to the point",
       image: { src: "/video-platform/VideoChaptersBanner.webp", alt: "Video Chapters" },
-      title: "Custom player with Video Chapters",
+      title: "Automatically generated video chapters",
       description: [
         "Each video can be divided into chapters with navigation. Users jump directly to the relevant section.",
         "Employees don't have to watch an entire 45-minute video — they immediately find the part they need.",
       ],
     },
     {
-      label: "Multilingual subtitles",
-      image: { src: "/video-platform/MultiLingualSubitlesBanner.webp", alt: "Multilingual subtitles" },
-      title: "Multilingual subtitles/captions",
-      description: [
-        "Support for subtitles/captions in multiple languages. Users choose the subtitle language during playback.",
-        "Accessibility for deaf and hard-ofhearing users, plus support for multinational teams.",
-      ],
-    },
-    {
-      label: "Chromecast & AirPlay",
+      label: "Watch wherever you want",
       image: { src: "/video-platform/ChromecastAirplayBanner.webp", alt: "Chromecast & AirPlay" },
       title: "Chromecast & AirPlay integration",
       description: [
