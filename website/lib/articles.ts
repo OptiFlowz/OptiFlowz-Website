@@ -23,9 +23,9 @@ function getSortedArticles(): ArticleItem[] {
     });
 
     return allArticlesData.sort((a, b) => {
-        if (a.date < b.date) {
+        if (a.date > b.date) {
             return -1;
-        } else if(a.date > a.date){
+        } else if(a.date < a.date){
             return 1;
         }
 
