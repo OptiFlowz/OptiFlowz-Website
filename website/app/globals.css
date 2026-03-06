@@ -1231,6 +1231,12 @@ main{
   mask-composite: exclude;
 }
 
+.pp-main section hr{
+  height: 2px;
+  margin-block: 5px;
+  border-bottom: 1px solid var(--borderC1);
+}
+
 .pp-main section a{
   color: var(--blueAccent3);
   position: relative;
