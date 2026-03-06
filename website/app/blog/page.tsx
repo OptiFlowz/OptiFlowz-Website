@@ -6,7 +6,7 @@ import ArticleListItem from "../article/articleListItem";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - Blog",
-  description: "OptiFlowz is a web desgin and automation company - Learn more about us",
+  description: "OptiFlowz Blog - Stay updated with the latest news, insights, and updates from OptiFlowz. Explore our blog for in-depth articles, industry trends, and expert opinions on optimization solutions. Join the conversation and discover how OptiFlowz is shaping the future of optimization technology.",
 };
 
 export default function Blog() {

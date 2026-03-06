@@ -701,6 +701,10 @@ main{
   position: relative;
 }
 
+.no-padding-mobile{
+  padding: 30px 0px;
+}
+
 /* Timeline + Content Layout */
 .projects-timeline-layout {
   display: flex;

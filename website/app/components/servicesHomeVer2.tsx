@@ -48,6 +48,9 @@ export default function ServicesHomeVer2() {
               vision to life.
             </p>
             <ScrollArrow direction="right" />
+            <Link className="button" href="/services/web-design-and-development">
+              Read more {ArrowSVG}
+            </Link>
           </div>
         </section>
       </FadeInOnScroll>

@@ -33,6 +33,11 @@ export default function Pricing() {
         <section>
           <h2 className="smallTitle">Website development and Business automation pricing</h2>
           <p>We're currently fine-tuning our standard packages. In the meantime, let's talk about a solution that fits your exact budget and scope.</p>
+          <div className="flex gap-4 max-[435px]:flex-col max-[435px]:mt-3!">
+            <Link className="button white noLineHover max-[435px]:w-full! max-[435px]:justify-center" href="/services/web-design-and-development">
+              Read more {ArrowSVG}
+            </Link>
+          </div>
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll delay={300}>

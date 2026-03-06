@@ -5,8 +5,8 @@ import { ArrowSVG } from "../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Pricing",
-  description: "Pricing of the services OptiFlowz offers",
+  title: "OptiFlowz - Custom Video Platform",
+  description: "Features and benefits of the Custom Video Platform service offered by OptiFlowz",
 };
 
 export default function Pricing() {
@@ -89,7 +89,7 @@ export default function Pricing() {
           dotIcon={ArrowSVG}
         />
       </FadeInOnScroll>
-      <FadeInOnScroll>
+      <FadeInOnScroll delay={300}>
         <section>
           <h2 className="smallTitle">Video Corner pricing</h2>
           <p>Our latest Video Corner pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
