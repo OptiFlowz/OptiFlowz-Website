@@ -1643,6 +1643,12 @@ footer .copyright{
   .hero h1{
     font-size: 9vw;
   }
+  article h1{
+    font-size: 1.5rem;
+  }
+  article p img, article p, article blockquote{
+    border-radius: 15px;
+  }
   .leftService img, .rightService img{
     border-radius: 10px;
   }
