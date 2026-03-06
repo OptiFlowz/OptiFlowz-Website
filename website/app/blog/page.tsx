@@ -1,9 +1,8 @@
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { getCatogorisedArticles } from "@/lib/articles";
-import ArticleList from "../components/articleList";
+import ArticleList from "../article/articleList";
+import ArticleListItem from "../article/articleListItem";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - Blog",
@@ -23,8 +22,13 @@ export default function Blog() {
                 <section className="blogSection">
                     <p>Latest posts</p>
                     {articles !== null && 
-                        Object.keys(articles).map(article => (
-                            <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
+                        // Object.keys(articles).map(article => (
+                        //     <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
+                        // ))}
+                        Object.keys(articles).map(category => (
+                            articles[category].map(article => (
+                                <ArticleListItem key={article.id} props={article} />
+                            ))
                         ))}
                 </section>
             </FadeInOnScroll>
