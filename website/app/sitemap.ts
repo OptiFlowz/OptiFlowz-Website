@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map((file) => {
       const slug = file.replace(/\.md$/, '')
       return {
-        url: `${baseUrl}/blog/${slug}`,
+        url: `${baseUrl}/${slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.7,

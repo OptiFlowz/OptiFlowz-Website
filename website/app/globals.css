@@ -112,7 +112,7 @@ body {
   position: relative;
   cursor: pointer;
   background-image: var(--blueButtonGradient);
-  transition: filter .2s ease;
+  transition: filter .2s ease, transform .2s ease;
 }
 
 .button svg{
@@ -136,6 +136,11 @@ body {
 
 .button:hover{
   filter: brightness(1.2);
+}
+
+.button:active{
+  filter: brightness(0.95);
+  transform: scale(0.97);
 }
 
 .button:hover svg{
@@ -163,6 +168,7 @@ body {
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  transition: padding .2s ease;
 }
 
 .fade-in-section {
