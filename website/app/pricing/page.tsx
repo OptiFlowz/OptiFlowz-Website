@@ -60,8 +60,10 @@ export default function Pricing() {
         <section>
           <h2 className="smallTitle">Video Storage and Streaming pricing</h2>
           <section className="smallerBorderSection border! border-[#2e84e366]! bg-[#2e70e31a]! grow max-[500px]:p-5!">
-            <p>Video storage: <strong className="text-(--blueAccent3)">&euro;{videoStoragePricing.toFixed(2)}</strong> per hour of video stored per month</p>
-            <p>Video streaming: <strong className="text-(--blueAccent3)">&euro;{videoStreamingPricing.toFixed(2)}</strong> per hour streamed</p>
+            <p>Video storage: <strong className="text-(--blueAccent3)">&euro;{videoStoragePricing.toFixed(2)}</strong> per hour of video stored per month
+            <br/>
+            Video streaming: <strong className="text-(--blueAccent3)">&euro;{videoStreamingPricing.toFixed(2)}</strong> per hour streamed</p>
+            <p>Note: Includes €100 free monthly credit. You will only be billed for usage exceeding this amount.</p>
           </section>
         </section>
       </FadeInOnScroll>

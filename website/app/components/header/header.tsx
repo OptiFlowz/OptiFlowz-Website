@@ -9,10 +9,39 @@ import { ArrowSVG } from "@/app/constants";
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const servicesCloseTimeoutRef = useRef<number | null>(null);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setMobileServicesOpen(false);
+    setServicesOpen(false);
+  };
+
+  const clearServicesCloseTimeout = () => {
+    if (servicesCloseTimeoutRef.current !== null) {
+      window.clearTimeout(servicesCloseTimeoutRef.current);
+      servicesCloseTimeoutRef.current = null;
+    }
+  };
+
+  const openServicesMenu = () => {
+    clearServicesCloseTimeout();
+    setServicesOpen(true);
+  };
+
+  const scheduleServicesClose = () => {
+    clearServicesCloseTimeout();
+    servicesCloseTimeoutRef.current = window.setTimeout(() => {
+      setServicesOpen(false);
+      servicesCloseTimeoutRef.current = null;
+    }, 190);
+  };
+
   const toggleMenu = () => setMenuOpen((v) => !v);
 
   const router = useRouter();
@@ -29,7 +58,10 @@ export default function Header() {
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeMenu();
+      if (e.key === "Escape") {
+        closeMenu();
+        setServicesOpen(false);
+      }
     };
 
     if (menuOpen) {
@@ -44,6 +76,29 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!servicesOpen) return;
+
+    const onMouseDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (servicesRef.current && !servicesRef.current.contains(target)) {
+        setServicesOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [servicesOpen]);
+
+  useEffect(() => {
+    return () => clearServicesCloseTimeout();
+  }, []);
+
+  const isServicesActive =
+    pathname === "/pricing" ||
+    pathname === "/services/custom-video-platform" ||
+    pathname === "/services/web-design-and-development";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -78,9 +133,55 @@ export default function Header() {
             Home
           </Link>
 
-          <Link href="/pricing" className={pathname === "/pricing" ? "active" : ""}>
-            Pricing
-          </Link>
+          <div
+            className={`navDropdown ${servicesOpen ? "open" : ""}`}
+            ref={servicesRef}
+            onMouseEnter={openServicesMenu}
+            onMouseLeave={scheduleServicesClose}
+          >
+            <button
+              type="button"
+              className={`navDropdownToggle ${isServicesActive ? "active" : ""}`}
+              aria-expanded={servicesOpen}
+              aria-haspopup="menu"
+              onClick={() => {
+                clearServicesCloseTimeout();
+                setServicesOpen((v) => !v);
+              }}
+            >
+              Services
+              <span className="dropdownChevron" aria-hidden="true"></span>
+            </button>
+
+            <div className="navDropdownMenu" role="menu" aria-label="Services menu">
+              <Link
+                href="/services/custom-video-platform"
+                className={pathname === "/services/custom-video-platform" ? "active" : ""}
+                role="menuitem"
+                onClick={() => setServicesOpen(false)}
+              >
+                Custom Video Platform
+              </Link>
+
+              <Link
+                href="/services/web-design-and-development"
+                className={pathname === "/services/web-design-and-development" ? "active" : ""}
+                role="menuitem"
+                onClick={() => setServicesOpen(false)}
+              >
+                Web Design & Development
+              </Link>
+
+              <Link
+                href="/pricing"
+                className={pathname === "/pricing" ? "active" : ""}
+                role="menuitem"
+                onClick={() => setServicesOpen(false)}
+              >
+                Pricing
+              </Link>
+            </div>
+          </div>
 
           <Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>
             About Us
@@ -96,7 +197,7 @@ export default function Header() {
           className="button desktopContactButton"
           onClick={scrollToContact}
         >
-          Get In Contact{ArrowSVG}
+          <span className="-mr-0.75! inline max-[950px]:hidden">Get In</span>Contact{ArrowSVG}
         </Link>
 
         <button
@@ -139,13 +240,43 @@ export default function Header() {
               Home
             </Link>
 
-            <Link
-              href="/pricing"
-              className={pathname === "/pricing" ? "active" : ""}
-              onClick={closeMenu}
-            >
-              Pricing
-            </Link>
+            <div className="mobileServicesGroup">
+              <button
+                type="button"
+                className={`mobileServicesButton ${mobileServicesOpen ? "open" : ""} ${isServicesActive ? "active" : ""}`}
+                aria-expanded={mobileServicesOpen}
+                onClick={() => setMobileServicesOpen((v) => !v)}
+              >
+                Services
+                <span className="dropdownChevron" aria-hidden="true"></span>
+              </button>
+
+              <div className={`mobileServicesMenu ${mobileServicesOpen ? "open" : ""}`}>
+                <Link
+                  href="/services/custom-video-platform"
+                  className={pathname === "/services/custom-video-platform" ? "active" : ""}
+                  onClick={closeMenu}
+                >
+                  Custom Video Platform
+                </Link>
+
+                <Link
+                  href="/services/web-design-and-development"
+                  className={pathname === "/services/web-design-and-development" ? "active" : ""}
+                  onClick={closeMenu}
+                >
+                  Web Design & Development
+                </Link>
+
+                <Link
+                  href="/pricing"
+                  className={pathname === "/pricing" ? "active" : ""}
+                  onClick={closeMenu}
+                >
+                  Pricing
+                </Link>
+              </div>
+            </div>
 
             <Link
               href="/about-us"

@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowSVG } from "../../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
-import ContactForm from "../../../components/contactForm";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - Video Platform release notes",
