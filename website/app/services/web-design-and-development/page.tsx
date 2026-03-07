@@ -45,7 +45,7 @@ export default function Pricing() {
         <h1 className="mainTitlePP">Web design & development</h1>
         <p>Modern, responsive websites built with cutting-edge technology.</p>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={100}>
+      <FadeInOnScroll delay={100} threshold={0.01}>
         <ReusableTimelineSection
           sections={sections}
           dotIcon={ArrowSVG}

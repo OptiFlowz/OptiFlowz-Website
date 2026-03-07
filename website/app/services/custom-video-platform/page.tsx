@@ -87,7 +87,7 @@ export default function Pricing() {
           </p>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={200}>
+      <FadeInOnScroll delay={200} threshold={0.01}>
         <ReusableTimelineSection
           intro={{
             heading: "Current Features",
