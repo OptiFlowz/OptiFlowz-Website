@@ -462,38 +462,45 @@ header nav a.active::before{
   position: absolute;
   top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(-12px) scale(.9);
+  transform: translateX(-50%) translateY(-6px) scaleX(.85);
+  transform-origin: 50% 0%;
   width: 290px;
   padding: 10px;
-  border-radius: 36px;
+  border-radius: 50px 50px 30px 30px;
   background:
-    radial-gradient(circle at 25% 22%, rgba(255,255,255, 0.25), transparent 42%),
-    radial-gradient(circle at 78% 8%, rgba(58, 130, 255, 0.25), transparent 38%),
+    radial-gradient(circle at 25% 22%, rgba(255,255,255, 0.15), transparent 62%),
+    radial-gradient(circle at 78% 8%, rgba(58, 130, 255, 0.15), transparent 50%),
     rgb(26, 31, 44);
   border: 1px solid rgba(255,255,255,.2);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
   opacity: 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
   pointer-events: none;
-  filter: blur(6px);
-  will-change: transform, opacity, filter, border-radius;
+  filter: blur(5px);
+  will-change: opacity, filter, border-radius;
   transition:
-    opacity .24s ease,
-    transform .44s cubic-bezier(.18,.89,.32,1.3),
-    filter .28s ease,
-    border-radius .44s cubic-bezier(.18,.89,.32,1.3);
+    opacity .23s ease,
+    transform .5s cubic-bezier(.2,1.32,.3,1),
+    filter .32s ease,
+    border-radius .3s cubic-bezier(.2,1.32,.3,1);
 }
 
 .navDropdown.open .navDropdownMenu{
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0) scale(1);
-  border-radius: 24px;
-  filter: blur(0);
-  animation: dropdownBubblePop .56s cubic-bezier(.2,.9,.24,1.15);
+  border-radius: 24px 24px 22px 22px;
+  filter: blur(0) saturate(1);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, .42),
+    inset 0 1px 0 rgba(255,255,255,.26),
+    inset 0 -8px 20px rgba(24, 64, 118, .2);
+}
+
+.navDropdown.open .navDropdownMenu::after{
+  opacity: 1;
+  transform: scale(1);
 }
 
 .navDropdownMenu a{
@@ -535,25 +542,6 @@ header nav a.active::before{
 .navDropdownMenu a.active{
   background-color: rgba(255,255,255,.14);
   border-radius: 15px;
-}
-
-@keyframes dropdownBubblePop {
-  0% {
-    border-radius: 36px;
-    transform: translateX(-50%) translateY(-8px) scale(.95);
-  }
-  38% {
-    border-radius: 18px;
-    transform: translateX(-50%) translateY(0) scale(1.02);
-  }
-  68% {
-    border-radius: 27px;
-    transform: translateX(-50%) translateY(0) scale(.992);
-  }
-  100% {
-    border-radius: 24px;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
 }
 
 /* Hamburger button */
