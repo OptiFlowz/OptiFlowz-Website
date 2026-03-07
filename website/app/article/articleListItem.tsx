@@ -11,6 +11,7 @@ export default function ArticleListItem({props}: Props) {
         <img src={props.banner} alt={props.title} />
         <div>
             <h3>{props.title}</h3>
+            <span>{props.category.toLocaleLowerCase()}</span>
             <p>{props.date}</p>
         </div>
     </Link>

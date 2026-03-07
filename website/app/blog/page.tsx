@@ -26,9 +26,12 @@ export default function Blog() {
                         // Object.keys(articles).map(article => (
                         //     <ArticleList key={article} props={{category: article, articles: articles[article]}} />  
                         // ))}
-                        Object.keys(articles).map(category => (
-                            articles[category].map(article => (
-                                <ArticleListItem key={article.id} props={article} />
+                        Object.keys(articles).map((category, catIndex) => (
+                            articles[category].map((article, index) => (
+                                console.log(index),
+                                <FadeInOnScroll key={article.id} delay={(index+catIndex) * 100}>
+                                    <ArticleListItem key={article.id} props={article} />
+                                </FadeInOnScroll>
                             ))
                         ))}
                     </div>
