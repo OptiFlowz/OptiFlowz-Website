@@ -176,6 +176,7 @@ export default function Header() {
               <Link
                   href="/services/business-automation"
                   className={pathname === "/services/business-automation" ? "active" : ""}
+                  role="menuitem"
                   onClick={() => setServicesOpen(false)}
                 >
                 Business Automation
