@@ -71,6 +71,9 @@ export default function ServicesHomeVer2() {
               costs.
             </p>
             <ScrollArrow direction="left" />
+            <Link className="button white" href="/services/business-automation">
+              Read more {ArrowSVG}
+            </Link>
           </div>
         </section>
       </FadeInOnScroll>

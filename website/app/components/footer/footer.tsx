@@ -58,7 +58,7 @@ export default function Footer(){
                                     priority
                                 />
                             </Link>
-                            <Link href="/" target="_blank">
+                            <Link href="https://x.com/OptiFlowz" target="_blank">
                                 <Image 
                                     src="/social/XSVG.svg"
                                     alt="X Logo"

@@ -67,7 +67,7 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link className="noLineHover" href="/" target="_blank">
+                            <Link className="noLineHover" href="https://x.com/OptiFlowz" target="_blank">
                                 <Image 
                                     src="/social/XSVG.svg"
                                     alt="X Logo"
