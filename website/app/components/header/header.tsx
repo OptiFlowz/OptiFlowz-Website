@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowSVG } from "@/app/constants";
+import MobileMenuButton from "./mobileButton";
 
 export default function Header() {
   const pathname = usePathname();
@@ -173,6 +174,14 @@ export default function Header() {
               </Link>
 
               <Link
+                  href="/services/business-automation"
+                  className={pathname === "/services/business-automation" ? "active" : ""}
+                  onClick={() => setServicesOpen(false)}
+                >
+                Business Automation
+              </Link>
+
+              <Link
                 href="/pricing"
                 className={pathname === "/pricing" ? "active" : ""}
                 role="menuitem"
@@ -200,17 +209,7 @@ export default function Header() {
           <span className="-mr-0.75! inline max-[950px]:hidden">Get In</span>Contact{ArrowSVG}
         </Link>
 
-        <button
-          className={`mobileMenuButton ${menuOpen ? "open" : ""}`}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-drawer"
-          onClick={toggleMenu}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <MobileMenuButton onClick={toggleMenu} isOpen={menuOpen} />
       </header>
 
       <div
@@ -266,6 +265,14 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   Web Design & Development
+                </Link>
+
+                <Link
+                  href="/services/business-automation"
+                  className={pathname === "/services/business-automation" ? "active" : ""}
+                  onClick={closeMenu}
+                >
+                  Business Automation
                 </Link>
 
                 <Link

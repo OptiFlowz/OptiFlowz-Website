@@ -544,33 +544,50 @@ header nav a.active::before{
   border-radius: 15px;
 }
 
-/* Hamburger button */
-header .mobileMenuButton{
+/* HAMBUERGER BUTTON */
+.mobileMenuButton{
   display: none;
-  width: 60px;
-  height: fit-content;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
+}
+
+.hamburger {
   cursor: pointer;
-  border: 0;
-  background: transparent;
-  border-radius: var(--bR);
-  padding: 10px 15px;
-  transition: background-color .2s ease;
+  margin-right: 5px;
 }
 
-header .mobileMenuButton:hover{
-  background-color: var(--backgroundC2);
+.hamburger input {
+  display: none;
 }
 
-header .mobileMenuButton span{
-  width: 100%;
-  height: 3px;
-  background-color: white;
-  border-radius: 3px;
-  transition: transform .2s ease, opacity .2s ease, width .2s ease;
+.hamburger svg {
+  height: 2.5em;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.line {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  /* Define the transition for transforming the Stroke */
+  transition:
+    stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+  stroke-dasharray: 12 63;
+}
+
+.hamburger.open svg {
+  transform: rotate(-45deg);
+}
+
+.hamburger.open svg .line-top-bottom {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42;
+}
+
 
 header .mobileMenuButton span:nth-child(1){
   width: calc(100% - 10px);
@@ -704,19 +721,18 @@ header .mobileMenuButton.open span:nth-child(3){
   gap: 6px;
   max-height: 0;
   overflow: hidden;
-  padding-top: 0;
   opacity: 0;
   transform: translateY(-8px);
   transition:
-    max-height .55s cubic-bezier(.22,1,.36,1),
-    padding-top .35s ease,
-    opacity .42s ease,
-    transform .45s cubic-bezier(.22,1,.36,1);
+    max-height .3s ease,
+    opacity .3s ease,
+    margin-top .25s .05s ease,
+    transform .3s ease;
 }
 
 .mobileServicesMenu.open{
   max-height: 260px;
-  padding-top: 6px;
+  margin-top: 8px;
   opacity: 1;
   transform: translateY(0);
 }
