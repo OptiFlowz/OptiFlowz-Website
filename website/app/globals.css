@@ -374,6 +374,14 @@ article .article-category{
   border: 1px solid var(--blueAccent2);
   padding: 4px 10px;
   border-radius: var(--bR);
+  transition:
+    background-color .2s ease,
+    border-color .2s ease;
+}
+
+article .article-category:hover{
+  background-color: #2e70e35c;
+  border-color: var(--blueAccent3);
 }
 
 /* HEADER */
