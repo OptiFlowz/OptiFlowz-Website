@@ -47,8 +47,11 @@ export default function Pricing() {
           <h2 className="smallTitle">What features does the platform have?</h2>
           <p>Explore our extensive feature set and find out why industry leaders choose us for their web development and video needs.</p>
           <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
-            <Link className="button white noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/services/custom-video-platform">
-              See all the features {ArrowSVG}
+            <Link className="button white noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/services/custom-video-platform/release-notes">
+              Release notes {ArrowSVG}
+            </Link>
+            <Link className="button noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/services/custom-video-platform">
+              Current features {ArrowSVG}
             </Link>
           </div>
         </section>

@@ -602,6 +602,32 @@ main{
   text-align: left;
 }
 
+.smallTitle:has(.latest){
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.smallTitle .latest{
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 999px;
+  padding: 4px 15px;
+}
+
+.smallTitle .latest.blue{
+  background-color: #2e70e31a;
+  color: var(--blueAccent3);
+  border: 1px solid var(--blueAccent2);
+}
+
+.smallTitle .latest.orange{
+  background-color: #e3a42e1a;
+  color: #e3a42e;
+  border: 1px solid #e3a42e;
+}
+
 .hero{
   width: 100%;
   display: flex;

@@ -100,10 +100,21 @@ export default function Pricing() {
       </FadeInOnScroll>
       <FadeInOnScroll delay={300}>
         <section>
+          <h2 className="smallTitle">Video Platform release notes</h2>
+          <p>Take a look at the latest updates and improvements to our Video Platform.</p>
+           <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
+            <Link className="button white noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/services/custom-video-platform/release-notes">
+              View release notes{ArrowSVG}
+            </Link>
+          </div>
+        </section>
+      </FadeInOnScroll>
+      <FadeInOnScroll delay={400}>
+        <section>
           <h2 className="smallTitle">Video Platform pricing</h2>
           <p>Our latest Video Platform pricing is available on the next page. There's also a detailed PDF of current and future features, along with their pricing.</p>
-          <div className="flex gap-4">
-            <Link className="button noLineHover" href="/pricing">
+           <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
+            <Link className="button noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/pricing">
               See pricing{ArrowSVG}
             </Link>
           </div>
