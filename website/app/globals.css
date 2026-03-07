@@ -582,6 +582,7 @@ main{
 
 .mainTitle{
   font-size: 2.5rem;
+  line-height: 1.05;
   width: 100%;
   text-align: left;
 }
@@ -1208,6 +1209,7 @@ main{
 }
 
 .pp-main section{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -1274,6 +1276,22 @@ main{
   opacity: 0.7;
   font-size: 1.1rem;
   line-height: 1.4;
+}
+
+/* PRICING PAGE */
+
+.pricingWrapper{
+  display: flex;
+  gap: 1rem;
+}
+
+.pricingWrapper section{
+  min-width: 450px;
+}
+
+.pricingWrapper section section, .pricingWrapper section section::before,
+.smallerBorderSection, .smallerBorderSection::before{
+  border-radius: 12px !important;
 }
 
 /* ABOUT US */
@@ -1468,14 +1486,14 @@ footer .copyright{
     width: 325px !important;
     height: 325px !important;
   }
-  .mainTitle{
-    margin-bottom: -2rem;
-  }
   .leftService img, .rightService img{
     width: 500px;
   }
   .mockup-image{
     width: 500px;
+  }
+  .pricingWrapper section{
+    min-width: 400px;
   }
 }
 
@@ -1520,6 +1538,12 @@ footer .copyright{
   }
   .mockup-image{
     width: 400px;
+  }
+  .pricingWrapper{
+    flex-direction: column;
+  }
+  .pricingWrapper section{
+    min-width: 100%;
   }
 }
 
@@ -1652,6 +1676,9 @@ footer .copyright{
   }
   .hero h1{
     font-size: 9vw;
+  }
+  .mainTitle{
+    font-size: 2rem;
   }
   article h1{
     font-size: 1.5rem;

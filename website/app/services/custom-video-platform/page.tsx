@@ -13,16 +13,7 @@ export default function Pricing() {
 
   const sections: TimelineSectionItem[] = [
     {
-      label: "Watch start to finish",
-      image: { src: "/video-platform/PlaylistsBanner.webp", alt: "Playlists with Autoplay" },
-      title: "Playlists with Autoplay",
-      description: [
-        "Playlist videos play automatically one after another without interruption.",
-        "Users can launch an entire training series and watch without manually starting each video.",
-      ],
-    },
-    {
-      label: "Just hit upload. We'll take it from there.",
+      label: "Just hit upload. We'll take it from there",
       image: { src: "/video-platform/AutomatedBanner.webp", alt: "Playlists with Autoplay" },
       title: "Automated video processing and taxonomy",
       description: [
@@ -31,12 +22,12 @@ export default function Pricing() {
       ],
     },
     {
-      label: "Universal accessibility",
-      image: { src: "/video-platform/MultiLingualSubitlesBanner.webp", alt: "Multilingual subtitles" },
-      title: "Multilingual subtitles/captions",
+      label: "Real-Time Performance Tracking",
+      image: { src: "/video-platform/DetailedAnalytics.webp", alt: "Detailed Analytics" },
+      title: "Detailed Analytics",
       description: [
-        "Choose the languages you want, and our AI automatically generates subtitles/captions in those languages. Users choose the subtitle language during playback.",
-        "Accessibility for deaf and hard-ofhearing users, plus support for multinational teams.",
+        "Look beyond the surface level. We provide granular data that reveals exactly how users interact with your content.",
+        "From heatmaps to session durations, our analytics suite helps you fine-tune your strategy for maximum retention and impact.",
       ],
     },
     {
@@ -46,6 +37,24 @@ export default function Pricing() {
       description: [
         "Each video can be divided into chapters with navigation. Users jump directly to the relevant section.",
         "Employees don't have to watch an entire 45-minute video — they immediately find the part they need.",
+      ],
+    },
+    {
+      label: "Watch start to finish",
+      image: { src: "/video-platform/PlaylistsBanner.webp", alt: "Playlists with Autoplay" },
+      title: "Playlists with Autoplay",
+      description: [
+        "Playlist videos play automatically one after another without interruption.",
+        "Users can launch an entire training series and watch without manually starting each video.",
+      ],
+    },
+    {
+      label: "Universal accessibility",
+      image: { src: "/video-platform/MultiLingualSubitlesBanner.webp", alt: "Multilingual subtitles" },
+      title: "Multilingual subtitles/captions",
+      description: [
+        "Choose the languages you want, and our AI automatically generates subtitles/captions in those languages. Users choose the subtitle language during playback.",
+        "Accessibility for deaf and hard-ofhearing users, plus support for multinational teams.",
       ],
     },
     {
@@ -67,12 +76,12 @@ export default function Pricing() {
       </FadeInOnScroll>
       <FadeInOnScroll delay={100}>
         <section>
-          <h2 className="smallTitle">What is Video Corner?</h2>
-          <p>Video Corner by OptiFlowz is a private, fully branded video platform that your organization uses as 
+          <h2 className="smallTitle">What is OptiFlowz Video Platform?</h2>
+          <p>Video Platform by OptiFlowz is a private, fully branded video platform that your organization uses as 
             its own streaming service for employee training, internal communication, knowledge management, 
             or video content distribution.
           </p>
-          <p>Unlike generic solutions such as YouTube, Vimeo, or Google Drive, Video Corner is a platform that 
+          <p>Unlike generic solutions such as YouTube, Vimeo, or Google Drive, Video Platform is a platform that 
             carries YOUR brand, YOUR domain, and YOUR design — while we take care of everything behind 
             the scenes: hosting, maintenance, support, and technical improvements.
           </p>
@@ -83,7 +92,7 @@ export default function Pricing() {
           intro={{
             heading: "Current Features",
             subheading:
-              "Don't worry, we're always updating Video Corner to be even better!",
+              "Don't worry, we're always updating Video Platform to be even better!",
           }}
           sections={sections}
           dotIcon={ArrowSVG}
@@ -91,11 +100,11 @@ export default function Pricing() {
       </FadeInOnScroll>
       <FadeInOnScroll delay={300}>
         <section>
-          <h2 className="smallTitle">Video Corner pricing</h2>
-          <p>Our latest Video Corner pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
+          <h2 className="smallTitle">Video Platform pricing</h2>
+          <p>Our latest Video Platform pricing is available on the next page. There's also a detailed PDF of current and future features, along with their pricing.</p>
           <div className="flex gap-4">
-            <Link className="button noLineHover" href="/OptiFlowz_Video_Corner_Pricing_Feb2026.pdf" target="_blank">
-              Get pricing{ArrowSVG}
+            <Link className="button noLineHover" href="/pricing">
+              See pricing{ArrowSVG}
             </Link>
           </div>
         </section>
