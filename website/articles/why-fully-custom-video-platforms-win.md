@@ -1,6 +1,6 @@
 ---
 title: "Why Fully Custom Video Platforms Win (and How We Build Them at OptiFlowz)"
-category: "optiflowz"
+category: "OptiFlowz"
 date: "05-03-2026"
 banner: "/services/CustomVideoPlatformBanner.webp"
 ---

@@ -356,6 +356,20 @@ article ul li{
   border-radius: var(--bR);
 }
 
+article .article-category{
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  display: block;
+  width: fit-content;
+  background-color: #2e70e31a;
+  margin-top: 7px;
+  color: var(--blueAccent3);
+  border: 1px solid var(--blueAccent2);
+  padding: 4px 10px;
+  border-radius: var(--bR);
+}
+
 /* HEADER */
 
 header{

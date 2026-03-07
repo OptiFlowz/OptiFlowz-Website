@@ -33,11 +33,14 @@ function getSortedArticles(): ArticleItem[] {
     });
 }
 
-export function getCatogorisedArticles(): Record<string, ArticleItem[]> {
+export function getCatogorisedArticles(category?: string): Record<string, ArticleItem[]> {
     const sortedArticles = getSortedArticles();
     const categorisedArticles: Record<string, ArticleItem[]> = {};
 
     sortedArticles.forEach((article) => {
+        if(category && article.category !== category)
+            return;
+
         if (!categorisedArticles[article.category]) {
             categorisedArticles[article.category] = [];
         }
@@ -48,7 +51,8 @@ export function getCatogorisedArticles(): Record<string, ArticleItem[]> {
     return categorisedArticles;
 }
 
-export async function getArticleData(id: ArticleItem["id"]) {
+export async function getArticleData(id: ArticleItem["id"]): Promise<{
+    id: ArticleItem["id"]; contentHtml: string; category: string}> {
     const fullPath = path.join(articlesDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
@@ -61,6 +65,7 @@ export async function getArticleData(id: ArticleItem["id"]) {
     return {
         id,
         contentHtml: htmlContent,
+        category: matterResult.data.category,
         ...matterResult.data,
     };
 }

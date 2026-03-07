@@ -1,6 +1,6 @@
 ---
 title: "Automations That Actually Move the Needle (Without Breaking Your Ops)"
-category: "optiflowz"
+category: "OptiFlowz"
 date: "05-03-2026"
 banner: "/services/BuAutomationBanner.webp"
 ---

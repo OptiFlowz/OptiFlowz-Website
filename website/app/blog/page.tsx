@@ -9,13 +9,19 @@ export const metadata: Metadata = {
   description: "OptiFlowz Blog - Stay updated with the latest news, insights, and updates from OptiFlowz. Explore our blog for in-depth articles, industry trends, and expert opinions on optimization solutions. Join the conversation and discover how OptiFlowz is shaping the future of optimization technology.",
 };
 
-export default function Blog() {
-    const articles = getCatogorisedArticles();
+type Props = {
+    searchParams: Promise<{category: string}>;
+}
+
+export default async function Blog({searchParams}: Props) {
+    const searchedCategory = (await searchParams).category;
+
+    const articles = getCatogorisedArticles(searchedCategory);
 
     return(
         <main className="pp-main">
             <FadeInOnScroll>
-                <h1 className="mainTitlePP">Blog</h1>
+                <h1 className="mainTitlePP">{searchedCategory ? `Category: ${searchedCategory}` : "Blog"}</h1>
                 <p>Read our latest news and updates</p>
             </FadeInOnScroll>
             <FadeInOnScroll delay={100}>
@@ -28,7 +34,6 @@ export default function Blog() {
                         // ))}
                         Object.keys(articles).map((category, catIndex) => (
                             articles[category].map((article, index) => (
-                                console.log(index),
                                 <FadeInOnScroll key={article.id} delay={(index+catIndex) * 100}>
                                     <ArticleListItem key={article.id} props={article} />
                                 </FadeInOnScroll>

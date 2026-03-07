@@ -1,6 +1,6 @@
 ---
 title: "Operational Dashboards That Actually Reduce Meetings (Not Just Look Pretty)"
-category: "process optimization"
+category: "Process Optimization"
 date: "06-03-2026"
 banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=60&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0"
 ---
