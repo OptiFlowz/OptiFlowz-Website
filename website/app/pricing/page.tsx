@@ -78,7 +78,7 @@ export default function Pricing() {
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll delay={500}>
-        <h1 className="mainTitle">Website development pricing</h1>
+        <h2 className="mainTitle">Website development pricing</h2>
       </FadeInOnScroll>
       <FadeInOnScroll delay={600}>
         <div className="pricingWrapper">
@@ -111,7 +111,7 @@ export default function Pricing() {
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll delay={800}>
-        <h1 className="mainTitle">Contact us for a custom quote</h1>
+        <h2 className="mainTitle">Contact us for a custom quote</h2>
       </FadeInOnScroll>
       <FadeInOnScroll delay={900}>
         <ContactForm />
