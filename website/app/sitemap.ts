@@ -6,7 +6,7 @@ const baseUrl = 'https://optiflowz.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
-    '',
+    '/',
     '/about-us',
     '/attribution',
     '/blog',
@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.8,
+    priority: route === '/' ? 1 : 0.8,
   }))
 
   const articlesPath = path.join(process.cwd(), 'articles')
@@ -37,13 +37,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     })
 
-  const extraFiles = [
-    {
-      url: `${baseUrl}/OptiFlowz_Video_Corner_Pricing_Feb2026.pdf`,
-      lastModified: new Date('2026-02-18T09:35:39+00:00'),
-      priority: 0.64,
-    },
-  ]
-
-  return [...staticRoutes, ...articleRoutes, ...extraFiles]
+  return [...staticRoutes, ...articleRoutes]
 }
