@@ -99,7 +99,8 @@ export default function Header() {
   const isServicesActive =
     pathname === "/pricing" ||
     pathname === "/services/custom-video-platform" ||
-    pathname === "/services/web-design-and-development";
+    pathname === "/services/web-design-and-development" ||
+    pathname === "/services/business-automation";
 
   useEffect(() => {
     if (!menuOpen) return;

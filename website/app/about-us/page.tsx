@@ -23,7 +23,7 @@ export default function AboutUs() {
             <FadeInOnScroll delay={200}>
                 <section>
                     <h2 className="smallTitle">Rooted in Belgrade, Scaling Globally</h2>
-                    <p>At OptiFlowz, we believe technology should be a multiplier, never a bottleneck. Operating from the heart of Belgrade’s rising tech scene, our team of engineers and strategists helps service-based companies streamline operations and dominate their niche. Whether we’re building a custom streaming engine or a bespoke automation flow, we build for one thing: <span className="accentText">Limitless Scalability</span>.</p>
+                    <p>At OptiFlowz, we believe technology should be a multiplier, never a bottleneck. Operating from the heart of Belgrade’s rising tech scene, our team of engineers and strategists helps service-based companies streamline operations and dominate their niche. Whether we’re building a custom streaming engine or a bespoke automation flow, we build for one thing: <span className="accentBubble">Limitless Scalability</span></p>
                 </section>
             </FadeInOnScroll>
             <FadeInOnScroll delay={300}>
@@ -47,10 +47,10 @@ export default function AboutUs() {
                                     priority
                                 />
                             </Link>
-                            <Link className="noLineHover" href="/" target="_blank">
+                            <Link className="noLineHover" href="https://www.tiktok.com/@optiflowz" target="_blank">
                                 <Image 
-                                    src="/social/facebookSVG.svg"
-                                    alt="Facebook Logo"
+                                    src="/social/tikTokSVG.svg"
+                                    alt="TikTok Logo"
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}

@@ -38,10 +38,10 @@ export default function Footer(){
                                     priority
                                 />
                             </Link>
-                            <Link href="/" target="_blank">
+                            <Link href="https://www.tiktok.com/@optiflowz" target="_blank">
                                 <Image 
-                                    src="/social/facebookSVG.svg"
-                                    alt="Facebook Logo"
+                                    src="/social/tikTokSVG.svg"
+                                    alt="TikTok Logo"
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
