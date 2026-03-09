@@ -23,13 +23,14 @@ export default function Pricing() {
       <FadeInOnScroll delay={100}>
         <div className="pricingWrapper">
           <section>
-            <h2 className="smallTitle">Standard monthly fee: <strong className="text-(--blueAccent3)">&euro;{monthlyPrice.toFixed(2)}</strong></h2>
+            <h2 className="smallTitle">Contact us for a monthly quote</h2>
             <p>- Delivery within 5 days of purchase</p>
             <section className="border! border-[#2e84e366]! bg-[#2e70e31a]! grow max-[500px]:p-5! max-[500px]:rounded-xl!">
-              <h2>LIMITED SPOTS AT THIS PRICE</h2>
-              <p className="max-[500px]:text-sm!">The current price of <strong className="text-(--blueAccent3)">&euro;{monthlyPrice.toFixed(2)}/month</strong> is available to a limited number of clients. As the platform grows 
-              and gains new features (AI Chat, Auto-Dubbing), the price for new clients will increase. Existing 
-              clients retain their contracted price.</p>
+              <h2>GET A TAILORED QUOTE</h2>
+              <p className="max-[500px]:text-sm!">Pricing is customized based on your unique requirements. Get in touch today for a bespoke quote.</p>
+              <Link className="button noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/#contactForm">
+              Contact us {ArrowSVG}
+            </Link>
             </section>
           </section>
           <section>
@@ -67,7 +68,7 @@ export default function Pricing() {
           </section>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={400} className="-mt-4!">
+      {/* <FadeInOnScroll delay={400} className="-mt-4!">
         <section>
           <p>Our latest Video Platform pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
           <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
@@ -76,11 +77,11 @@ export default function Pricing() {
             </Link>
           </div>
         </section>
-      </FadeInOnScroll>
-      <FadeInOnScroll delay={500}>
+      </FadeInOnScroll> */}
+      <FadeInOnScroll delay={400}>
         <h2 className="mainTitle">Website development pricing</h2>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={600}>
+      <FadeInOnScroll delay={500}>
         <div className="pricingWrapper">
           <section>
             <h2 className="smallTitle">Custom solutions for your specific needs</h2>
@@ -99,7 +100,7 @@ export default function Pricing() {
           </section>
         </div>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={700} className="-mt-4!">
+      <FadeInOnScroll delay={600} className="-mt-4!">
         <section>
           <h2 className="smallTitle">What do we offer?</h2>
           <p>We're currently fine-tuning our standard packages. In the meantime, you can take a look at the services we offer!</p>
@@ -110,10 +111,10 @@ export default function Pricing() {
           </div>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={800}>
+      <FadeInOnScroll delay={700}>
         <h2 className="mainTitle">Contact us for a custom quote</h2>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={900}>
+      <FadeInOnScroll delay={800}>
         <ContactForm />
       </FadeInOnScroll>
     </main>
