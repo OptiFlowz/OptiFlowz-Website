@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import FadeInOnScroll from "../fadeInOnScroll";
 
 export default function Footer(){
     return(
@@ -14,7 +15,7 @@ export default function Footer(){
             />
             <div className="footerWrap">
                 <div>
-                    <section className="quickAbout">
+                    <FadeInOnScroll className="quickAbout">
                         <Link className="logo" href="/">
                             <Image 
                                 src="/logo.webp"
@@ -79,8 +80,8 @@ export default function Footer(){
                                 />
                             </Link>
                         </div>
-                    </section>
-                    <section className="links">
+                    </FadeInOnScroll>
+                    <FadeInOnScroll className="links" delay={100}>
                         <nav>
                             <h3>Quick Links</h3>
                             <Link href="/">Home</Link>
@@ -95,7 +96,7 @@ export default function Footer(){
                             <p>Monday–Friday 09:00–17:00</p>
                             <Link href="mailto:office@optiflowz.com">office@optiflowz.com</Link>
                         </nav>
-                    </section>
+                    </FadeInOnScroll>
                 </div>
                 <p className="copyright"><span className="accentText">OptiFlowz</span> – Copyright © 2026 – All rights reserved</p>
             </div>
