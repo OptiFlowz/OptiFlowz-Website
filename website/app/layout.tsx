@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header/header";
@@ -35,6 +37,8 @@ export default function RootLayout({
         <script type="module" src="https://cdn.jsdelivr.net/gh/OptiFlowz/OptiFlowz-Main-Chat@0.0.97/index.js"></script>
         {children}
         <Footer />
+        <Analytics/>
+        <SpeedInsights />
       </body>
     </html>
   );
