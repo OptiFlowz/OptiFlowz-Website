@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowSVG } from "../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import ContactForm from "../components/contactForm";
+import BookACallButton from "./bookACallButton";
 
 export const metadata: Metadata = {
   title: "OptiFlowz - Pricing",
@@ -10,11 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function Pricing() {
-
-  const videoStoragePricing = 0.5;
-  const videoStreamingPricing = 0.1;
-  const monthlyPrice = 1200;
-
   return (
     <main className="pp-main">
       <FadeInOnScroll>
@@ -28,18 +24,22 @@ export default function Pricing() {
             <section className="border! border-[#2e84e366]! bg-[#2e70e31a]! grow max-[500px]:p-5! max-[500px]:rounded-xl!">
               <h2>GET A TAILORED QUOTE</h2>
               <p className="max-[500px]:text-sm!">Pricing is customized based on your unique requirements. Get in touch today for a bespoke quote.</p>
-              <Link className="button noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/#contactForm">
-              Contact us {ArrowSVG}
-            </Link>
+              <div className="flex gap-4 max-[520px]:flex-col max-[520px]:mt-3!">
+                <Link className="button noLineHover max-[520px]:w-full! max-[520px]:justify-center" href="/#contactForm">
+                  Contact us {ArrowSVG}
+                </Link>
+                <BookACallButton/>
+              </div>
             </section>
           </section>
           <section>
             <h2 className="smallTitle">What's included?</h2>
             <p>- Ongoing maintenance and support</p>
-            <p>- All future updates and enhancements</p>
-            <p>- 1600 hours of streaming video (<i>sufficient for 95%+ of clients</i>)</p>
-            <p>- Detailed analytics daily/weekly/monthly</p>
-            <p>- <strong className="text-(--blueAccent3)">&euro;100</strong> of credit used on video storage and streaming hours (<i>billed based on pricing below</i>)</p>
+            <p>- Future updates at no extra cost</p>
+            <p>- Detailed analytics (daily/weekly/monthly)</p>
+            <p>- Admin dashboard access</p>
+            <p>- Content / video management tools</p>
+            <p>- Priority technical support</p>
           </section>
         </div>
       </FadeInOnScroll>
@@ -57,31 +57,10 @@ export default function Pricing() {
           </div>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={300} className="-mt-4!">
-        <section>
-          <h2 className="smallTitle">Video Storage and Streaming pricing</h2>
-          <section className="smallerBorderSection border! border-[#2e84e366]! bg-[#2e70e31a]! grow max-[500px]:p-5!">
-            <p>Video storage: <strong className="text-(--blueAccent3)">&euro;{videoStoragePricing.toFixed(2)}</strong> per hour of video stored per month
-            <br/>
-            Video streaming: <strong className="text-(--blueAccent3)">&euro;{videoStreamingPricing.toFixed(2)}</strong> per hour streamed</p>
-            <p>Note: Includes €100 free monthly credit. You will only be billed for usage exceeding this amount.</p>
-          </section>
-        </section>
-      </FadeInOnScroll>
-      {/* <FadeInOnScroll delay={400} className="-mt-4!">
-        <section>
-          <p>Our latest Video Platform pricing is available in the PDF. Open it to explore packages and add-ons, or contact us for a custom quote.</p>
-          <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
-            <Link className="button noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/OptiFlowz_Video_Corner_Pricing_Feb2026.pdf" target="_blank">
-              Get pricing in PDF{ArrowSVG}
-            </Link>
-          </div>
-        </section>
-      </FadeInOnScroll> */}
-      <FadeInOnScroll delay={400}>
+      <FadeInOnScroll delay={300}>
         <h2 className="mainTitle">Website development pricing</h2>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={500}>
+      <FadeInOnScroll delay={400}>
         <div className="pricingWrapper">
           <section>
             <h2 className="smallTitle">Custom solutions for your specific needs</h2>
@@ -100,7 +79,7 @@ export default function Pricing() {
           </section>
         </div>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={600} className="-mt-4!">
+      <FadeInOnScroll delay={500} className="-mt-4!">
         <section>
           <h2 className="smallTitle">What do we offer?</h2>
           <p>We're currently fine-tuning our standard packages. In the meantime, you can take a look at the services we offer!</p>
@@ -111,10 +90,10 @@ export default function Pricing() {
           </div>
         </section>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={700}>
+      <FadeInOnScroll delay={600}>
         <h2 className="mainTitle">Contact us for a custom quote</h2>
       </FadeInOnScroll>
-      <FadeInOnScroll delay={800}>
+      <FadeInOnScroll delay={700}>
         <ContactForm />
       </FadeInOnScroll>
     </main>

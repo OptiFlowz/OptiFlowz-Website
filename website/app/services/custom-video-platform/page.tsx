@@ -77,14 +77,8 @@ export default function Pricing() {
       <FadeInOnScroll delay={100}>
         <section>
           <h2 className="smallTitle">What is OptiFlowz Video Platform?</h2>
-          <p>Video Platform by OptiFlowz is a private, fully branded video platform that your organization uses as 
-            its own streaming service for employee training, internal communication, knowledge management, 
-            or video content distribution.
-          </p>
-          <p>Unlike generic solutions such as YouTube, Vimeo, or Google Drive, Video Platform is a platform that 
-            carries YOUR brand, YOUR domain, and YOUR design — while we take care of everything behind 
-            the scenes: hosting, maintenance, support, and technical improvements.
-          </p>
+          <p>Video Platform by OptiFlowz is a private, fully branded streaming service built for your organization — for training, internal communication, or content distribution.</p>
+          <p>No YouTube. No Vimeo. No Google Drive. Your brand, your domain, your design. We handle hosting, maintenance, support, and updates.</p>
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll delay={200} threshold={0.01}>

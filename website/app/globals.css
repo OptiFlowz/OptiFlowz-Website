@@ -1562,7 +1562,7 @@ main{
 }
 
 .pricingWrapper section{
-  min-width: 450px;
+  min-width: 400px;
 }
 
 .pricingWrapper section section, .pricingWrapper section section::before,
@@ -1769,7 +1769,7 @@ footer .copyright{
     width: 500px;
   }
   .pricingWrapper section{
-    min-width: 400px;
+    min-width: 350px;
   }
 }
 

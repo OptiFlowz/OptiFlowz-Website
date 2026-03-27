@@ -7,6 +7,16 @@ import html from "remark-html";
 
 const articlesDirectory = path.join(process.cwd(), "articles");
 
+function parseArticleDate(date: string): number {
+    const [day, month, year] = date.split("-").map(Number);
+
+    if (!day || !month || !year) {
+        return 0;
+    }
+
+    return new Date(year, month - 1, day).getTime();
+}
+
 function getSortedArticles(): ArticleItem[] {
     const fileNames = fs.readdirSync(articlesDirectory);
 
@@ -23,13 +33,10 @@ function getSortedArticles(): ArticleItem[] {
     });
 
     return allArticlesData.sort((a, b) => {
-        if (a.date > b.date) {
-            return -1;
-        } else if(a.date < a.date){
-            return 1;
-        }
+        const timeA = parseArticleDate(a.date);
+        const timeB = parseArticleDate(b.date);
 
-        return 0;
+        return timeB - timeA;
     });
 }
 
