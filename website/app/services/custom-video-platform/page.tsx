@@ -66,6 +66,15 @@ export default function Pricing() {
         "Users can watch training content on a big screen in the office or at home.",
       ],
     },
+    {
+      label: "Collaborative learning in one place",
+      image: { src: "/video-platform/CommentsBanner.webp", alt: "Interactive videos with comments" },
+      title: "Interactive videos with comments",
+      description: [
+        "Enable users to leave comments directly below videos and engage in meaningful discussions around the content.",
+        "Whether it's asking questions, sharing feedback, or exchanging insights, comments turn passive watching into active collaboration and improve learning outcomes.",
+      ],
+    },
   ];
 
   return (
