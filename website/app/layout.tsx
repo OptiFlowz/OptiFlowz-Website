@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Background from "./components/background";
+import Script from "next/dist/client/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,19 @@ export default function RootLayout({
       >
         <Header />
         <Background />
-        <script type="module" src="https://cdn.jsdelivr.net/gh/OptiFlowz/OptiFlowz-Main-Chat@0.0.98/index.js"></script>
+        <Script
+          src="https://ai-chatbot-platform.fly.dev/widget/index.js"
+          strategy="afterInteractive"
+          data-agent-name="OptiFlowz AI"
+          data-chat-header-title-font-size="1.3rem"
+          data-agent-description="Your friendly AI Agent"
+          data-chat-header-description-font-size="0.72rem"
+          data-agent-icon="https://cdn.jsdelivr.net/gh/OptiFlowz/OptiFlowz-Main-Chat/aiAgentImg.png"
+          data-privacy-url="https://optiflowz.com/privacy-policy"
+          data-questions={`["I'd like to work with OptiFlowz","Tell me more about OptiFlowz"]`}
+          data-chat-desktop-width="410px"
+          data-chat-desktop-height="550px"
+        />
         {children}
         <Footer />
         <Analytics/>
