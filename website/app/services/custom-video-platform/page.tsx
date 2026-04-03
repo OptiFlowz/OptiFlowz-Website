@@ -88,6 +88,11 @@ export default function Pricing() {
           <h2 className="smallTitle">What is OptiFlowz Video Platform?</h2>
           <p>Video Platform by OptiFlowz is a private, fully branded streaming service built for your organization — for training, internal communication, or content distribution.</p>
           <p>No YouTube. No Vimeo. No Google Drive. Your brand, your domain, your design. We handle hosting, maintenance, support, and updates.</p>
+          <FadeInOnScroll delay={100}>
+            <Link className="button white noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="https://videoplatform.optiflowz.com/" target="_blank">
+              Visit the platform{ArrowSVG}
+            </Link>
+          </FadeInOnScroll>
         </section>
       </FadeInOnScroll>
       <FadeInOnScroll delay={200} threshold={0.01}>
