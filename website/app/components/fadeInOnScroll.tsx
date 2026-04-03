@@ -2,16 +2,27 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type FadeInSide = "top" | "right" | "bottom" | "left";
+
+const hiddenTransforms: Record<FadeInSide, string> = {
+  top: "translateY(-40px)",
+  right: "translateX(40px)",
+  bottom: "translateY(40px)",
+  left: "translateX(-40px)",
+};
+
 export default function FadeInOnScroll({
   children,
   className = "",
   threshold = 0.15,
   delay = 0, // ms (applies only if element is visible on initial load)
+  side = "bottom",
 }: {
   children: React.ReactNode;
   className?: string;
   threshold?: number;
   delay?: number;
+  side?: FadeInSide;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -61,6 +72,11 @@ export default function FadeInOnScroll({
   return (
     <div
       ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translate(0, 0)" : hiddenTransforms[side],
+        transition: "opacity 0.6s ease, transform 0.6s ease",
+      }}
       className={`fade-in-section w-full relative ${visible ? "visible" : ""} ${className}`}
     >
       {children}
