@@ -17,7 +17,7 @@
   --borderC2: rgba(255, 255, 255, .05);
 
   --backgroundC2: rgba(39, 41, 53, .03);
-  --backgroundC3: rgba(39, 41, 53, 0.6);
+  --backgroundC3: rgba(27, 29, 39, 0.6);
 
   --blueAccent1: #003E8E;
   --blueAccent2: #338CFF;
@@ -517,9 +517,9 @@ header nav a.active::before{
   padding: 10px;
   border-radius: 50px 50px 30px 30px;
   background:
-    radial-gradient(circle at 25% 22%, rgba(255,255,255, 0.15), transparent 62%),
-    radial-gradient(circle at 78% 8%, rgba(58, 130, 255, 0.15), transparent 50%),
-    rgb(26, 31, 44);
+    radial-gradient(circle at 25% 22%, rgba(229, 241, 255, 0.2), transparent 62%),
+    radial-gradient(circle at 78% 8%, rgba(29, 112, 255, 0.2), transparent 50%),
+    rgb(15, 17, 26);
   border: 1px solid rgba(255,255,255,.2);
   opacity: 0;
   display: flex;

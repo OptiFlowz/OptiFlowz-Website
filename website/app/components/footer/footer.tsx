@@ -15,7 +15,7 @@ export default function Footer(){
             />
             <div className="footerWrap">
                 <div>
-                    <FadeInOnScroll className="quickAbout">
+                    <FadeInOnScroll className="quickAbout" distance={12} initialScale={0.99}>
                         <Link className="logo" href="/">
                             <Image 
                                 src="/logo.webp"
@@ -81,7 +81,7 @@ export default function Footer(){
                             </Link>
                         </div>
                     </FadeInOnScroll>
-                    <FadeInOnScroll className="links" delay={100}>
+                    <FadeInOnScroll className="links" delay={100} distance={12} initialScale={0.99}>
                         <nav>
                             <h3>Quick Links</h3>
                             <Link href="/">Home</Link>
