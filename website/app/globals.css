@@ -66,6 +66,11 @@ body {
   color: white;
 }
 
+img{
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* CUSTOM CLASSES */
 
 #optiflowz-chat-textarea{
