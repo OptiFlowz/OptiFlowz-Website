@@ -31,6 +31,15 @@ export default function Pricing() {
       ],
     },
     {
+      label: "Your built-in AI assistant",
+      image: { src: "/video-platform/AIChatBanner.webp", alt: "Intelligent AI Assistant" },
+      title: "Intelligent AI Assistant",
+      description: [
+        "Give your users instant answers, guidance, and support through an AI-powered assistant embedded directly into your platform.",
+        "Whether it's reporting an issue, finding the right training material, or learning more about your services, the assistant provides fast, conversational help 24/7 — reducing support workload and improving user experience.",
+      ],
+    },
+    {
       label: "Get straight to the point",
       image: { src: "/video-platform/VideoChaptersBanner.webp", alt: "Video Chapters" },
       title: "Automatically generated video chapters",
