@@ -273,7 +273,7 @@ export default function ProjectsSection() {
             </div>
             <div className="project-card">
               <img
-                src="/eaes-mockup.webp"
+                src="/eaes-mockup-v2.webp"
                 alt="EAES Video Corner Platform"
                 className="mockup-image"
               />
@@ -326,7 +326,7 @@ export default function ProjectsSection() {
             </div>
             <div className="project-card">
               <img
-                src="/saes-mockup.webp"
+                src="/saes-mockup-v2.webp"
                 alt="SAES Membership System"
                 className="mockup-image"
               />

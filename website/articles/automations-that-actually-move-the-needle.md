@@ -2,13 +2,13 @@
 title: "Automations That Actually Move the Needle (Without Breaking Your Ops)"
 category: "OptiFlowz"
 date: "05-03-2026"
-banner: "/services/BuAutomationBanner.webp"
+banner: "/services/BuAutomationBanner-v2.webp"
 ---
 
 # Automations That Actually Move the Needle (Without Breaking Your Ops)
 ### 5. March 2026
 
-![Automation dashboard](/services/BuAutomationBanner.webp)
+![Automation dashboard](/services/BuAutomationBanner-v2.webp)
 
 > Automation is everywhere — but many “automations” become fragile workflows that work for a week and then quietly fail.  
 > At OptiFlowz, we focus on automation that stays reliable, observable, and directly improves revenue, speed, or customer experience.

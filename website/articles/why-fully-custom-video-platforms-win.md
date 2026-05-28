@@ -2,13 +2,13 @@
 title: "Why Fully Custom Video Platforms Win (and How We Build Them at OptiFlowz)"
 category: "OptiFlowz"
 date: "05-03-2026"
-banner: "/services/CustomVideoPlatformBanner.webp"
+banner: "/services/CustomVideoPlatformBanner-v2.webp"
 ---
 
 # Why Fully Custom Video Platforms Win (and How We Build Them at OptiFlowz)
 ### 5. March 2026
 
-![Custom Video Platform](/services/CustomVideoPlatformBanner.webp)
+![Custom Video Platform](/services/CustomVideoPlatformBanner-v2.webp)
 
 > Most video tools are built to be “good enough” for everyone — which often means they’re perfect for no one.  
 > Upload a video, embed a player, maybe add login access — and that’s it.

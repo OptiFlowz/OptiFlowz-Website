@@ -12,7 +12,7 @@ export default function ServicesHomeVer2() {
       <FadeInOnScroll>
         <section className="leftService">
           <Image
-            src="/services/CustomVideoPlatformBanner.webp"
+            src="/services/CustomVideoPlatformBanner-v2.webp"
             alt="Custom Video Platforms Banner"
             width={1280}
             height={720}
@@ -35,7 +35,7 @@ export default function ServicesHomeVer2() {
       <FadeInOnScroll>
         <section className="rightService">
           <Image
-            src="/services/WebDesignBanner.webp"
+            src="/services/WebDesignBanner-v2.webp"
             alt="Web Design And Development Banner"
             width={1280}
             height={720}
@@ -58,7 +58,7 @@ export default function ServicesHomeVer2() {
       <FadeInOnScroll>
         <section className="leftService">
           <Image
-            src="/services/BuAutomationBanner.webp"
+            src="/services/BuAutomationBanner-v2.webp"
             alt="Automation Banner"
             width={1280}
             height={720}
