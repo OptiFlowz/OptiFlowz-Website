@@ -372,7 +372,57 @@ export default function ProjectsSection() {
             </div>
           </div>
 
-          {/* You could be next - Section 3 */}
+          {/* SECHO Membership System - Section 3 */}
+          <div className={`project-card-wrapper ${visibleSections.has(2) ? "visible" : ""}`}>
+            <div className="project-label">
+              <h3 data-tl-anchor>SECHO Website & Membership System</h3>
+            </div>
+            <div className="project-card">
+              <img
+                src="/secho-mockup-v2.webp"
+                alt="SECHO Membership System"
+                className="mockup-image"
+              />
+              <div className="project-card-info">
+                <div className="project-card-about">
+                  <h4>Membership, Course &amp; Certification Platform</h4>
+                  <p>
+                    A comprehensive platform for the Association for the Application of Ultrasound in Medicine and Biology of Serbia (SECHO).
+                  </p>
+                  <p>
+                    We built an integrated membership, course, and certification system for managing educational programs, member access, and automated credential tracking—streamlining their entire medical education and professional development process.
+                  </p>
+                </div>
+                <div className="project-tags">
+                  <span className="tag">Wordpress</span>
+                  <span className="tag">FinTech</span>
+                  <span className="tag">EdTech</span>
+                </div>
+                <a
+                  href="https://secho.org.rs/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button"
+                >
+                  Visit website
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* You could be next - Section 4 */}
           <div
             className={`project-card-wrapper relative ${visibleSections.has(3) ? "visible" : ""}`}
           >

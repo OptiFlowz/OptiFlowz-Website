@@ -11,7 +11,7 @@ export default function ReleaseNotes() {
   return (
     <main className="pp-main">
         <FadeInOnScroll>
-            <h1 className="mainTitlePP">Video Platform release notes</h1>
+            <h1 className="mainTitlePP">OptiFlowz Video Platform release notes</h1>
             <p>Stay up-to-date with the latest features and improvements to our Video Platform.</p>
         </FadeInOnScroll>
         <FadeInOnScroll delay={100}>

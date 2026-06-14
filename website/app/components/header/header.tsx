@@ -162,7 +162,7 @@ export default function Header() {
                 role="menuitem"
                 onClick={() => setServicesOpen(false)}
               >
-                Custom Video Platform
+                OptiFlowz Video Platform
               </Link>
 
               <Link
@@ -258,7 +258,7 @@ export default function Header() {
                   className={pathname === "/services/custom-video-platform" ? "active" : ""}
                   onClick={closeMenu}
                 >
-                  Custom Video Platform
+                  OptiFlowz Video Platform
                 </Link>
 
                 <Link

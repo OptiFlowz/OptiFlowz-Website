@@ -5,8 +5,8 @@ import { ArrowSVG } from "../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Custom Video Platform",
-  description: "Features and benefits of the Custom Video Platform service offered by OptiFlowz",
+  title: "OptiFlowz Video Platform",
+  description: "Features and benefits of the OptiFlowz Video Platform service offered by OptiFlowz",
 };
 
 export default function Pricing() {
@@ -98,7 +98,7 @@ export default function Pricing() {
   return (
     <main className="pp-main">
       <FadeInOnScroll>
-        <h1 className="mainTitlePP">Custom Video Platform</h1>
+        <h1 className="mainTitlePP">OptiFlowz Video Platform</h1>
         <p>Your Private, Branded Video Platform — Fully Managed</p>
       </FadeInOnScroll>
       <FadeInOnScroll delay={100}>
