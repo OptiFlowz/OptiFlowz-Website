@@ -373,13 +373,13 @@ export default function ProjectsSection() {
           </div>
 
           {/* SECHO Membership System - Section 3 */}
-          <div className={`project-card-wrapper ${visibleSections.has(2) ? "visible" : ""}`}>
+          <div className={`project-card-wrapper ${visibleSections.has(3) ? "visible" : ""}`}>
             <div className="project-label">
               <h3 data-tl-anchor>SECHO Website & Membership System</h3>
             </div>
             <div className="project-card">
               <img
-                src="/secho-mockup-v2.webp"
+                src="/secho-mockup-v3.webp"
                 alt="SECHO Membership System"
                 className="mockup-image"
               />
@@ -399,7 +399,7 @@ export default function ProjectsSection() {
                   <span className="tag">EdTech</span>
                 </div>
                 <a
-                  href="https://secho.org.rs/"
+                  href="https://secho.org/"
                   target="_blank"
                   rel="noreferrer"
                   className="button"
@@ -424,7 +424,7 @@ export default function ProjectsSection() {
 
           {/* You could be next - Section 4 */}
           <div
-            className={`project-card-wrapper relative ${visibleSections.has(3) ? "visible" : ""}`}
+            className={`project-card-wrapper relative ${visibleSections.has(4) ? "visible" : ""}`}
           >
             <span className="opacity-0 pointer-events-none absolute top-[-15vh] max-[800px]:top-[-7vh]" id="contactForm">a</span>
             <div className="project-label">
@@ -434,7 +434,7 @@ export default function ProjectsSection() {
             <ContactForm />
           </div>
 
-          {/* /Section 3 */}
+          {/* /Section 4 */}
         </div>
         {/* /projects-content */}
       </div>
