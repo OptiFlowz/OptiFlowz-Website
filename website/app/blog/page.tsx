@@ -4,7 +4,7 @@ import { getCatogorisedArticles } from "@/lib/articles";
 import ArticleListItem from "../article/articleListItem";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Blog",
+  title: "Blog",
   description: "OptiFlowz Blog - Stay updated with the latest news, insights, and updates from OptiFlowz. Explore our blog for in-depth articles, industry trends, and expert opinions on optimization solutions. Join the conversation and discover how OptiFlowz is shaping the future of optimization technology.",
 };
 

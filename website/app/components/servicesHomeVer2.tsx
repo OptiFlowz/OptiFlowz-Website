@@ -1,5 +1,3 @@
-"use client";
-
 import FadeInOnScroll from "./fadeInOnScroll";
 import Image from "next/image";
 import ScrollArrow from "./scrollArrow";
@@ -16,6 +14,7 @@ export default function ServicesHomeVer2() {
             alt="Custom Video Platforms Banner"
             width={1280}
             height={720}
+            sizes="(max-width: 650px) calc(100vw - 40px), (max-width: 800px) 350px, (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
             priority
           />
           <div>
@@ -26,7 +25,7 @@ export default function ServicesHomeVer2() {
             </p>
             <ScrollArrow direction="left" />
             <Link className="button white" href="/services/custom-video-platform">
-              Read more {ArrowSVG}
+              Explore video platforms {ArrowSVG}
             </Link>
           </div>
         </section>
@@ -39,7 +38,7 @@ export default function ServicesHomeVer2() {
             alt="Web Design And Development Banner"
             width={1280}
             height={720}
-            priority
+            sizes="(max-width: 650px) calc(100vw - 40px), (max-width: 800px) 350px, (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
           />
           <div>
             <p>
@@ -49,7 +48,7 @@ export default function ServicesHomeVer2() {
             </p>
             <ScrollArrow direction="right" />
             <Link className="button" href="/services/web-design-and-development">
-              Read more {ArrowSVG}
+              Explore web development {ArrowSVG}
             </Link>
           </div>
         </section>
@@ -62,7 +61,7 @@ export default function ServicesHomeVer2() {
             alt="Automation Banner"
             width={1280}
             height={720}
-            priority
+            sizes="(max-width: 650px) calc(100vw - 40px), (max-width: 800px) 350px, (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
           />
           <div>
             <p>
@@ -72,7 +71,7 @@ export default function ServicesHomeVer2() {
             </p>
             <ScrollArrow direction="left" />
             <Link className="button white" href="/services/business-automation">
-              Read more {ArrowSVG}
+              Explore business automation {ArrowSVG}
             </Link>
           </div>
         </section>

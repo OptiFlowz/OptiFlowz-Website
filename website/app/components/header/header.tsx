@@ -217,13 +217,15 @@ export default function Header() {
       <div
         className={`mobileMenuOverlay ${menuOpen ? "open" : ""}`}
         onClick={closeMenu}
+        aria-hidden="true"
       />
 
-      <aside
+      <nav
         id="mobile-drawer"
         className={`mobileDrawer ${menuOpen ? "open" : ""}`}
-        role="dialog"
-        aria-modal="true"
+        aria-label="Mobile navigation"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         <div ref={drawerRef} className="mobileDrawerInner">
           <div className="mobileDrawerTop">
@@ -320,7 +322,7 @@ export default function Header() {
             </Link>
           </div>
         </div>
-      </aside>
+      </nav>
     </>
   );
 }

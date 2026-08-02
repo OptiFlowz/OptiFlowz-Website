@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Privacy Policy",
+  title: "Privacy Policy",
   description: "OptiFlowz - Privacy policy - Effective date: February 2, 2026",
 };
 
@@ -71,7 +71,7 @@ export default function PrivacyPolicy() {
             <FadeInOnScroll delay={500}>
                 <section>
                     <h2 className="smallTitle">Legal Basis for Processing (GDPR)</h2>
-                    <p>If you are from the European Economic Area (EEA), OptiFlowz's legal basis for collecting and using personal information depends on the context in which we collect it. We may process your data because:</p>
+                    <p>If you are from the European Economic Area (EEA), OptiFlowz&apos;s legal basis for collecting and using personal information depends on the context in which we collect it. We may process your data because:</p>
                     <ul>
                         <li>We need to perform a contract with you</li>
                         <li>You have given us permission to do so</li>

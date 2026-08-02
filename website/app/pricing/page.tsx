@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowSVG } from "../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
-import ContactForm from "../components/contactForm";
+import LazyContactForm from "../components/lazyContactForm";
 import BookACallButton from "./bookACallButton";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Pricing",
+  title: "Pricing",
   description: "Pricing of the services OptiFlowz offers",
 };
 
@@ -33,7 +33,7 @@ export default function Pricing() {
             </section>
           </section>
           <section>
-            <h2 className="smallTitle">What's included?</h2>
+            <h2 className="smallTitle">What&apos;s included?</h2>
             <p>- Ongoing maintenance and support</p>
             <p>- Future updates at no extra cost</p>
             <p>- Detailed analytics (daily/weekly/monthly)</p>
@@ -70,7 +70,7 @@ export default function Pricing() {
             </section>
           </section>
           <section>
-            <h2 className="smallTitle">What's included?</h2>
+            <h2 className="smallTitle">What&apos;s included?</h2>
             <p>- Strategic Discovery & Planning</p>
             <p>- Custom UI/UX Design</p>
             <p>- Performance & SEO Optimization</p>
@@ -82,10 +82,10 @@ export default function Pricing() {
       <FadeInOnScroll delay={500} className="-mt-4!">
         <section>
           <h2 className="smallTitle">What do we offer?</h2>
-          <p>We're currently fine-tuning our standard packages. In the meantime, you can take a look at the services we offer!</p>
+          <p>We&apos;re currently fine-tuning our standard packages. In the meantime, you can take a look at the services we offer!</p>
           <div className="flex gap-4 max-[500px]:flex-col max-[500px]:mt-3!">
             <Link className="button white noLineHover max-[500px]:w-full! max-[500px]:justify-center" href="/services/web-design-and-development">
-              Read more {ArrowSVG}
+              Explore web development {ArrowSVG}
             </Link>
           </div>
         </section>
@@ -94,7 +94,7 @@ export default function Pricing() {
         <h2 className="mainTitle">Contact us for a custom quote</h2>
       </FadeInOnScroll>
       <FadeInOnScroll delay={700}>
-        <ContactForm />
+        <LazyContactForm />
       </FadeInOnScroll>
     </main>
   );

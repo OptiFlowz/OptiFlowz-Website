@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 type TimelineButton = {
   href: string;
@@ -370,7 +371,14 @@ export default function ReusableTimelineSection({
                 ) : (
                   <div className="project-card">
                     {s.image ? (
-                      <img src={s.image.src} alt={s.image.alt} className="mockup-image" />
+                      <Image
+                        src={s.image.src}
+                        alt={s.image.alt}
+                        className="mockup-image"
+                        width={1920}
+                        height={1080}
+                        sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 800px) calc(100vw - 90px), (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
+                      />
                     ) : null}
 
                     <div className="project-card-info">

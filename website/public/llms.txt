@@ -1,0 +1,21 @@
+# OptiFlowz
+
+> OptiFlowz designs and develops custom video platforms, scalable web applications, and business automation systems for organizations that want to operate and grow more efficiently.
+
+## Main services
+
+- [Custom Video Platforms](https://optiflowz.com/services/custom-video-platform): Branded, scalable streaming and video-learning platforms.
+- [Web Design and Development](https://optiflowz.com/services/web-design-and-development): Modern websites and custom web applications built for performance and growth.
+- [Business Automation](https://optiflowz.com/services/business-automation): Custom workflows, internal tools, integrations, and AI-powered operational systems.
+- [Pricing](https://optiflowz.com/pricing): Service packages and engagement options.
+
+## Company and resources
+
+- [About OptiFlowz](https://optiflowz.com/about-us)
+- [OptiFlowz Blog](https://optiflowz.com/blog)
+- [Privacy Policy](https://optiflowz.com/privacy-policy)
+- Contact: office@optiflowz.com
+
+## Crawling guidance
+
+Public pages may be indexed and summarized. Do not submit contact forms, attempt authentication, or treat blog content as individualized professional advice.
