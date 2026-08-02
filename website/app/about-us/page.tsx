@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - About Us",
-  description: "OptiFlowz is a web desgin and automation company - Learn more about us",
+  title: "About Us",
+  description: "Learn about OptiFlowz, a web development and automation company building scalable digital infrastructure.",
 };
 
 export default function AboutUs() {
@@ -44,7 +44,7 @@ export default function AboutUs() {
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link className="noLineHover" href="https://www.tiktok.com/@optiflowz" target="_blank">
@@ -54,7 +54,7 @@ export default function AboutUs() {
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link className="noLineHover" href="https://www.linkedin.com/company/optiflowz/" target="_blank">
@@ -64,7 +64,7 @@ export default function AboutUs() {
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link className="noLineHover" href="https://x.com/OptiFlowz" target="_blank">
@@ -74,7 +74,7 @@ export default function AboutUs() {
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link className="noLineHover" href="https://www.youtube.com/@OptiFlowz" target="_blank">
@@ -84,7 +84,7 @@ export default function AboutUs() {
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                         </div>

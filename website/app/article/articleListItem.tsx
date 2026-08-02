@@ -1,4 +1,5 @@
 import { ArticleItem } from "@/types";
+import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -8,7 +9,13 @@ type Props = {
 export default function ArticleListItem({props}: Props) {
   return (
     <Link href={`/${props.id}`} className="articleItem noLineHover">
-        <img src={props.banner} alt={props.title} />
+        <Image
+          src={props.banner}
+          alt={props.title}
+          width={800}
+          height={450}
+          sizes="(max-width: 650px) calc(100vw - 40px), 250px"
+        />
         <div>
             <h3>{props.title}</h3>
             <span>{props.category}</span>

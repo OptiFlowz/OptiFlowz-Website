@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
+import Image from "next/image";
 import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
@@ -66,10 +67,13 @@ function ContactFormInner() {
           with us. We&apos;re here to help bring your ideas to life.
         </p>
         <div className="contact-logo">
-          <img
+          <Image
             src="/logo.webp"
             alt="OptiFlowz Logo"
             className="contact-logo-img"
+            width={40}
+            height={40}
+            sizes="40px"
           />
         </div>
       </div>

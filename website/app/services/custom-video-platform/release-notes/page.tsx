@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Video Platform release notes",
+  title: "Video Platform Release Notes",
   description: "Release notes for the Video Platform service offered by OptiFlowz",
 };
 
@@ -16,23 +16,32 @@ export default function ReleaseNotes() {
         </FadeInOnScroll>
         <FadeInOnScroll delay={100}>
             <section>
-                <h2 className="smallTitle"><span className="latest orange">Coming soon</span>Version 1.1.7</h2>
-                <p>- Quizzes and courses</p>
-                <p>- Quiz certificates</p>
-                <p>- Live streaming</p>
+                <h2 className="smallTitle"><span className="latest orange">Coming soon</span>Version 1.1.8</h2>
+                <p>- Live streaming with live chat</p>
+                <p>- Better and more comprehensive role system</p>
+                <p>- Detailed platform settings for the owner and administrators</p>
                 <p>- Further UI improvements and polish</p>
-                <p>- Move the platform to NextJS (For better SEO)</p>
             </section>
         </FadeInOnScroll>
         <FadeInOnScroll delay={200}>
             <section>
-                <h2 className="smallTitle"><span className="latest blue">latest</span>Version 1.1.6</h2>
+                <h2 className="smallTitle"><span className="latest blue">latest</span>Version 1.1.7</h2>
+                <p>- Quizzes and courses</p>
+                <p>- Quiz certificates</p>
+                <p>- Live analytics for each video, channel, and the whole platform</p>
+                <p>- Further UI improvements and polish</p>
+                <p>- Moved the platform fully to Next.js (for better SEO)</p>
+            </section>
+        </FadeInOnScroll>
+        <FadeInOnScroll delay={300}>
+            <section>
+                <h2 className="smallTitle">Version 1.1.6</h2>
                 <p>- AI assistant to guide users through the app</p>
                 <p>- Further UI improvements and polish</p>
                 <p>- Move the platform to NextJS (For better SEO)</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={300}>
+        <FadeInOnScroll delay={400}>
             <section>
                 <h2 className="smallTitle">Version 1.1.5</h2>
                 <p>- BIG UI/UX Redesign</p>
@@ -43,7 +52,7 @@ export default function ReleaseNotes() {
                 <p>- Page load speed and performance improvements</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={400}>
+        <FadeInOnScroll delay={500}>
             <section>
                 <h2 className="smallTitle">Version 1.1.4</h2>
                 <p>- Uploading a video now automaticaly generates video details (title, description, subtitles, chapters, etc.)</p>
@@ -55,7 +64,7 @@ export default function ReleaseNotes() {
                 <p>- Media API integration</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={500}>
+        <FadeInOnScroll delay={600}>
             <section>
                 <h2 className="smallTitle">Version 1.1.3</h2>
                 <p>- Added theater mode to the player</p>
@@ -64,7 +73,7 @@ export default function ReleaseNotes() {
                 <p>- Page load speed and performance improvements</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={600}>
+        <FadeInOnScroll delay={700}>
             <section>
                 <h2 className="smallTitle">Version 1.1.2</h2>
                 <p>- Full custom player with chapter support</p>
@@ -73,7 +82,7 @@ export default function ReleaseNotes() {
                 <p>- Automatic video subtitle generation now works in most languages</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={700}>
+        <FadeInOnScroll delay={800}>
             <section>
                 <h2 className="smallTitle">Version 1.1.1</h2>
                 <p>- Page load speed and performance improvements</p>
@@ -83,7 +92,7 @@ export default function ReleaseNotes() {
                 <p>- You can now search playlists and people alongside videos</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={800}>
+        <FadeInOnScroll delay={900}>
             <section>
                 <h2 className="smallTitle">Version 1.1.0</h2>
                 <p>- Further design and usability improvements</p>
@@ -97,7 +106,7 @@ export default function ReleaseNotes() {
                 <p>- Added a slider on the home page</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={900}>
+        <FadeInOnScroll delay={1000}>
             <section>
                 <h2 className="smallTitle">Version 1.0.2</h2>
                 <p>- Further design and usability improvements</p>
@@ -107,7 +116,7 @@ export default function ReleaseNotes() {
                 <p>- Account page with liked videos, watch history and continue watching</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={1000}>
+        <FadeInOnScroll delay={1100}>
             <section>
                 <h2 className="smallTitle">Version 1.0.1</h2>
                 <p>- Further design and usability improvements</p>
@@ -117,7 +126,7 @@ export default function ReleaseNotes() {
                 <p>- Basic search algorithm, and search page. Only videos can be searched</p>
             </section>
         </FadeInOnScroll>
-        <FadeInOnScroll delay={1100}>
+        <FadeInOnScroll delay={1200}>
             <section>
                 <h2 className="smallTitle">Version 1.0.0 - Initial release</h2>
                 <p>- Homepage with a recommended section and trending videos</p>

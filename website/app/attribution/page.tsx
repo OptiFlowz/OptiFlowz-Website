@@ -2,7 +2,7 @@ import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Attribution",
+  title: "Attribution",
   description: "Attribution - Assets OptiFlowz uses in the website or its products",
 };
 

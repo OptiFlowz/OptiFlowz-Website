@@ -8,10 +8,10 @@ export default function Footer(){
             <Image 
                 className="footerBg"
                 src="/footerBg.webp"
-                alt="Logo"
+                alt=""
                 width={1300}
                 height={650}
-                priority
+                sizes="100vw"
             />
             <div className="footerWrap">
                 <div>
@@ -23,7 +23,7 @@ export default function Footer(){
                                 width={120}
                                 height={120}
                                 style={{width: "50px", height: "50px"}}
-                                priority
+                                sizes="50px"
                             />
                             <h2>OptiFlowz</h2>
                         </Link>
@@ -36,7 +36,7 @@ export default function Footer(){
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link href="https://www.tiktok.com/@optiflowz" target="_blank">
@@ -46,7 +46,7 @@ export default function Footer(){
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link href="https://www.linkedin.com/company/optiflowz/" target="_blank">
@@ -56,7 +56,7 @@ export default function Footer(){
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link href="https://x.com/OptiFlowz" target="_blank">
@@ -66,7 +66,7 @@ export default function Footer(){
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                             <Link href="https://www.youtube.com/@OptiFlowz" target="_blank">
@@ -76,7 +76,7 @@ export default function Footer(){
                                     width={50}
                                     height={50}
                                     style={{width: "30px", height: "30px"}}
-                                    priority
+                                    sizes="30px"
                                 />
                             </Link>
                         </div>

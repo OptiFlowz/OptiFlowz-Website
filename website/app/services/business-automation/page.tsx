@@ -5,7 +5,7 @@ import { ArrowSVG } from "../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Business Automation",
+  title: "Business Automation",
   description: "Features and benefits of the Business Automation services offered by OptiFlowz",
 };
 
@@ -55,7 +55,7 @@ export default function BusinessAutomation() {
       <FadeInOnScroll delay={300}>
         <section>
           <h2 className="smallTitle">Business Automation Pricing</h2>
-          <p>Pricing for our business automation services isn't currently available. Contact us to get a custom quote.</p>
+          <p>Pricing for our business automation services isn&apos;t currently available. Contact us to get a custom quote.</p>
           <div className="flex gap-4">
             <Link className="button noLineHover" href="/#contactForm">
               Contact Us{ArrowSVG}

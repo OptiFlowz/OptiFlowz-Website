@@ -7,6 +7,7 @@ import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Background from "./components/background";
 import Script from "next/dist/client/script";
+import ChatAccessibilityLabel from "./components/chatAccessibilityLabel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,8 +20,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OptiFlowz",
-  description: "Custom video platforms, scalable web applications, and business automation",
+  metadataBase: new URL("https://optiflowz.com"),
+  title: {
+    default: "OptiFlowz | Custom Digital Platforms & Automation",
+    template: "%s | OptiFlowz",
+  },
+  description:
+    "Custom video platforms, scalable web applications, and business automation systems built for growing organizations.",
+  applicationName: "OptiFlowz",
+  creator: "OptiFlowz",
+  openGraph: {
+    type: "website",
+    siteName: "OptiFlowz",
+    title: "OptiFlowz | Custom Digital Platforms & Automation",
+    description:
+      "Custom video platforms, scalable web applications, and business automation systems built for growing organizations.",
+    url: "https://optiflowz.com",
+  },
+  twitter: {
+    card: "summary",
+    title: "OptiFlowz | Custom Digital Platforms & Automation",
+    description:
+      "Custom video platforms, scalable web applications, and business automation systems built for growing organizations.",
+  },
 };
 
 export default function RootLayout({
@@ -48,6 +70,7 @@ export default function RootLayout({
           data-chat-desktop-width="410px"
           data-chat-desktop-height="550px"
         />
+        <ChatAccessibilityLabel />
         {children}
         <Footer />
         <Analytics/>

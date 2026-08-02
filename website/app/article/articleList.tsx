@@ -1,5 +1,4 @@
 import { ArticleItem } from "@/types";
-import Link from "next/link";
 import ArticleListItem from "./articleListItem";
 
 type Props = {

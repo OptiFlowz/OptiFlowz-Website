@@ -4,10 +4,12 @@ import ServicesHomeVer2 from "./components/servicesHomeVer2";
 import HeroSection from "@/app/components/heroSection";
 
 export const metadata: Metadata = {
-  title:
-    "OptiFlowz - Custom video platforms, scalable web applications, and business automation",
+  title: "Custom Video Platforms, Web Apps & Automation",
   description:
-    "Custom video platforms, scalable web applications, and business automation",
+    "OptiFlowz builds custom video platforms, scalable web applications, and business automation systems for growing organizations.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function Home() {

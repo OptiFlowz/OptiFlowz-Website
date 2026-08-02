@@ -5,7 +5,7 @@ import { ArrowSVG } from "../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
-  title: "OptiFlowz - Web design and development",
+  title: "Web Design and Development",
   description: "Features and benefits of the Web design and development services offered by OptiFlowz",
 };
 
@@ -54,7 +54,7 @@ export default function Pricing() {
       <FadeInOnScroll delay={300}>
         <section>
           <h2 className="smallTitle">Web design and development pricing</h2>
-          <p>Pricing for our web design and development aren't currently available. Contact us to get a custom quote.</p>
+          <p>Pricing for our web design and development isn&apos;t currently available. Contact us to get a custom quote.</p>
           <div className="flex gap-4">
             <Link className="button noLineHover" href="/#contactForm">
               Contact Us{ArrowSVG}

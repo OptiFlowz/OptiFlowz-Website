@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowSVG } from "../constants";
-import ContactForm from "./contactForm";
+import LazyContactForm from "./lazyContactForm";
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -272,10 +273,13 @@ export default function ProjectsSection() {
               <h3 data-tl-anchor>EAES Video Corner</h3>
             </div>
             <div className="project-card">
-              <img
+              <Image
                 src="/eaes-mockup-v2.webp"
                 alt="EAES Video Corner Platform"
                 className="mockup-image"
+                width={1920}
+                height={1080}
+                sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 800px) calc(100vw - 90px), (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
               />
               <div className="project-card-info">
                 <div className="project-card-about">
@@ -325,10 +329,13 @@ export default function ProjectsSection() {
               <h3 data-tl-anchor>SAES Membership system</h3>
             </div>
             <div className="project-card">
-              <img
+              <Image
                 src="/saes-mockup-v2.webp"
                 alt="SAES Membership System"
                 className="mockup-image"
+                width={1920}
+                height={1080}
+                sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 800px) calc(100vw - 90px), (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
               />
               <div className="project-card-info">
                 <div className="project-card-about">
@@ -378,10 +385,13 @@ export default function ProjectsSection() {
               <h3 data-tl-anchor>SECHO Website & Membership System</h3>
             </div>
             <div className="project-card">
-              <img
+              <Image
                 src="/secho-mockup-v3.webp"
                 alt="SECHO Membership System"
                 className="mockup-image"
+                width={1920}
+                height={1080}
+                sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 800px) calc(100vw - 90px), (max-width: 950px) 400px, (max-width: 1200px) 500px, 650px"
               />
               <div className="project-card-info">
                 <div className="project-card-about">
@@ -431,7 +441,7 @@ export default function ProjectsSection() {
               <h3 data-tl-anchor>You could be next...</h3>
             </div>
 
-            <ContactForm />
+            <LazyContactForm />
           </div>
 
           {/* /Section 4 */}
