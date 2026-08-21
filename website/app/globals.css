@@ -1062,7 +1062,7 @@ main{
   position: absolute;
   z-index: 1;
   top: 34px;
-  right: calc((100vw - 100%) / -2);
+  right: clamp(-260px, calc((100vw - 100%) / -2), 0px);
   width: 900px;
   height: 675px;
   pointer-events: none;
