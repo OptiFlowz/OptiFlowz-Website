@@ -54,7 +54,7 @@ export default function HeroSection() {
 
       <div className="hero-media" aria-hidden="true">
         <Image
-          src="/HeroBanner.webp"
+          src="/HeroBanner-v4.webp"
           alt=""
           fill
           sizes="(max-width: 800px) 1px, 900px"

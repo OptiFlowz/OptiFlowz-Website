@@ -601,7 +601,7 @@ header nav a.active::before{
   left: 50%;
   transform: translateX(-50%) translateY(-8px) scale(.97);
   transform-origin: 50% 0%;
-  width: min(520px, calc(100vw - 80px));
+  width: min(440px, calc(100vw - 80px));
   padding: 16px;
   border-radius: 30px;
   background:
