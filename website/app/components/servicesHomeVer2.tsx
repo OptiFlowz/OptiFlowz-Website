@@ -8,7 +8,7 @@ export default function ServicesHomeVer2() {
   return (
     <>
       <FadeInOnScroll>
-        <section className="leftService">
+        <section className="leftService" id="services">
           <Image
             src="/services/CustomVideoPlatformBanner-v2.webp"
             alt="Custom Video Platforms Banner"

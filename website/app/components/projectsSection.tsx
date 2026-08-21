@@ -207,7 +207,7 @@ export default function ProjectsSection() {
   }, [recalcDots]);
 
   return (
-    <section className="projects-section" ref={sectionRef}>
+    <section className="projects-section" id="projects" ref={sectionRef}>
       <div className="grid-wrapper">
         <span></span>
         <span></span>
