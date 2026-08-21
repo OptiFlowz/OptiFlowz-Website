@@ -9,6 +9,7 @@ import MobileMenuButton from "./mobileButton";
 
 export default function Header() {
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -40,12 +41,20 @@ export default function Header() {
     servicesCloseTimeoutRef.current = window.setTimeout(() => {
       setServicesOpen(false);
       servicesCloseTimeoutRef.current = null;
-    }, 190);
+    }, 240);
   };
 
   const toggleMenu = () => setMenuOpen((v) => !v);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 36);
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
 
   const scrollToContact = (e?: React.MouseEvent) => {
     e?.preventDefault();
@@ -118,14 +127,14 @@ export default function Header() {
 
   return (
     <>
-      <header>
+      <header className={`siteHeader ${isScrolled ? "scrolled" : ""}`}>
         <Link href="/" onClick={closeMenu}>
           <Image
+            className="headerLogo"
             src="/logo.webp"
             alt="Logo"
-            width={100}
-            height={100}
-            style={{ width: "40px", height: "40px" }}
+            width={48}
+            height={48}
             priority
           />
         </Link>
@@ -148,7 +157,7 @@ export default function Header() {
               aria-haspopup="menu"
               onClick={() => {
                 clearServicesCloseTimeout();
-                setServicesOpen((v) => !v);
+                setServicesOpen(true);
               }}
             >
               Services
@@ -156,41 +165,42 @@ export default function Header() {
             </button>
 
             <div className="navDropdownMenu" role="menu" aria-label="Services menu">
-              <Link
-                href="/services/custom-video-platform"
-                className={pathname === "/services/custom-video-platform" ? "active" : ""}
-                role="menuitem"
-                onClick={() => setServicesOpen(false)}
-              >
-                OptiFlowz Video Platform
-              </Link>
-
-              <Link
-                href="/services/web-design-and-development"
-                className={pathname === "/services/web-design-and-development" ? "active" : ""}
-                role="menuitem"
-                onClick={() => setServicesOpen(false)}
-              >
-                Web Design & Development
-              </Link>
-
-              <Link
-                  href="/services/business-automation"
-                  className={pathname === "/services/business-automation" ? "active" : ""}
+              {[
+                {
+                  href: "/services/custom-video-platform",
+                  label: "OptiFlowz Video Platform",
+                  image: "/services/CustomVideoPlatformBanner-v2.webp",
+                },
+                {
+                  href: "/services/web-design-and-development",
+                  label: "Web Design & Development",
+                  image: "/services/WebDesignBanner-v2.webp",
+                },
+                {
+                  href: "/services/business-automation",
+                  label: "Business Automation",
+                  image: "/services/BuAutomationBanner-v2.webp",
+                },
+              ].map((service) => (
+                <Link
+                  key={service.href}
+                  href={service.href}
+                  className={pathname === service.href ? "active" : ""}
                   role="menuitem"
                   onClick={() => setServicesOpen(false)}
                 >
-                Business Automation
-              </Link>
-
-              <Link
-                href="/pricing"
-                className={pathname === "/pricing" ? "active" : ""}
-                role="menuitem"
-                onClick={() => setServicesOpen(false)}
-              >
-                Pricing
-              </Link>
+                  <Image
+                    className="navServiceThumb"
+                    src={service.image}
+                    alt=""
+                    width={122}
+                    height={69}
+                    sizes="122px"
+                  />
+                  <span className="navServiceLabel">{service.label}</span>
+                  <span className="navServiceArrow" aria-hidden="true">{ArrowSVG}</span>
+                </Link>
+              ))}
             </div>
           </div>
 
