@@ -68,7 +68,7 @@ export default function FooterWordmark() {
     const glyphProgress = Array.from({ length: WORDMARK.length }, () => 0);
     const glyphStartedAt = Array.from({ length: WORDMARK.length }, () => 0);
 
-    const font = () => `400 ${fontSize}px "Iowan Old Style", Baskerville, "Times New Roman", serif`;
+    const font = () => `700 ${fontSize}px "Gabarito", sans-serif`;
     const morphPresets: MorphPreset[] = [
       { waveX: 0.055, waveY: 0.008, frequencyX: 1.4, frequencyY: 2.2, twist: 0, pinch: 0, bulge: 0, phase: 0.2 },
       { waveX: 0.018, waveY: 0.018, frequencyX: 2.2, frequencyY: 1.2, twist: 0.085, pinch: 0, bulge: 0, phase: 1.7 },
@@ -376,8 +376,9 @@ export default function FooterWordmark() {
           pointer.y,
           hoverRadius,
         );
-        hover.addColorStop(0, withAlpha(brandColors.light, 0.62 * pointer.strength));
-        hover.addColorStop(0.36, withAlpha(brandColors.primary, 0.3 * pointer.strength));
+        hover.addColorStop(0, `rgba(255, 255, 255, ${0.76 * pointer.strength})`);
+        hover.addColorStop(0.24, withAlpha(brandColors.light, 0.5 * pointer.strength));
+        hover.addColorStop(0.55, withAlpha(brandColors.primary, 0.24 * pointer.strength));
         hover.addColorStop(1, withAlpha(brandColors.dark, 0));
         context.fillStyle = hover;
         context.fillRect(0, 0, width, height);
