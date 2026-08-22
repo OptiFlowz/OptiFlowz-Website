@@ -1,106 +1,91 @@
 import Link from "next/link";
 import Image from "next/image";
-import FadeInOnScroll from "../fadeInOnScroll";
+import FooterReveal from "./footerReveal";
+import FooterWordmark from "./footerWordmark";
 
-export default function Footer(){
-    return(
-        <footer>
-            <Image 
-                className="footerBg"
-                src="/footerBg.webp"
-                alt=""
-                width={1300}
-                height={650}
-                sizes="100vw"
-            />
-            <div className="footerWrap">
-                <div>
-                    <FadeInOnScroll className="quickAbout" distance={12} initialScale={0.99}>
-                        <Link className="logo" href="/">
-                            <Image 
-                                src="/logo.webp"
-                                alt="Logo"
-                                width={120}
-                                height={120}
-                                style={{width: "50px", height: "50px"}}
-                                sizes="50px"
-                            />
-                            <h2>OptiFlowz</h2>
-                        </Link>
-                        <p>OptiFlowz helps service-based businesses grow by building high-performing video platforms, modern websites, and automation systems that remove friction from daily operations. We design and develop scalable, AI-powered workflows tailored to how you work—so you can run smoother, respond faster, and scale with confidence.</p>
-                        <div className="socials">
-                            <Link href="https://www.instagram.com/optiflowz/" target="_blank">
-                                <Image 
-                                    src="/social/instagramSVG.svg"
-                                    alt="Instagram Logo"
-                                    width={50}
-                                    height={50}
-                                    style={{width: "30px", height: "30px"}}
-                                    sizes="30px"
-                                />
-                            </Link>
-                            <Link href="https://www.tiktok.com/@optiflowz" target="_blank">
-                                <Image 
-                                    src="/social/tikTokSVG.svg"
-                                    alt="TikTok Logo"
-                                    width={50}
-                                    height={50}
-                                    style={{width: "30px", height: "30px"}}
-                                    sizes="30px"
-                                />
-                            </Link>
-                            <Link href="https://www.linkedin.com/company/optiflowz/" target="_blank">
-                                <Image 
-                                    src="/social/linkedInSVG.svg"
-                                    alt="LinkedIn Logo"
-                                    width={50}
-                                    height={50}
-                                    style={{width: "30px", height: "30px"}}
-                                    sizes="30px"
-                                />
-                            </Link>
-                            <Link href="https://x.com/OptiFlowz" target="_blank">
-                                <Image 
-                                    src="/social/XSVG.svg"
-                                    alt="X Logo"
-                                    width={50}
-                                    height={50}
-                                    style={{width: "30px", height: "30px"}}
-                                    sizes="30px"
-                                />
-                            </Link>
-                            <Link href="https://www.youtube.com/@OptiFlowz" target="_blank">
-                                <Image 
-                                    src="/social/YouTubeSVG.svg"
-                                    alt="YouTube Logo"
-                                    width={50}
-                                    height={50}
-                                    style={{width: "30px", height: "30px"}}
-                                    sizes="30px"
-                                />
-                            </Link>
-                        </div>
-                    </FadeInOnScroll>
-                    <FadeInOnScroll className="links" delay={100} distance={12} initialScale={0.99}>
-                        <nav>
-                            <h3>Quick Links</h3>
-                            <Link href="/">Home</Link>
-                            <Link href="/pricing">Pricing</Link>
-                            <Link href="/about-us">About Us</Link>
-                            <Link href="/blog">Blog</Link>
-                            <Link href="/privacy-policy">Privacy Policy</Link>
-                        </nav>
-                        <nav>
-                            <h3>Contact</h3>
-                            <p>OptiFlowz LLC – 30 N Gould St Ste R, Sheridan, WY 82801, USA</p>
-                            <p>Monday–Friday 09:00–17:00</p>
-                            <Link href="mailto:office@optiflowz.com">office@optiflowz.com</Link>
-                        </nav>
-                    </FadeInOnScroll>
-                </div>
-                <p className="copyright"><span className="accentText">OptiFlowz</span> – Copyright © 2026 – All rights reserved</p>
+const socialLinks = [
+  { href: "https://www.instagram.com/optiflowz/", icon: "/social/instagramSVG.svg", label: "Instagram" },
+  { href: "https://www.tiktok.com/@optiflowz", icon: "/social/tikTokSVG.svg", label: "TikTok" },
+  { href: "https://www.linkedin.com/company/optiflowz/", icon: "/social/linkedInSVG.svg", label: "LinkedIn" },
+  { href: "https://x.com/OptiFlowz", icon: "/social/XSVG.svg", label: "X" },
+  { href: "https://www.youtube.com/@OptiFlowz", icon: "/social/YouTubeSVG.svg", label: "YouTube" },
+];
+
+export default function Footer() {
+  return (
+    <footer className="site-footer">
+      <FooterReveal>
+        <div className="footer-shell">
+          <div className="footer-main">
+            <div className="footer-intro">
+              <Link className="footer-brand" href="/" aria-label="OptiFlowz home">
+                <Image
+                  className="footer-brand-logo"
+                  src="/logo.webp"
+                  alt=""
+                  width={36}
+                  height={36}
+                  sizes="36px"
+                />
+                <span>OptiFlowz</span>
+              </Link>
+              <p>
+                We build high-performing video platforms, modern websites, and
+                automation systems that help ambitious businesses move faster.
+              </p>
+              <div className="footer-socials" aria-label="OptiFlowz social profiles">
+                {socialLinks.map((social) => (
+                  <Link
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                  >
+                    <Image src={social.icon} alt="" width={22} height={22} sizes="22px" />
+                  </Link>
+                ))}
+              </div>
             </div>
-        </footer>
-    )
 
+            <div className="footer-navigation">
+              <nav aria-label="Explore">
+                <h3>Explore</h3>
+                <Link href="/">Home</Link>
+                <Link href="/about-us">About us</Link>
+                <Link href="/blog">Blog</Link>
+                <Link href="/pricing">Pricing</Link>
+              </nav>
+
+              <nav aria-label="Services">
+                <h3>Services</h3>
+                <Link href="/services/custom-video-platform">Video platforms</Link>
+                <Link href="/services/web-design-and-development">Web design</Link>
+                <Link href="/services/business-automation">Automation</Link>
+              </nav>
+
+              <div className="footer-contact">
+                <h3>Start a conversation</h3>
+                <Link className="footer-email" href="mailto:office@optiflowz.com">
+                  office@optiflowz.com
+                </Link>
+                <p>Mon–Fri, 09:00–17:00</p>
+                <p>OptiFlowz LLC – 30 N Gould St Ste R, Sheridan, WY 82801, USA</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-meta">
+            <p>© 2026 OptiFlowz LLC. All rights reserved.</p>
+            <div>
+              <Link href="/privacy-policy">Privacy</Link>
+              <Link href="/attribution">Attribution</Link>
+            </div>
+          </div>
+        </div>
+
+        <FooterWordmark />
+      </FooterReveal>
+    </footer>
+  );
 }
