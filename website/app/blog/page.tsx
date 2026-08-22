@@ -2,7 +2,7 @@ import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
 import { getCatogorisedArticles } from "@/lib/articles";
 import Link from "next/link";
-import BlogArticleCard from "./blogArticleCard";
+import BlogArticleGrid from "./blogArticleGrid";
 import BlogFeaturedCardMotion from "./blogFeaturedCardMotion";
 import BlogCategoryFilters from "./blogCategoryFilters";
 
@@ -69,18 +69,7 @@ export default async function Blog({searchParams}: Props) {
                         <h2>{searchedCategory ? `Latest articles from ${searchedCategory}` : "Latest articles"}</h2>
                         <span>{remainingArticles.length} {remainingArticles.length === 1 ? "article" : "articles"}</span>
                     </div>
-                    <div className="blog-grid">
-                        {remainingArticles.map((article, index) => (
-                            <FadeInOnScroll
-                                key={article.id}
-                                delay={Math.min(index, 5) * 70}
-                                distance={22}
-                                initialScale={0.985}
-                            >
-                                <BlogArticleCard article={article} />
-                            </FadeInOnScroll>
-                        ))}
-                    </div>
+                    <BlogArticleGrid articles={remainingArticles} />
                 </section>
             ) : (
                 <section className="blog-empty-state" id="latest-articles">
