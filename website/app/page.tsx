@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ProjectsSection from "@/app/components/projectsSection";
 import ServicesHomeVer2 from "./components/servicesHomeVer2";
 import HeroSection from "@/app/components/heroSection";
+import ScrollScaleSections from "@/app/components/scrollScaleSections";
 
 export const metadata: Metadata = {
   title: {
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
+      <ScrollScaleSections />
       <HeroSection />
       <ServicesHomeVer2 />
       <ProjectsSection />

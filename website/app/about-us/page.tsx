@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AboutHero from "./aboutHero";
 import AboutMission from "./aboutMission";
-import AboutSectionScrollMotion from "./aboutSectionScrollMotion";
+import ScrollScaleSections from "@/app/components/scrollScaleSections";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -163,10 +163,10 @@ export default function AboutUs() {
 
   return (
     <main className="pp-main about-page">
-      <AboutSectionScrollMotion />
+      <ScrollScaleSections />
       <AboutHero />
 
-      <section className="about-pillars-section about-scroll-scale-section">
+      <section className="about-pillars-section scroll-scale-section">
         <div className="about-pillars-grid">
           {pillars.map((pillar, index) => (
             <FadeInOnScroll
@@ -201,7 +201,7 @@ export default function AboutUs() {
 
       <AboutMission />
 
-      <section className="about-team-section about-scroll-scale-section">
+      <section className="about-team-section scroll-scale-section">
         <FadeInOnScroll distance={18} initialScale={0.99}>
           <span className="about-eyebrow">Meet the team</span>
         </FadeInOnScroll>
@@ -250,7 +250,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="about-journal-section about-scroll-scale-section">
+      <section className="about-journal-section scroll-scale-section">
         <FadeInOnScroll distance={18} initialScale={0.99}>
           <div className="about-section-heading">
             <div>

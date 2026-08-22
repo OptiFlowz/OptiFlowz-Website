@@ -2960,9 +2960,9 @@ main{
   gap: 2.25rem;
 }
 
-.about-scroll-scale-section{
-  --about-section-scale: 1;
-  transform: scale(var(--about-section-scale));
+.scroll-scale-section{
+  --scroll-section-scale: 1;
+  transform: scale(var(--scroll-section-scale));
   transform-origin: center;
   will-change: transform;
 }

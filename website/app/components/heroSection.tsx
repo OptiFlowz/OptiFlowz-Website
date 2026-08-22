@@ -27,7 +27,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className={`hero ${isLoaded ? "is-loaded" : ""}`}>
+    <section className={`hero scroll-scale-section ${isLoaded ? "is-loaded" : ""}`}>
       <div className="hero-content">
         <h1>
           Build Smarter.

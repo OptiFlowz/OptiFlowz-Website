@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 
-export default function AboutSectionScrollMotion() {
+export default function ScrollScaleSections() {
   useEffect(() => {
     const sections = Array.from(
-      document.querySelectorAll<HTMLElement>(".about-scroll-scale-section"),
+      document.querySelectorAll<HTMLElement>(".scroll-scale-section"),
     );
     if (!sections.length) return;
 
@@ -17,7 +17,7 @@ export default function AboutSectionScrollMotion() {
 
       if (reducedMotion.matches) {
         sections.forEach((section) =>
-          section.style.setProperty("--about-section-scale", "1"),
+          section.style.setProperty("--scroll-section-scale", "1"),
         );
         return;
       }
@@ -36,7 +36,7 @@ export default function AboutSectionScrollMotion() {
         const eased = progress * progress * (3 - 2 * progress);
         const scale = 1 - (1 - minimumScale) * eased;
 
-        section.style.setProperty("--about-section-scale", scale.toFixed(4));
+        section.style.setProperty("--scroll-section-scale", scale.toFixed(4));
       });
     };
 

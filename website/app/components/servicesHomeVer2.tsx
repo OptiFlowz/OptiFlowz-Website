@@ -8,7 +8,7 @@ export default function ServicesHomeVer2() {
   return (
     <>
       <FadeInOnScroll>
-        <section className="leftService" id="services">
+        <section className="leftService scroll-scale-section" id="services">
           <Image
             src="/services/CustomVideoPlatformBanner-v2.webp"
             alt="Custom Video Platforms Banner"
@@ -25,14 +25,14 @@ export default function ServicesHomeVer2() {
             </p>
             <ScrollArrow direction="left" />
             <Link className="button white" href="/services/custom-video-platform">
-              Explore video platforms {ArrowSVG}
+              Explore video platform {ArrowSVG}
             </Link>
           </div>
         </section>
       </FadeInOnScroll>
 
       <FadeInOnScroll>
-        <section className="rightService">
+        <section className="rightService scroll-scale-section">
           <Image
             src="/services/WebDesignBanner-v2.webp"
             alt="Web Design And Development Banner"
@@ -55,7 +55,7 @@ export default function ServicesHomeVer2() {
       </FadeInOnScroll>
 
       <FadeInOnScroll>
-        <section className="leftService">
+        <section className="leftService scroll-scale-section">
           <Image
             src="/services/BuAutomationBanner-v2.webp"
             alt="Automation Banner"
