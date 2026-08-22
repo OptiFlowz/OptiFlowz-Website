@@ -7,6 +7,47 @@ import html from "remark-html";
 
 const articlesDirectory = path.join(process.cwd(), "articles");
 
+function cleanMarkdownExcerpt(value: string): string {
+    return value
+        .replace(/^>\s?/gm, "")
+        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/[*_`~]/g, "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function createArticleExcerpt(content: string): string {
+    const lines = content.split("\n");
+    const quotedLines: string[] = [];
+    let collectingQuote = false;
+
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+
+        if (trimmedLine.startsWith(">")) {
+            collectingQuote = true;
+            quotedLines.push(trimmedLine);
+            continue;
+        }
+
+        if (collectingQuote) break;
+    }
+
+    const fallbackParagraph = lines.find((line) => {
+        const trimmedLine = line.trim();
+        return trimmedLine && !trimmedLine.startsWith("#") && !trimmedLine.startsWith("![");
+    }) ?? "";
+
+    const excerpt = cleanMarkdownExcerpt(quotedLines.join(" ") || fallbackParagraph);
+
+    if (excerpt.length <= 175) return excerpt;
+
+    const shortenedExcerpt = excerpt.slice(0, 175).replace(/\s+\S*$/, "");
+    return `${shortenedExcerpt}…`;
+}
+
 function parseArticleDate(date: string): number {
     const [day, month, year] = date.split("-").map(Number);
 
@@ -29,6 +70,7 @@ function getSortedArticles(): ArticleItem[] {
         return {
             id,
             ...matterResult.data,
+            excerpt: matterResult.data.excerpt ?? createArticleExcerpt(matterResult.content),
         } as ArticleItem;
     });
 

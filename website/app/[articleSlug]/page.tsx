@@ -11,10 +11,15 @@ export default async function Article({params}: Props){
     const articleData = await getArticleData(articleSlug);
     
     const addCategotyTag = () => {
-        return articleData.contentHtml.replace(
-            /<\/h1>/,
-            `</h1><a href=${`/blog?category=${encodeURIComponent(articleData.category)}`} class="article-category">Category: ${articleData.category}</a>`
-        );
+        const categoryHref = `/blog?category=${encodeURIComponent(articleData.category)}#blog-categories`;
+
+        return articleData.contentHtml
+            .replace(
+                /<\/h1>/,
+                `</h1><div class="article-meta" style="display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:9px"><a href="${categoryHref}" class="article-category" style="margin:0">Category: ${articleData.category}</a>`
+            )
+            .replace(/<h3>/, '<h3 style="margin:0">')
+            .replace(/<\/h3>/, "</h3></div>");
     }
 
     return(

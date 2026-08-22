@@ -1,7 +1,9 @@
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import type { Metadata } from "next";
 import { getCatogorisedArticles } from "@/lib/articles";
-import ArticleListItem from "../article/articleListItem";
+import Link from "next/link";
+import BlogArticleCard from "./blogArticleCard";
+import BlogCategoryFilters from "./blogCategoryFilters";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -14,9 +16,9 @@ type Props = {
 
 export default async function Blog({searchParams}: Props) {
     const searchedCategory = (await searchParams).category;
-
-    const articlesByCategory = getCatogorisedArticles(searchedCategory);
-    const articles = Object.values(articlesByCategory)
+    const allArticlesByCategory = getCatogorisedArticles();
+    const categories = Object.keys(allArticlesByCategory).sort((a, b) => a.localeCompare(b));
+    const allArticles = Object.values(allArticlesByCategory)
         .flat()
         .sort((a, b) => {
             const [dayA, monthA, yearA] = a.date.split("-").map(Number);
@@ -24,25 +26,63 @@ export default async function Blog({searchParams}: Props) {
 
             return new Date(yearB, monthB - 1, dayB).getTime() - new Date(yearA, monthA - 1, dayA).getTime();
         });
+    const featuredArticle = allArticles.find((article) => article.id === "why-fully-custom-video-platforms-win");
+    const remainingArticles = allArticles.filter((article) => {
+        if (article.id === featuredArticle?.id) return false;
+        return !searchedCategory || article.category === searchedCategory;
+    });
 
     return(
-        <main className="pp-main">
-            <FadeInOnScroll>
-                <h1 className="mainTitlePP">{searchedCategory ? `Category: ${searchedCategory}` : "Blog"}</h1>
-                <p>Read our latest news and updates</p>
+        <main className="pp-main blog-page">
+            <FadeInOnScroll threshold={0} distance={24} initialScale={0.98}>
+                <section className="blog-hero">
+                    <h1 className="mainTitlePP">Blog</h1>
+                    <p>Read our latest news and updates</p>
+                </section>
             </FadeInOnScroll>
-            <FadeInOnScroll delay={100} threshold={0}>
-                <section className="blogSection">
-                    <p>Latest posts</p>
-                    <div className="articleList">
-                        {articles.map((article, index) => (
-                            <FadeInOnScroll key={article.id} delay={index * 100}>
-                                <ArticleListItem key={article.id} props={article} />
+
+            {featuredArticle ? (
+                <FadeInOnScroll delay={80} threshold={0} distance={24} initialScale={0.985}>
+                    <section className="blog-featured-section">
+                        <div className="blog-section-heading">
+                            <h2>Featured</h2>
+                        </div>
+                        <BlogArticleCard article={featuredArticle} featured />
+                    </section>
+                </FadeInOnScroll>
+            ) : null}
+
+            <FadeInOnScroll delay={130} threshold={0} distance={18} initialScale={0.99}>
+                <BlogCategoryFilters categories={categories} selectedCategory={searchedCategory} />
+            </FadeInOnScroll>
+
+            {remainingArticles.length > 0 ? (
+                <section className="blog-index" id="latest-articles">
+                    <div className="blog-section-heading">
+                        <h2>{searchedCategory ? `Latest articles from ${searchedCategory}` : "Latest articles"}</h2>
+                        <span>{remainingArticles.length} {remainingArticles.length === 1 ? "article" : "articles"}</span>
+                    </div>
+                    <div className="blog-grid">
+                        {remainingArticles.map((article, index) => (
+                            <FadeInOnScroll
+                                key={article.id}
+                                delay={Math.min(index, 5) * 70}
+                                distance={22}
+                                initialScale={0.985}
+                            >
+                                <BlogArticleCard article={article} />
                             </FadeInOnScroll>
                         ))}
                     </div>
                 </section>
-            </FadeInOnScroll>
+            ) : (
+                <section className="blog-empty-state" id="latest-articles">
+                    <h2>No articles found</h2>
+                    <p>There are no posts in this category yet.</p>
+                    <Link href="/blog" className="button noLineHover">View all articles</Link>
+                </section>
+            )}
+
         </main>
     )
 }

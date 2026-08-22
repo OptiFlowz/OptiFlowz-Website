@@ -3,5 +3,6 @@ export type ArticleItem = {
     title: string,
     date: string,
     category: string,
-    banner: string
+    banner: string,
+    excerpt?: string
 }
