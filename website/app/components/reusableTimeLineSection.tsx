@@ -11,7 +11,7 @@ type TimelineButton = {
 
 export type TimelineSectionItem = {
   /** Tekst iznad kartice (npr "EAES Video Corner") */
-  label?: string;
+  label?: React.ReactNode;
 
   /** Veliki naslov u kartici (npr "Custom Video Platform...") */
   title?: string;
