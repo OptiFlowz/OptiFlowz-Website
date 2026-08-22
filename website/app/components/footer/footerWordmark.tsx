@@ -10,6 +10,7 @@ type GlyphSlot = {
   x: number;
   width: number;
   drawX: number;
+  textureWidth: number;
   texture: HTMLCanvasElement;
 };
 
@@ -60,34 +61,31 @@ export default function FooterWordmark() {
     let fontSize = 0;
     let textX = 0;
     let textY = 0;
+    let pixelRatio = 1;
     let animationFrame = 0;
     let visible = true;
-    let hoveredGlyph = -1;
     let previousTimestamp = 0;
     let glyphSlots: GlyphSlot[] = [];
     const glyphProgress = Array.from({ length: WORDMARK.length }, () => 0);
-    const glyphStartedAt = Array.from({ length: WORDMARK.length }, () => 0);
 
     const font = () => `700 ${fontSize}px "Gabarito", sans-serif`;
-    const morphPresets: MorphPreset[] = [
-      { waveX: 0.055, waveY: 0.008, frequencyX: 1.4, frequencyY: 2.2, twist: 0, pinch: 0, bulge: 0, phase: 0.2 },
-      { waveX: 0.018, waveY: 0.018, frequencyX: 2.2, frequencyY: 1.2, twist: 0.085, pinch: 0, bulge: 0, phase: 1.7 },
-      { waveX: 0.012, waveY: 0.006, frequencyX: 1.8, frequencyY: 3.4, twist: -0.018, pinch: -0.24, bulge: 0, phase: 3.2 },
-      { waveX: 0.008, waveY: 0.008, frequencyX: 1.2, frequencyY: 1.4, twist: 0.012, pinch: 0, bulge: 0.28, phase: 4.6 },
-      { waveX: 0.07, waveY: 0.014, frequencyX: 3.8, frequencyY: 5.2, twist: 0.025, pinch: 0.08, bulge: -0.03, phase: 5.8 },
-    ];
 
     const buildScene = () => {
       const bounds = canvas.getBoundingClientRect();
       width = Math.max(1, Math.round(bounds.width));
       height = Math.max(1, Math.round(bounds.height));
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 3);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      maskCanvas.width = width;
-      maskCanvas.height = height;
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+      maskCanvas.width = Math.round(width * pixelRatio);
+      maskCanvas.height = Math.round(height * pixelRatio);
+      maskContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      maskContext.imageSmoothingEnabled = true;
+      maskContext.imageSmoothingQuality = "high";
 
       fontSize = Math.min(height * 0.98, width * 0.24);
       context.font = font();
@@ -104,11 +102,15 @@ export default function FooterWordmark() {
         const end = context.measureText(WORDMARK.slice(0, index + 1)).width;
         const glyphWidth = end - start;
         const padding = Math.max(12, fontSize * 0.09);
+        const textureWidth = glyphWidth + padding * 2;
         const texture = document.createElement("canvas");
-        texture.width = Math.ceil(glyphWidth + padding * 2);
-        texture.height = height;
+        texture.width = Math.ceil(textureWidth * pixelRatio);
+        texture.height = Math.ceil(height * pixelRatio);
         const textureContext = texture.getContext("2d");
         if (textureContext) {
+          textureContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+          textureContext.imageSmoothingEnabled = true;
+          textureContext.imageSmoothingQuality = "high";
           textureContext.font = font();
           textureContext.fillStyle = "#fff";
           textureContext.textAlign = "left";
@@ -121,6 +123,7 @@ export default function FooterWordmark() {
           x: textX + start,
           width: glyphWidth,
           drawX: textX + start - padding,
+          textureWidth,
           texture,
         };
       });
@@ -131,27 +134,32 @@ export default function FooterWordmark() {
       }
     };
 
-    const interpolatePreset = (from: MorphPreset, to: MorphPreset, amount: number) => {
-      const result = {} as MorphPreset;
-      (Object.keys(from) as Array<keyof MorphPreset>).forEach((key) => {
-        result[key] = from[key] + (to[key] - from[key]) * amount;
-      });
-      return result;
-    };
-
     const drawWarpedGlyph = (
       glyph: GlyphSlot,
       preset: MorphPreset,
       progress: number,
     ) => {
       if (progress < 0.004) {
-        maskContext.drawImage(glyph.texture, glyph.drawX, 0);
+        maskContext.drawImage(
+          glyph.texture,
+          0,
+          0,
+          glyph.texture.width,
+          glyph.texture.height,
+          glyph.drawX,
+          0,
+          glyph.textureWidth,
+          height,
+        );
         return;
       }
 
       const sourceWidth = glyph.texture.width;
-      const sourceTop = Math.max(0, Math.floor(textY - fontSize * 0.92));
-      const sourceBottom = Math.min(height, Math.ceil(textY + fontSize * 0.12));
+      const sourceTop = Math.max(0, Math.floor((textY - fontSize * 0.92) * pixelRatio));
+      const sourceBottom = Math.min(
+        glyph.texture.height,
+        Math.ceil((textY + fontSize * 0.12) * pixelRatio),
+      );
       const visibleHeight = Math.max(1, sourceBottom - sourceTop);
 
       for (let sourceY = sourceTop; sourceY < sourceBottom; sourceY += 1) {
@@ -170,9 +178,9 @@ export default function FooterWordmark() {
             + preset.bulge * centerInfluence
           ),
         );
-        const destinationWidth = sourceWidth * scaleX;
+        const destinationWidth = glyph.textureWidth * scaleX;
         const destinationX = glyph.drawX
-          + (sourceWidth - destinationWidth) / 2
+          + (glyph.textureWidth - destinationWidth) / 2
           + displacementX;
 
         maskContext.drawImage(
@@ -182,90 +190,45 @@ export default function FooterWordmark() {
           sourceWidth,
           1,
           destinationX,
-          sourceY + displacementY,
+          sourceY / pixelRatio + displacementY,
           destinationWidth,
-          1.65,
+          1.2 / pixelRatio,
         );
       }
     };
 
     const drawMorphingMask = (timestamp: number) => {
-      const targetGlyph = pointer.active
-        ? glyphSlots.findIndex(({ x, width: glyphWidth }) => (
-          pointer.targetX >= x && pointer.targetX < x + glyphWidth
-        ))
-        : -1;
-
-      if (targetGlyph !== hoveredGlyph) {
-        hoveredGlyph = targetGlyph;
-        if (hoveredGlyph >= 0) glyphStartedAt[hoveredGlyph] = timestamp;
-      }
-
       const delta = previousTimestamp ? Math.min(34, timestamp - previousTimestamp) : 16;
       previousTimestamp = timestamp;
-      const easing = reduceMotion ? 1 : 1 - Math.exp(-delta / 150);
+      const easing = reduceMotion ? 1 : 1 - Math.exp(-delta / 72);
+      const liquidTime = reduceMotion ? 0 : timestamp * 0.0022;
 
-      maskContext.clearRect(0, 0, width, height);
+      maskContext.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
       maskContext.fillStyle = "#fff";
 
       glyphSlots.forEach((glyph, index) => {
-        const target = index === hoveredGlyph ? 1 : 0;
+        const glyphCenter = glyph.x + glyph.width / 2;
+        const hoverRadius = Math.max(fontSize * 0.46, glyph.width * 1.4);
+        const distance = Math.abs(pointer.x - glyphCenter) / hoverRadius;
+        const target = pointer.active && !reduceMotion
+          ? Math.exp(-distance * distance * 2.25) * pointer.strength
+          : 0;
         glyphProgress[index] += (target - glyphProgress[index]) * easing;
         const progress = glyphProgress[index];
-        const elapsed = reduceMotion ? 0 : Math.max(0, timestamp - glyphStartedAt[index]);
-        const cycleDuration = 900;
-        const cycle = elapsed / cycleDuration;
-        const currentVariant = Math.floor(cycle) % morphPresets.length;
-        const nextVariant = (currentVariant + 1) % morphPresets.length;
-        const cycleProgress = cycle - Math.floor(cycle);
-        const rawMix = Math.max(0, Math.min(1, (cycleProgress - 0.34) / 0.66));
-        const mix = rawMix * rawMix * (3 - 2 * rawMix);
-        const preset = interpolatePreset(
-          morphPresets[currentVariant],
-          morphPresets[nextVariant],
-          mix,
-        );
+        const phase = liquidTime + index * 0.68;
+        const preset: MorphPreset = {
+          waveX: 0.032 + Math.sin(phase * 0.72) * 0.012,
+          waveY: 0.006 + Math.cos(phase * 0.83) * 0.003,
+          frequencyX: 1.6 + Math.sin(phase * 0.47) * 0.3,
+          frequencyY: 2.15 + Math.cos(phase * 0.54) * 0.45,
+          twist: Math.sin(phase * 0.61) * 0.025,
+          pinch: Math.cos(phase * 0.52) * 0.07,
+          bulge: 0.1 + Math.sin(phase * 0.44) * 0.055,
+          phase,
+        };
 
         drawWarpedGlyph(glyph, preset, progress);
       });
-    };
-
-    const drawFlowingRibbon = (
-      time: number,
-      center: number,
-      amplitude: number,
-      thickness: number,
-      phase: number,
-      color: string,
-      opacity: number,
-    ) => {
-      context.beginPath();
-      for (let x = -30; x <= width + 30; x += 22) {
-        const y = height * center
-          + Math.sin(x * 0.009 + time + phase) * amplitude
-          + Math.sin(x * 0.0038 - time * 0.7 + phase) * amplitude * 0.45;
-        if (x === -30) context.moveTo(x, y);
-        else context.lineTo(x, y);
-      }
-      for (let x = width + 30; x >= -30; x -= 22) {
-        const y = height * center
-          + thickness
-          + Math.sin(x * 0.009 + time + phase) * amplitude
-          + Math.sin(x * 0.0038 - time * 0.7 + phase) * amplitude * 0.45;
-        context.lineTo(x, y);
-      }
-      context.closePath();
-      const ribbonGradient = context.createLinearGradient(
-        0,
-        height * center - amplitude,
-        0,
-        height * center + thickness + amplitude,
-      );
-      ribbonGradient.addColorStop(0, withAlpha(color, 0));
-      ribbonGradient.addColorStop(0.5, withAlpha(color, opacity));
-      ribbonGradient.addColorStop(1, withAlpha(color, 0));
-      context.fillStyle = ribbonGradient;
-      context.fill();
     };
 
     const draw = (timestamp: number) => {
@@ -333,38 +296,6 @@ export default function FooterWordmark() {
         context.fillStyle = glow;
         context.fillRect(0, 0, width, height);
       }
-
-      drawFlowingRibbon(
-        time * 1.15,
-        0.48,
-        height * 0.055,
-        height * 0.18,
-        0,
-        brandColors.light,
-        0.16,
-      );
-      drawFlowingRibbon(
-        -time * 0.82,
-        0.68,
-        height * 0.04,
-        height * 0.11,
-        2.4,
-        brandColors.primary,
-        0.15,
-      );
-
-      const sheenX = ((time * width * 0.13) % (width * 1.5)) - width * 0.25;
-      const sheen = context.createLinearGradient(
-        sheenX - width * 0.12,
-        0,
-        sheenX + width * 0.12,
-        height,
-      );
-      sheen.addColorStop(0, withAlpha(brandColors.light, 0));
-      sheen.addColorStop(0.5, withAlpha(brandColors.light, 0.32));
-      sheen.addColorStop(1, withAlpha(brandColors.light, 0));
-      context.fillStyle = sheen;
-      context.fillRect(0, 0, width, height);
 
       if (pointer.strength > 0.01) {
         const hoverRadius = Math.max(130, Math.min(240, width * 0.17));

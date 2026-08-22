@@ -3613,8 +3613,10 @@ main{
 .footer-wordmark{
   position: relative;
   display: block;
-  width: 100%;
+  width: calc(100% - 40px);
+  max-width: var(--contentWidth);
   height: clamp(150px, 21vw, 310px);
+  margin-inline: auto;
   overflow: hidden;
   cursor: crosshair;
 }
@@ -4093,6 +4095,7 @@ main{
     gap: 12px;
   }
   .footer-wordmark{
+    width: calc(100% - 32px);
     height: 130px;
   }
 }
