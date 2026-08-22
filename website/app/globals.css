@@ -2960,6 +2960,13 @@ main{
   gap: 2.25rem;
 }
 
+.about-scroll-scale-section{
+  --about-section-scale: 1;
+  transform: scale(var(--about-section-scale));
+  transform-origin: center;
+  will-change: transform;
+}
+
 .about-section-heading > div{
   display: flex;
   flex-direction: column;

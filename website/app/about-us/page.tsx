@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AboutHero from "./aboutHero";
 import AboutMission from "./aboutMission";
+import AboutSectionScrollMotion from "./aboutSectionScrollMotion";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -162,9 +163,10 @@ export default function AboutUs() {
 
   return (
     <main className="pp-main about-page">
+      <AboutSectionScrollMotion />
       <AboutHero />
 
-      <section className="about-pillars-section">
+      <section className="about-pillars-section about-scroll-scale-section">
         <div className="about-pillars-grid">
           {pillars.map((pillar, index) => (
             <FadeInOnScroll
@@ -199,7 +201,7 @@ export default function AboutUs() {
 
       <AboutMission />
 
-      <section className="about-team-section">
+      <section className="about-team-section about-scroll-scale-section">
         <FadeInOnScroll distance={18} initialScale={0.99}>
           <span className="about-eyebrow">Meet the team</span>
         </FadeInOnScroll>
@@ -248,7 +250,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="about-journal-section">
+      <section className="about-journal-section about-scroll-scale-section">
         <FadeInOnScroll distance={18} initialScale={0.99}>
           <div className="about-section-heading">
             <div>
