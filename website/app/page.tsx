@@ -4,7 +4,9 @@ import ServicesHomeVer2 from "./components/servicesHomeVer2";
 import HeroSection from "@/app/components/heroSection";
 
 export const metadata: Metadata = {
-  title: "Custom Video Platforms, Web Apps & Automation",
+  title: {
+    absolute: "OptiFlowz - Custom Video Platforms, Web Apps & Automation",
+  },
   description:
     "OptiFlowz builds custom video platforms, scalable web applications, and business automation systems for growing organizations.",
   alternates: {
