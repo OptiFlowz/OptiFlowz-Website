@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getCatogorisedArticles } from "@/lib/articles";
 import Link from "next/link";
 import BlogArticleCard from "./blogArticleCard";
+import BlogFeaturedCardMotion from "./blogFeaturedCardMotion";
 import BlogCategoryFilters from "./blogCategoryFilters";
 
 export const metadata: Metadata = {
@@ -36,8 +37,14 @@ export default async function Blog({searchParams}: Props) {
         <main className="pp-main blog-page">
             <FadeInOnScroll threshold={0} distance={24} initialScale={0.98}>
                 <section className="blog-hero">
-                    <h1 className="mainTitlePP">Blog</h1>
-                    <p>Read our latest news and updates</p>
+                    <div className="blog-hero-copy">
+                        <h1 className="mainTitlePP">Blog</h1>
+                        <p>Read our latest news and updates</p>
+                    </div>
+                    <div className="blog-publishing-schedule">
+                        <strong>New article every Friday</strong>
+                        <span>09:00 UTC</span>
+                    </div>
                 </section>
             </FadeInOnScroll>
 
@@ -47,7 +54,7 @@ export default async function Blog({searchParams}: Props) {
                         <div className="blog-section-heading">
                             <h2>Featured</h2>
                         </div>
-                        <BlogArticleCard article={featuredArticle} featured />
+                        <BlogFeaturedCardMotion article={featuredArticle} />
                     </section>
                 </FadeInOnScroll>
             ) : null}
