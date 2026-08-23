@@ -75,6 +75,8 @@ export default function Footer() {
             </div>
           </div>
 
+          <FooterWordmark />
+
           <div className="footer-meta">
             <p>© 2026 OptiFlowz LLC. All rights reserved.</p>
             <div>
@@ -83,8 +85,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        <FooterWordmark />
       </FooterReveal>
     </footer>
   );

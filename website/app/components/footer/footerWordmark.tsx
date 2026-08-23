@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-const WORDMARK = "OptiFlowz";
+const WORDMARK = "OPTIFLOWZ";
 
 type GlyphSlot = {
   character: string;
@@ -213,6 +213,7 @@ export default function FooterWordmark() {
     const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, strength: 0, active: false };
     let width = 0;
     let height = 0;
+    let edgeGuard = 0;
     let fontSize = 0;
     let textX = 0;
     let textY = 0;
@@ -233,9 +234,15 @@ export default function FooterWordmark() {
         });
       }
 
-      const bounds = canvas.getBoundingClientRect();
-      width = Math.max(1, Math.round(bounds.width));
-      height = Math.max(1, Math.round(bounds.height));
+      width = Math.max(1, Math.round(canvas.clientWidth));
+      height = Math.max(1, Math.round(canvas.clientHeight));
+      const wordmarkStyles = canvas.parentElement
+        ? getComputedStyle(canvas.parentElement)
+        : null;
+      edgeGuard = wordmarkStyles
+        ? Math.max(0, -(Number.parseFloat(wordmarkStyles.marginLeft) || 0))
+        : 0;
+      const availableWidth = Math.max(1, width - edgeGuard * 2);
 
       // Keep the wordmark supersampled on low-density displays so both the
       // WebGL displacement and its 2D fallback retain crisp glyph edges.
@@ -256,17 +263,30 @@ export default function FooterWordmark() {
         webglMask.gl.viewport(0, 0, warpCanvas.width, warpCanvas.height);
       }
 
-      fontSize = Math.min(height * 0.98, width * 0.24);
+      fontSize = height * 0.98;
       context.font = font();
-      const availableWidth = width * 0.96;
-      const initialWidth = context.measureText(WORDMARK).width;
-      if (initialWidth > availableWidth) fontSize *= availableWidth / initialWidth;
+      let wordMetrics = context.measureText(WORDMARK);
+      let inkWidth = wordMetrics.actualBoundingBoxLeft
+        + wordMetrics.actualBoundingBoxRight;
+      if (!inkWidth) inkWidth = wordMetrics.width;
+      fontSize *= availableWidth / inkWidth;
 
       context.font = font();
-      const textWidth = context.measureText(WORDMARK).width;
-      textX = (width - textWidth) / 2;
+      wordMetrics = context.measureText(WORDMARK);
+      inkWidth = wordMetrics.actualBoundingBoxLeft
+        + wordMetrics.actualBoundingBoxRight;
+      if (!inkWidth) inkWidth = wordMetrics.width;
+      fontSize *= availableWidth / inkWidth;
+
+      context.font = font();
+      wordMetrics = context.measureText(WORDMARK);
+      inkWidth = wordMetrics.actualBoundingBoxLeft
+        + wordMetrics.actualBoundingBoxRight;
+      if (!inkWidth) inkWidth = wordMetrics.width;
+      textX = edgeGuard + wordMetrics.actualBoundingBoxLeft
+        + (availableWidth - inkWidth) / 2;
       textY = height * 0.92;
-      colorSplitX = textX + context.measureText("Opti").width;
+      colorSplitX = textX + context.measureText("OPTI").width;
       glyphSlots = Array.from(WORDMARK).map((character, index) => {
         const start = context.measureText(WORDMARK.slice(0, index)).width;
         const end = context.measureText(WORDMARK.slice(0, index + 1)).width;
@@ -494,9 +514,9 @@ export default function FooterWordmark() {
         const distance = Math.abs(pointer.x - glyphCenter) / hoverRadius;
         const ambientStrength = reduceMotion ? 0 : 0.34;
         const hoverBoost = pointer.active && !reduceMotion
-          ? Math.exp(-distance * distance * 2.25) * pointer.strength * 0.96
+          ? Math.exp(-distance * distance * 2.25) * pointer.strength * 1.2
           : 0;
-        const target = Math.min(1.12, ambientStrength + hoverBoost);
+        const target = Math.min(1.3, ambientStrength + hoverBoost);
         glyphProgress[index] += (target - glyphProgress[index]) * easing;
         const progress = glyphProgress[index];
         const phase = liquidTime + index * 0.68;
@@ -687,7 +707,7 @@ export default function FooterWordmark() {
   return (
     <Link className="footer-wordmark" href="/" aria-label="OptiFlowz home">
       <canvas ref={canvasRef} aria-hidden="true" />
-      <span className="sr-only">OptiFlowz</span>
+      <span className="sr-only">OPTIFLOWZ</span>
     </Link>
   );
 }

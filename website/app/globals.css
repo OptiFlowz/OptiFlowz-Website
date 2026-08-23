@@ -3467,7 +3467,7 @@ main{
   display: grid;
   grid-template-columns: minmax(260px, .82fr) 1.55fr;
   gap: clamp(60px, 9vw, 140px);
-  padding-bottom: clamp(58px, 7vw, 96px);
+  padding-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .footer-intro{
@@ -3589,6 +3589,7 @@ main{
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  margin-top: clamp(8px, .8vw, 12px);
   padding: 20px 0;
   border-top: 1px solid rgba(255, 255, 255, .09);
   color: rgba(255, 255, 255, .36);
@@ -3611,12 +3612,13 @@ main{
 }
 
 .footer-wordmark{
+  --wordmark-edge-guard: min(40px, max(8px, calc((100vw - var(--contentWidth)) / 2)));
+  --wordmark-edge-guard-double: min(80px, max(16px, calc(100vw - var(--contentWidth))));
   position: relative;
   display: block;
-  width: calc(100% - 40px);
-  max-width: var(--contentWidth);
-  height: clamp(150px, 21vw, 310px);
-  margin-inline: auto;
+  width: calc(100% + var(--wordmark-edge-guard-double));
+  height: clamp(150px, 16.5vw, 230px);
+  margin-inline: calc(0px - var(--wordmark-edge-guard));
   overflow: hidden;
   cursor: crosshair;
 }
@@ -4095,7 +4097,6 @@ main{
     gap: 12px;
   }
   .footer-wordmark{
-    width: calc(100% - 32px);
     height: 130px;
   }
 }
