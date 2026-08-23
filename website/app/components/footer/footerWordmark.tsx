@@ -61,6 +61,7 @@ export default function FooterWordmark() {
     let fontSize = 0;
     let textX = 0;
     let textY = 0;
+    let colorSplitX = 0;
     let pixelRatio = 1;
     let animationFrame = 0;
     let visible = true;
@@ -99,6 +100,7 @@ export default function FooterWordmark() {
       const textWidth = context.measureText(WORDMARK).width;
       textX = (width - textWidth) / 2;
       textY = height * 0.92;
+      colorSplitX = textX + context.measureText("Opti").width;
       glyphSlots = Array.from(WORDMARK).map((character, index) => {
         const start = context.measureText(WORDMARK.slice(0, index)).width;
         const end = context.measureText(WORDMARK.slice(0, index + 1)).width;
@@ -250,12 +252,15 @@ export default function FooterWordmark() {
       context.textAlign = "left";
       context.textBaseline = "alphabetic";
 
-      const base = context.createLinearGradient(textX, height, width - textX, 0);
-      base.addColorStop(0, brandColors.dark);
-      base.addColorStop(0.38, brandColors.primary);
-      base.addColorStop(0.68, brandColors.light);
+      const splitStop = Math.max(0, Math.min(1, colorSplitX / width));
+      const flowMidpoint = splitStop + (1 - splitStop) * 0.56;
+      const base = context.createLinearGradient(0, 0, width, 0);
+      base.addColorStop(0, "#f7fbff");
+      base.addColorStop(splitStop, "#f7fbff");
+      base.addColorStop(splitStop, brandColors.light);
+      base.addColorStop(flowMidpoint, brandColors.primary);
       base.addColorStop(1, brandColors.dark);
-      context.globalAlpha = 0.82;
+      context.globalAlpha = 0.96;
       context.fillStyle = base;
       context.fillRect(0, 0, width, height);
       context.globalAlpha = 1;
@@ -304,20 +309,52 @@ export default function FooterWordmark() {
 
       if (pointer.strength > 0.01) {
         const hoverRadius = Math.max(130, Math.min(240, width * 0.17));
-        const hover = context.createRadialGradient(
-          pointer.x,
-          pointer.y,
+        const boundaryWidth = Math.max(24, fontSize * 0.12);
+        const boundaryProgress = Math.max(
           0,
-          pointer.x,
-          pointer.y,
-          hoverRadius,
+          Math.min(1, (pointer.x - colorSplitX + boundaryWidth) / (boundaryWidth * 2)),
         );
-        hover.addColorStop(0, `rgba(255, 255, 255, ${0.76 * pointer.strength})`);
-        hover.addColorStop(0.24, withAlpha(brandColors.light, 0.5 * pointer.strength));
-        hover.addColorStop(0.55, withAlpha(brandColors.primary, 0.24 * pointer.strength));
-        hover.addColorStop(1, withAlpha(brandColors.dark, 0));
-        context.fillStyle = hover;
-        context.fillRect(0, 0, width, height);
+        const flowHoverMix = boundaryProgress * boundaryProgress
+          * (3 - 2 * boundaryProgress);
+        const optiHoverMix = 1 - flowHoverMix;
+
+        if (optiHoverMix > 0.01) {
+          const blueHover = context.createRadialGradient(
+            pointer.x,
+            pointer.y,
+            0,
+            pointer.x,
+            pointer.y,
+            hoverRadius,
+          );
+          const blueStrength = pointer.strength * optiHoverMix;
+          blueHover.addColorStop(0, withAlpha(brandColors.primary, 0.56 * blueStrength));
+          blueHover.addColorStop(0.25, withAlpha(brandColors.light, 0.36 * blueStrength));
+          blueHover.addColorStop(0.58, withAlpha(brandColors.dark, 0.1 * blueStrength));
+          blueHover.addColorStop(1, withAlpha(brandColors.dark, 0));
+          context.globalCompositeOperation = "source-over";
+          context.fillStyle = blueHover;
+          context.fillRect(0, 0, width, height);
+        }
+
+        if (flowHoverMix > 0.01) {
+          const lightHover = context.createRadialGradient(
+            pointer.x,
+            pointer.y,
+            0,
+            pointer.x,
+            pointer.y,
+            hoverRadius,
+          );
+          const lightStrength = pointer.strength * flowHoverMix;
+          lightHover.addColorStop(0, `rgba(255, 255, 255, ${0.76 * lightStrength})`);
+          lightHover.addColorStop(0.24, withAlpha(brandColors.light, 0.5 * lightStrength));
+          lightHover.addColorStop(0.55, withAlpha(brandColors.primary, 0.24 * lightStrength));
+          lightHover.addColorStop(1, withAlpha(brandColors.dark, 0));
+          context.globalCompositeOperation = "screen";
+          context.fillStyle = lightHover;
+          context.fillRect(0, 0, width, height);
+        }
       }
 
       drawMorphingMask(timestamp);
