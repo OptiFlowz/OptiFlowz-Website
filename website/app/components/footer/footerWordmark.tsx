@@ -75,7 +75,9 @@ export default function FooterWordmark() {
       width = Math.max(1, Math.round(bounds.width));
       height = Math.max(1, Math.round(bounds.height));
 
-      pixelRatio = Math.min(window.devicePixelRatio || 1, 3);
+      // Keep the slice-based liquid mask supersampled even on 1x/1.25x Windows
+      // displays. Rendering it at the native low density exposes slice seams.
+      pixelRatio = Math.min(Math.max(window.devicePixelRatio || 1, 2), 3);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
