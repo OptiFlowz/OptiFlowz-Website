@@ -161,8 +161,9 @@ export default function FooterWordmark() {
         Math.ceil((textY + fontSize * 0.12) * pixelRatio),
       );
       const visibleHeight = Math.max(1, sourceBottom - sourceTop);
+      const sliceHeight = progress > 0.28 ? 1 : Math.max(1, Math.round(pixelRatio));
 
-      for (let sourceY = sourceTop; sourceY < sourceBottom; sourceY += 1) {
+      for (let sourceY = sourceTop; sourceY < sourceBottom; sourceY += sliceHeight) {
         const normalizedY = ((sourceY - sourceTop) / visibleHeight - 0.5) * 2;
         const centerInfluence = Math.max(0, 1 - normalizedY * normalizedY);
         const displacementX = fontSize * progress * (
@@ -188,11 +189,11 @@ export default function FooterWordmark() {
           0,
           sourceY,
           sourceWidth,
-          1,
+          sliceHeight,
           destinationX,
           sourceY / pixelRatio + displacementY,
           destinationWidth,
-          1.2 / pixelRatio,
+          (sliceHeight + 0.2) / pixelRatio,
         );
       }
     };
@@ -210,9 +211,11 @@ export default function FooterWordmark() {
         const glyphCenter = glyph.x + glyph.width / 2;
         const hoverRadius = Math.max(fontSize * 0.46, glyph.width * 1.4);
         const distance = Math.abs(pointer.x - glyphCenter) / hoverRadius;
-        const target = pointer.active && !reduceMotion
-          ? Math.exp(-distance * distance * 2.25) * pointer.strength
+        const ambientStrength = reduceMotion ? 0 : 0.13;
+        const hoverBoost = pointer.active && !reduceMotion
+          ? Math.exp(-distance * distance * 2.25) * pointer.strength * 0.76
           : 0;
+        const target = Math.min(0.92, ambientStrength + hoverBoost);
         glyphProgress[index] += (target - glyphProgress[index]) * easing;
         const progress = glyphProgress[index];
         const phase = liquidTime + index * 0.68;
@@ -235,9 +238,9 @@ export default function FooterWordmark() {
       animationFrame = window.requestAnimationFrame(draw);
       if (!visible) return;
 
-      pointer.x += (pointer.targetX - pointer.x) * 0.075;
-      pointer.y += (pointer.targetY - pointer.y) * 0.075;
-      pointer.strength += ((pointer.active ? 1 : 0) - pointer.strength) * 0.07;
+      pointer.x += (pointer.targetX - pointer.x) * 0.18;
+      pointer.y += (pointer.targetY - pointer.y) * 0.18;
+      pointer.strength += ((pointer.active ? 1 : 0) - pointer.strength) * 0.14;
 
       const time = reduceMotion ? 0 : timestamp * 0.00038;
       context.clearRect(0, 0, width, height);
