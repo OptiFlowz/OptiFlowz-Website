@@ -158,48 +158,51 @@ export default function FooterWordmark() {
         return;
       }
 
-      const sourceWidth = glyph.texture.width;
-      const sourceTop = Math.max(0, Math.floor((textY - fontSize * 0.92) * pixelRatio));
-      const sourceBottom = Math.min(
-        glyph.texture.height,
-        Math.ceil((textY + fontSize * 0.12) * pixelRatio),
+      // Deform the full glyph as one continuous surface. The previous
+      // scanline warp produced visible horizontal seams in Windows/Edge.
+      const glyphCenterX = glyph.x + glyph.width / 2;
+      const glyphCenterY = textY - fontSize * 0.4;
+      const phase = preset.phase;
+      const horizontalDrift = fontSize * progress
+        * (Math.sin(phase * 0.86) * 0.01 + preset.waveX * 0.16);
+      const verticalDrift = fontSize * progress
+        * (Math.cos(phase * 0.72) * 0.005 + preset.waveY * 0.2);
+      const scaleX = Math.max(
+        0.84,
+        1 + progress * (
+          preset.bulge * 0.42
+          + preset.pinch * 0.18
+          + Math.sin(phase * 0.62) * 0.028
+        ),
       );
-      const visibleHeight = Math.max(1, sourceBottom - sourceTop);
-      const sliceHeight = progress > 0.28 ? 1 : Math.max(1, Math.round(pixelRatio));
+      const scaleY = 1 + progress * Math.cos(phase * 0.58) * 0.025;
+      const skewX = progress * (
+        preset.twist * 0.72
+        + Math.sin(phase * 0.74) * 0.018
+      );
+      const skewY = progress * Math.cos(phase * 0.67) * 0.009;
+      const rotation = progress * Math.sin(phase * 0.51) * 0.014;
 
-      for (let sourceY = sourceTop; sourceY < sourceBottom; sourceY += sliceHeight) {
-        const normalizedY = ((sourceY - sourceTop) / visibleHeight - 0.5) * 2;
-        const centerInfluence = Math.max(0, 1 - normalizedY * normalizedY);
-        const displacementX = fontSize * progress * (
-          preset.waveX * Math.sin(normalizedY * Math.PI * preset.frequencyY + preset.phase)
-          + preset.twist * normalizedY
-        );
-        const displacementY = fontSize * progress * preset.waveY
-          * Math.sin(normalizedY * Math.PI * preset.frequencyX + preset.phase * 0.73);
-        const scaleX = Math.max(
-          0.56,
-          1 + progress * (
-            preset.pinch * (1 - Math.abs(normalizedY))
-            + preset.bulge * centerInfluence
-          ),
-        );
-        const destinationWidth = glyph.textureWidth * scaleX;
-        const destinationX = glyph.drawX
-          + (glyph.textureWidth - destinationWidth) / 2
-          + displacementX;
-
-        maskContext.drawImage(
-          glyph.texture,
-          0,
-          sourceY,
-          sourceWidth,
-          sliceHeight,
-          destinationX,
-          sourceY / pixelRatio + displacementY,
-          destinationWidth,
-          (sliceHeight + 0.2) / pixelRatio,
-        );
-      }
+      maskContext.save();
+      maskContext.translate(
+        glyphCenterX + horizontalDrift,
+        glyphCenterY + verticalDrift,
+      );
+      maskContext.rotate(rotation);
+      maskContext.transform(scaleX, skewY, skewX, scaleY, 0, 0);
+      maskContext.translate(-glyphCenterX, -glyphCenterY);
+      maskContext.drawImage(
+        glyph.texture,
+        0,
+        0,
+        glyph.texture.width,
+        glyph.texture.height,
+        glyph.drawX,
+        0,
+        glyph.textureWidth,
+        height,
+      );
+      maskContext.restore();
     };
 
     const drawMorphingMask = (timestamp: number) => {
