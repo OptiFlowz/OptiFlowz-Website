@@ -492,11 +492,11 @@ export default function FooterWordmark() {
         const glyphCenter = glyph.x + glyph.width / 2;
         const hoverRadius = Math.max(fontSize * 0.46, glyph.width * 1.4);
         const distance = Math.abs(pointer.x - glyphCenter) / hoverRadius;
-        const ambientStrength = reduceMotion ? 0 : 0.13;
+        const ambientStrength = reduceMotion ? 0 : 0.34;
         const hoverBoost = pointer.active && !reduceMotion
-          ? Math.exp(-distance * distance * 2.25) * pointer.strength * 0.76
+          ? Math.exp(-distance * distance * 2.25) * pointer.strength * 0.96
           : 0;
-        const target = Math.min(0.92, ambientStrength + hoverBoost);
+        const target = Math.min(1.12, ambientStrength + hoverBoost);
         glyphProgress[index] += (target - glyphProgress[index]) * easing;
         const progress = glyphProgress[index];
         const phase = liquidTime + index * 0.68;
