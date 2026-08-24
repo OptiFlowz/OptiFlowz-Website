@@ -27,7 +27,7 @@ export default async function Blog({searchParams}: Props) {
 
             return new Date(yearB, monthB - 1, dayB).getTime() - new Date(yearA, monthA - 1, dayA).getTime();
         });
-    const featuredArticle = allArticles.find((article) => article.id === "why-fully-custom-video-platforms-win");
+    const featuredArticle = allArticles.find((article) => article.category === "Platform Updates");
     const remainingArticles = allArticles.filter((article) => {
         if (article.id === featuredArticle?.id) return false;
         return !searchedCategory || article.category === searchedCategory;
