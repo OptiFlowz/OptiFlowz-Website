@@ -21,12 +21,15 @@ type Release = {
 
 const releases: Release[] = [
   {
-    version: "Version 1.1.8",
+    version: "Version 1.2.0",
     status: "Coming soon",
     changes: [
       { category: "New Feature", text: "Live streaming with live chat" },
       { category: "Improvement", text: "Better and more comprehensive role system" },
-      { category: "New Feature", text: "Detailed platform settings for owners and administrators" },
+      { category: "Improvement", text: "Detailed platform settings for owners and administrators" },
+      { category: "New Feature", text: "Floating mini player that keeps videos playing as you browse other pages" },
+      { category: "Improvement", text: "Platform localization in 16 languages: Arabic, German, English, Spanish, French, Greek, Hindi, Croatian, Italian, Dutch, Polish, Portuguese, Romanian, Slovenian, Serbian, and Turkish, with more coming soon" },
+      { category: "UI/UX", text: "Customizable subtitle color, size, and background in the video player" },
       { category: "UI/UX", text: "Further UI improvements and polish" },
     ],
   },
