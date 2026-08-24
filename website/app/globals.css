@@ -1218,11 +1218,22 @@ header nav a.active::before{
   filter: brightness(1.08);
 }
 
-.navServiceThumb{
+.navServiceThumbFrame{
   width: 88px;
   height: 50px;
-  object-fit: cover;
   border-radius: 9px;
+  overflow: hidden;
+}
+
+.navServiceThumb{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.navServiceThumbZoomed{
+  transform: scale(1.08);
 }
 
 .navServiceLabel{

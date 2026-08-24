@@ -170,16 +170,19 @@ export default function Header() {
                   href: "/services/custom-video-platform",
                   label: "OptiFlowz Video Platform",
                   image: "/services/CustomVideoPlatformBanner-v2.webp",
+                  zoomThumbnail: false,
                 },
                 {
                   href: "/services/web-design-and-development",
                   label: "Web Design & Development",
                   image: "/services/WebDesignBanner-v2.webp",
+                  zoomThumbnail: false,
                 },
                 {
                   href: "/services/business-automation",
                   label: "Business Automation",
                   image: "/services/BuAutomationBanner-v2.webp",
+                  zoomThumbnail: true,
                 },
               ].map((service) => (
                 <Link
@@ -189,14 +192,16 @@ export default function Header() {
                   role="menuitem"
                   onClick={() => setServicesOpen(false)}
                 >
-                  <Image
-                    className="navServiceThumb"
-                    src={service.image}
-                    alt=""
-                    width={122}
-                    height={69}
-                    sizes="122px"
-                  />
+                  <span className="navServiceThumbFrame">
+                    <Image
+                      className={`navServiceThumb${service.zoomThumbnail ? " navServiceThumbZoomed" : ""}`}
+                      src={service.image}
+                      alt=""
+                      width={122}
+                      height={69}
+                      sizes="122px"
+                    />
+                  </span>
                   <span className="navServiceLabel">{service.label}</span>
                   <span className="navServiceArrow" aria-hidden="true">{ArrowSVG}</span>
                 </Link>
