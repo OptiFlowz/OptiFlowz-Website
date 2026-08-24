@@ -1493,6 +1493,149 @@ main{
   text-align: left;
 }
 
+/* NOT FOUND */
+
+.not-found-main{
+  width: calc(100% - 88px);
+  max-width: 1500px;
+  min-height: 100svh;
+  justify-content: center;
+  padding-block: 110px;
+}
+
+.not-found-stage{
+  position: relative;
+  width: 100%;
+  min-height: clamp(480px, calc(100svh - 220px), 820px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 54px 30px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.not-found-stage::before{
+  content: none;
+}
+
+.not-found-watermark{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  color: transparent;
+  font-size: clamp(22rem, 43vw, 46rem);
+  font-weight: 500;
+  line-height: 0.72;
+  letter-spacing: -0.12em;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px rgba(76, 154, 255, 0.18);
+  transform: translate(-51%, -50%);
+  user-select: none;
+}
+
+.not-found-content{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(520px, 100%);
+  text-align: center;
+}
+
+.not-found-spark{
+  width: 48px;
+  height: 48px;
+  margin-bottom: 2.2rem;
+  fill: none;
+  stroke: var(--blueAccent3);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 8px 18px rgba(0, 77, 168, 0.35));
+  transform-origin: center;
+  will-change: transform;
+  animation: notFoundSparkSpin 10s linear infinite;
+}
+
+@keyframes notFoundSparkSpin{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.not-found-content h1{
+  color: #fff;
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.not-found-content p{
+  max-width: 430px;
+  margin-top: 1.45rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1.18rem;
+  line-height: 1.5;
+}
+
+.not-found-home-button{
+  margin-top: 2.3rem;
+  padding: 12px 25px;
+  color: #0d4e8e;
+  background: #fff;
+  border-radius: var(--bR);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 12px 30px rgba(0, 42, 91, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.not-found-home-button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 35, 78, 0.25);
+}
+
+@media (max-width: 700px){
+  .not-found-main{
+    width: calc(100% - 24px);
+    padding-block: 92px;
+  }
+
+  .not-found-stage{
+    min-height: max(500px, calc(100svh - 184px));
+    padding: 40px 22px;
+  }
+
+  .not-found-watermark{
+    font-size: 70vw;
+    letter-spacing: -0.14em;
+  }
+
+  .not-found-spark{
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1.8rem;
+  }
+
+  .not-found-content h1{
+    font-size: clamp(2.65rem, 12vw, 3.8rem);
+  }
+
+  .not-found-content p{
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .not-found-spark{
+    animation: none;
+  }
+}
+
 .smallTitle{
   font-size: 1.5rem;
   line-height: 1.1;

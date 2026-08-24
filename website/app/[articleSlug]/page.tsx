@@ -1,5 +1,6 @@
-import { getArticleData } from "@/lib/articles";
+import { articleExists, getArticleData } from "@/lib/articles";
 import { ArticleItem } from "@/types";
+import { notFound } from "next/navigation";
 import FadeInOnScroll from "../components/fadeInOnScroll";
 
 type Props = {
@@ -8,6 +9,11 @@ type Props = {
 
 export default async function Article({params}: Props){
     const articleSlug = (await params).articleSlug;
+
+    if (!articleExists(articleSlug)) {
+        notFound();
+    }
+
     const articleData = await getArticleData(articleSlug);
     
     const addCategotyTag = () => {

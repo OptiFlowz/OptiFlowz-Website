@@ -7,6 +7,16 @@ import html from "remark-html";
 
 const articlesDirectory = path.join(process.cwd(), "articles");
 
+export function articleExists(id: string): boolean {
+    const isValidArticleSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id);
+
+    if (!isValidArticleSlug) {
+        return false;
+    }
+
+    return fs.existsSync(path.join(articlesDirectory, `${id}.md`));
+}
+
 function cleanMarkdownExcerpt(value: string): string {
     return value
         .replace(/^>\s?/gm, "")
