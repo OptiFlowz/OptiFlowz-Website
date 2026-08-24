@@ -7,6 +7,27 @@ import Link from "next/link";
 import { ArrowSVG } from "@/app/constants";
 import MobileMenuButton from "./mobileButton";
 
+const serviceLinks = [
+  {
+    href: "/services/custom-video-platform",
+    label: "OptiFlowz Video Platform",
+    image: "/services/CustomVideoPlatformBanner-v2.webp",
+    zoomThumbnail: false,
+  },
+  {
+    href: "/services/web-design-and-development",
+    label: "Web Design & Development",
+    image: "/services/WebDesignBanner-v2.webp",
+    zoomThumbnail: false,
+  },
+  {
+    href: "/services/business-automation",
+    label: "Business Automation",
+    image: "/services/BuAutomationBanner-v2.webp",
+    zoomThumbnail: true,
+  },
+];
+
 export default function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -165,26 +186,7 @@ export default function Header() {
             </button>
 
             <div className="navDropdownMenu" role="menu" aria-label="Services menu">
-              {[
-                {
-                  href: "/services/custom-video-platform",
-                  label: "OptiFlowz Video Platform",
-                  image: "/services/CustomVideoPlatformBanner-v2.webp",
-                  zoomThumbnail: false,
-                },
-                {
-                  href: "/services/web-design-and-development",
-                  label: "Web Design & Development",
-                  image: "/services/WebDesignBanner-v2.webp",
-                  zoomThumbnail: false,
-                },
-                {
-                  href: "/services/business-automation",
-                  label: "Business Automation",
-                  image: "/services/BuAutomationBanner-v2.webp",
-                  zoomThumbnail: true,
-                },
-              ].map((service) => (
+              {serviceLinks.map((service) => (
                 <Link
                   key={service.href}
                   href={service.href}
@@ -244,12 +246,19 @@ export default function Header() {
       >
         <div ref={drawerRef} className="mobileDrawerInner">
           <div className="mobileDrawerTop">
+            <Link href="/" className="mobileDrawerBrand" onClick={closeMenu}>
+              <Image src="/logo.webp" alt="OptiFlowz" width={42} height={42} />
+              <span>
+                <strong>OptiFlowz</strong>
+                <small>Digital experiences</small>
+              </span>
+            </Link>
             <button
               className="mobileCloseButton"
               onClick={closeMenu}
               aria-label="Close menu"
             >
-              ✕
+              <span aria-hidden="true">✕</span>
             </button>
           </div>
 
@@ -270,37 +279,28 @@ export default function Header() {
               </button>
 
               <div className={`mobileServicesMenu ${mobileServicesOpen ? "open" : ""}`}>
-                <Link
-                  href="/services/custom-video-platform"
-                  className={pathname === "/services/custom-video-platform" ? "active" : ""}
-                  onClick={closeMenu}
-                >
-                  OptiFlowz Video Platform
-                </Link>
+                {serviceLinks.map((service) => (
+                  <Link
+                    key={service.href}
+                    href={service.href}
+                    className={pathname === service.href ? "active" : ""}
+                    onClick={closeMenu}
+                  >
+                    <span className="mobileServiceThumbFrame">
+                      <Image
+                        className={service.zoomThumbnail ? "mobileServiceThumbZoomed" : ""}
+                        src={service.image}
+                        alt=""
+                        width={72}
+                        height={41}
+                        sizes="72px"
+                      />
+                    </span>
+                    <span>{service.label}</span>
+                    <span className="mobileServiceArrow" aria-hidden="true">{ArrowSVG}</span>
+                  </Link>
+                ))}
 
-                <Link
-                  href="/services/web-design-and-development"
-                  className={pathname === "/services/web-design-and-development" ? "active" : ""}
-                  onClick={closeMenu}
-                >
-                  Web Design & Development
-                </Link>
-
-                <Link
-                  href="/services/business-automation"
-                  className={pathname === "/services/business-automation" ? "active" : ""}
-                  onClick={closeMenu}
-                >
-                  Business Automation
-                </Link>
-
-                <Link
-                  href="/pricing"
-                  className={pathname === "/pricing" ? "active" : ""}
-                  onClick={closeMenu}
-                >
-                  Pricing
-                </Link>
               </div>
             </div>
 
