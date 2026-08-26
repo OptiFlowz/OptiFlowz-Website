@@ -6,7 +6,7 @@ import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 
 export const metadata: Metadata = {
   title: "Web Design and Development",
-  description: "Features and benefits of the Web design and development services offered by OptiFlowz",
+  description: "Modern web design, development, SEO, and hosting support from an official Hostinger Partner.",
 };
 
 export default function Pricing() {
@@ -35,6 +35,18 @@ export default function Pricing() {
       title: "Scalable Web Infrastructure",
       description: [
         "As your business grows, your technology should too. We build powerful web applications designed to handle increasing traffic and complex data, ensuring your platform remains fast and reliable no matter how large your audience becomes.",
+      ],
+    },
+    {
+      label: "Launch on a stronger foundation",
+      image: {
+        src: "/web-design/HostingerPartnerBanner.webp",
+        alt: "OptiFlowz official Hostinger Partner hosting infrastructure",
+      },
+      title: "Official Hostinger Partner",
+      description: [
+        "Our Hostinger partnership adds a stronger operational layer to web projects that need hosting, migration, domain setup, or ongoing management.",
+        "You get one team from design and development through launch, with infrastructure decisions made early and access to partner-level technical support when a project needs it.",
       ],
     },
   ];

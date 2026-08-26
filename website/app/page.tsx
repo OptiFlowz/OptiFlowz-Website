@@ -3,6 +3,7 @@ import ProjectsSection from "@/app/components/projectsSection";
 import ServicesHomeVer2 from "./components/servicesHomeVer2";
 import HeroSection from "@/app/components/heroSection";
 import ScrollScaleSections from "@/app/components/scrollScaleSections";
+import BlogHighlights from "@/app/components/blogHighlights";
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function Home() {
       <HeroSection />
       <ServicesHomeVer2 />
       <ProjectsSection />
+      <BlogHighlights className="home-blog-highlights" />
     </main>
   );
 }

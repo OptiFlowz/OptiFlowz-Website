@@ -1,13 +1,12 @@
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import { ArrowSVG } from "@/app/constants";
-import BlogArticleCard from "@/app/blog/blogArticleCard";
-import { getCatogorisedArticles } from "@/lib/articles";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AboutHero from "./aboutHero";
 import AboutMission from "./aboutMission";
 import ScrollScaleSections from "@/app/components/scrollScaleSections";
+import BlogHighlights from "@/app/components/blogHighlights";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -143,24 +142,7 @@ function TeamSocialIcon({ type }: { type: TeamSocial }) {
   );
 }
 
-function getLatestArticles() {
-  return Object.values(getCatogorisedArticles())
-    .flat()
-    .sort((articleA, articleB) => {
-      const [dayA, monthA, yearA] = articleA.date.split("-").map(Number);
-      const [dayB, monthB, yearB] = articleB.date.split("-").map(Number);
-
-      return (
-        new Date(yearB, monthB - 1, dayB).getTime() -
-        new Date(yearA, monthA - 1, dayA).getTime()
-      );
-    })
-    .slice(0, 3);
-}
-
 export default function AboutUs() {
-  const latestArticles = getLatestArticles();
-
   return (
     <main className="pp-main about-page">
       <ScrollScaleSections />
@@ -171,6 +153,7 @@ export default function AboutUs() {
           {pillars.map((pillar, index) => (
             <FadeInOnScroll
               key={pillar.eyebrow}
+              className="scroll-scale-mobile-item"
               delay={index * 80}
               distance={24}
               initialScale={0.98}
@@ -210,6 +193,7 @@ export default function AboutUs() {
           {team.map((member, index) => (
             <FadeInOnScroll
               key={member.name}
+              className="scroll-scale-mobile-item"
               delay={index * 70}
               distance={22}
               initialScale={0.98}
@@ -250,30 +234,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="about-journal-section scroll-scale-section">
-        <FadeInOnScroll distance={18} initialScale={0.99}>
-          <div className="about-section-heading">
-            <div>
-              <span className="about-eyebrow">From Our Blog</span>
-            </div>
-            <Link className="about-text-link noLineHover" href="/blog">
-              View all articles {ArrowSVG}
-            </Link>
-          </div>
-        </FadeInOnScroll>
-        <div className="about-journal-grid">
-          {latestArticles.map((article, index) => (
-            <FadeInOnScroll
-              key={article.id}
-              delay={index * 70}
-              distance={22}
-              initialScale={0.98}
-            >
-              <BlogArticleCard article={article} />
-            </FadeInOnScroll>
-          ))}
-        </div>
-      </section>
+      <BlogHighlights />
     </main>
   );
 }

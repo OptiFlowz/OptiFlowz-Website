@@ -110,6 +110,24 @@ export function getCatogorisedArticles(category?: string): Record<string, Articl
     return categorisedArticles;
 }
 
+export function getShowcaseArticles(): ArticleItem[] {
+    const articles = getSortedArticles();
+    const articlesById = new Map(articles.map((article) => [article.id, article]));
+    const latestPlatformUpdate = articles.find(
+        (article) => article.category === "Platform Updates",
+    );
+
+    const selectedArticles = [
+        articlesById.get("optiflowz-is-now-an-official-hostinger-partner"),
+        latestPlatformUpdate,
+        articlesById.get("why-your-business-website-should-be-built-like-a-platform"),
+    ];
+
+    return selectedArticles.filter(
+        (article): article is ArticleItem => article !== undefined,
+    );
+}
+
 export async function getArticleData(id: ArticleItem["id"]): Promise<{
     id: ArticleItem["id"]; contentHtml: string; category: string}> {
     const fullPath = path.join(articlesDirectory, `${id}.md`);

@@ -18,17 +18,34 @@ export default function Footer() {
         <div className="footer-shell">
           <div className="footer-main">
             <div className="footer-intro">
-              <Link className="footer-brand" href="/" aria-label="OptiFlowz home">
-                <Image
-                  className="footer-brand-logo"
-                  src="/logo.webp"
-                  alt=""
-                  width={36}
-                  height={36}
-                  sizes="36px"
-                />
-                <span>OptiFlowz</span>
-              </Link>
+              <div className="footer-brand-row">
+                <Link
+                  className="footer-partner"
+                  href="https://www.hostinger.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit Hostinger"
+                >
+                  <Image
+                    src="/partners/hostinger-partner-badge-square.webp"
+                    alt="Hostinger Partner"
+                    width={52}
+                    height={52}
+                    sizes="52px"
+                  />
+                </Link>
+                <Link className="footer-brand" href="/" aria-label="OptiFlowz home">
+                  <Image
+                    className="footer-brand-logo"
+                    src="/logo.webp"
+                    alt=""
+                    width={36}
+                    height={36}
+                    sizes="36px"
+                  />
+                  <span>OptiFlowz</span>
+                </Link>
+              </div>
               <p>
                 We build high-performing video platforms, modern websites, and
                 automation systems that help ambitious businesses move faster.
