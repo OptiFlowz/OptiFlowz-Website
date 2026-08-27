@@ -27,7 +27,7 @@ export default function ScrollScaleSections() {
     const updateSections = () => {
       frame = 0;
 
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || window.innerWidth <= 700) {
         sections.forEach((section) => setScale(section, "1"));
         mobileItems.forEach((item) => setScale(item, "1"));
         return;
@@ -35,20 +35,13 @@ export default function ScrollScaleSections() {
 
       const viewportCenter = window.innerHeight / 2;
       const travel = window.innerHeight * 0.65;
-      const isMobile = window.innerWidth < 700;
-      const minimumScale = isMobile ? 0.94 : 0.9;
+      const minimumScale = 0.9;
       const targets: HTMLElement[] = [];
 
       sections.forEach((section) => {
         const sectionItems = Array.from(
           section.querySelectorAll<HTMLElement>(".scroll-scale-mobile-item"),
         );
-
-        if (isMobile && sectionItems.length) {
-          setScale(section, "1");
-          targets.push(...sectionItems);
-          return;
-        }
 
         sectionItems.forEach((item) => setScale(item, "1"));
         targets.push(section);

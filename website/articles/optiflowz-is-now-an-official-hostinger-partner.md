@@ -13,6 +13,12 @@ excerpt: "OptiFlowz is now an official Hostinger Partner, strengthening how we s
 
 > OptiFlowz is now an official Hostinger Partner. The partnership strengthens the infrastructure side of our web design and development work, giving clients a clearer path from the first technical decisions to launch and ongoing support.
 
+## Save 20% on Hostinger with OPTIFLOWZ
+
+> Get **20% off Hostinger** with our referral code **OPTIFLOWZ**. [Open Hostinger through the OptiFlowz referral link](https://www.hostinger.com/?REFERRALCODE=OPTIFLOWZ) and use the code at checkout if it is not applied automatically.
+>
+> This is an OptiFlowz referral offer.
+
 ## More than a badge
 
 > Hostinger created its Partner Program for web professionals and agencies that build, migrate, and manage websites for clients. Approval gives partners access to Hostinger's agency ecosystem, partner resources, and priority technical support.

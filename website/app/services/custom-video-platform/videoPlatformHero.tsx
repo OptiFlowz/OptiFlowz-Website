@@ -20,7 +20,7 @@ export default function VideoPlatformHero() {
     const updateMedia = () => {
       frame = 0;
 
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || window.innerWidth <= 700) {
         media.style.setProperty("--video-hero-scale", "1");
         media.style.setProperty("--video-hero-opacity", "1");
         media.style.setProperty("--video-hero-radius", "18px");
@@ -33,7 +33,7 @@ export default function VideoPlatformHero() {
       const travel = (window.innerHeight + rect.height) * 0.48;
       const proximity = Math.max(0, 1 - Math.abs(mediaCenter - viewportCenter) / travel);
       const eased = proximity * proximity * (3 - 2 * proximity);
-      const minimumScale = window.innerWidth < 700 ? 0.9 : 0.86;
+      const minimumScale = 0.86;
       const scale = minimumScale + (1 - minimumScale) * eased;
       const hasPassedViewportCenter = mediaCenter < viewportCenter;
       const opacity = hasPassedViewportCenter

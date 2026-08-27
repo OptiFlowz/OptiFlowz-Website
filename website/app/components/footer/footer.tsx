@@ -19,21 +19,6 @@ export default function Footer() {
           <div className="footer-main">
             <div className="footer-intro">
               <div className="footer-brand-row">
-                <Link
-                  className="footer-partner"
-                  href="https://www.hostinger.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Visit Hostinger"
-                >
-                  <Image
-                    src="/partners/hostinger-partner-badge-square.webp"
-                    alt="Hostinger Partner"
-                    width={52}
-                    height={52}
-                    sizes="52px"
-                  />
-                </Link>
                 <Link className="footer-brand" href="/" aria-label="OptiFlowz home">
                   <Image
                     className="footer-brand-logo"
@@ -44,6 +29,21 @@ export default function Footer() {
                     sizes="36px"
                   />
                   <span>OptiFlowz</span>
+                </Link>
+                <Link
+                  className="footer-partner"
+                  href="https://www.hostinger.com/?REFERRALCODE=OPTIFLOWZ"
+                  target="_blank"
+                  rel="noreferrer sponsored"
+                  aria-label="Visit Hostinger with the OptiFlowz referral offer"
+                >
+                  <Image
+                    src="/partners/hostinger-partner-badge.svg"
+                    alt="Hostinger Partner"
+                    width={112}
+                    height={42}
+                    sizes="112px"
+                  />
                 </Link>
               </div>
               <p>

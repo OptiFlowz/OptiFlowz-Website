@@ -1,4 +1,4 @@
-import { ArticleItem } from "@/types";
+import { ArticleData, ArticleItem } from "@/types";
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
@@ -92,6 +92,13 @@ function getSortedArticles(): ArticleItem[] {
     });
 }
 
+export function getArticleIds(): ArticleItem["id"][] {
+    return fs
+        .readdirSync(articlesDirectory)
+        .filter((fileName) => fileName.endsWith(".md"))
+        .map((fileName) => fileName.replace(/\.md$/, ""));
+}
+
 export function getCatogorisedArticles(category?: string): Record<string, ArticleItem[]> {
     const sortedArticles = getSortedArticles();
     const categorisedArticles: Record<string, ArticleItem[]> = {};
@@ -128,11 +135,11 @@ export function getShowcaseArticles(): ArticleItem[] {
     );
 }
 
-export async function getArticleData(id: ArticleItem["id"]): Promise<{
-    id: ArticleItem["id"]; contentHtml: string; category: string}> {
+export async function getArticleData(id: ArticleItem["id"]): Promise<ArticleData> {
     const fullPath = path.join(articlesDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
+    const articleMetadata = matterResult.data as Omit<ArticleItem, "id">;
     const processed = await remark()
         .use(html)
         .process(matterResult.content);
@@ -141,8 +148,8 @@ export async function getArticleData(id: ArticleItem["id"]): Promise<{
 
     return {
         id,
+        ...articleMetadata,
+        excerpt: articleMetadata.excerpt ?? createArticleExcerpt(matterResult.content),
         contentHtml: htmlContent,
-        category: matterResult.data.category,
-        ...matterResult.data,
     };
 }

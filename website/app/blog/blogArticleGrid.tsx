@@ -35,14 +35,14 @@ export default function BlogArticleGrid({ articles }: BlogArticleGridProps) {
       frame = 0;
       const rows = grid.querySelectorAll<HTMLElement>(".blog-grid-row-motion");
 
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || window.innerWidth <= 700) {
         rows.forEach((row) => row.style.setProperty("--blog-row-scale", "1"));
         return;
       }
 
       const viewportCenter = window.innerHeight / 2;
       const travel = window.innerHeight * 0.65;
-      const minimumScale = window.innerWidth < 700 ? 0.94 : 0.9;
+      const minimumScale = 0.9;
 
       rows.forEach((row) => {
         const rect = row.getBoundingClientRect();

@@ -21,7 +21,7 @@ export default function BlogFeaturedCardMotion({ article }: BlogFeaturedCardMoti
     const updateCard = () => {
       frame = 0;
 
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || window.innerWidth <= 700) {
         card.style.setProperty("--blog-featured-scale", "1");
         return;
       }
@@ -30,7 +30,7 @@ export default function BlogFeaturedCardMotion({ article }: BlogFeaturedCardMoti
       const travel = Math.max(window.innerHeight * 0.7, rect.height * 1.2);
       const progress = Math.min(1, window.scrollY / travel);
       const eased = progress * progress * (3 - 2 * progress);
-      const minimumScale = window.innerWidth < 700 ? 0.94 : 0.88;
+      const minimumScale = 0.88;
       const scale = 1 - (1 - minimumScale) * eased;
 
       card.style.setProperty("--blog-featured-scale", scale.toFixed(4));
