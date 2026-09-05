@@ -242,6 +242,10 @@ export default function ReusableTimelineSection({
   useEffect(() => {
     recalcDots();
 
+    // Expanded content can move later timeline anchors without a window resize.
+    const resizeObserver = new ResizeObserver(recalcDots);
+    if (sectionRef.current) resizeObserver.observe(sectionRef.current);
+
     const handleScroll = () => {
       const section = sectionRef.current;
       const timeline = timelineRef.current;
@@ -278,6 +282,7 @@ export default function ReusableTimelineSection({
     handleScroll();
 
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", recalcDots);
       window.removeEventListener("load", recalcDots);

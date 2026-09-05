@@ -1,5 +1,6 @@
 "use client";
 
+import { useId, useState } from "react";
 import ReusableTimelineSection, {
   TimelineSectionItem,
 } from "@/app/components/reusableTimeLineSection";
@@ -16,7 +17,7 @@ type ChangeCategory =
 type Release = {
   version: string;
   status?: "Coming soon" | "Latest";
-  changes: Array<{ category: ChangeCategory; text: string }>;
+  changes: Array<{ category: ChangeCategory; text: string; languages?: string[] }>;
 };
 
 const releases: Release[] = [
@@ -27,7 +28,20 @@ const releases: Release[] = [
       { category: "New Feature", text: "Live streaming with live chat" },
       { category: "Improvement", text: "Better and more comprehensive role system" },
       { category: "Improvement", text: "Detailed platform settings for owners and administrators" },
-      { category: "Improvement", text: "Platform localization in 16 languages: Arabic, German, English, Spanish, French, Greek, Hindi, Croatian, Italian, Dutch, Polish, Portuguese, Romanian, Slovenian, Serbian, and Turkish, with more coming soon" },
+      {
+        category: "Improvement",
+        text: "Platform localization in 40 languages, with more coming soon",
+        languages: [
+          "Albanian", "Arabic", "Bulgarian", "Chinese (Simplified)", "Croatian",
+          "Czech", "Danish", "Dutch", "English", "Estonian", "Finnish",
+          "French", "German", "Greek", "Hebrew", "Hindi", "Hungarian",
+          "Icelandic", "Indonesian", "Italian", "Japanese", "Korean",
+          "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Persian",
+          "Polish", "Portuguese", "Romanian", "Russian", "Serbian",
+          "Slovak", "Slovenian", "Spanish", "Swedish", "Thai", "Turkish",
+          "Ukrainian", "Vietnamese",
+        ],
+      },
       { category: "Improvement", text: "Smarter, more personalized video recommendations" },
       { category: "Security", text: "Two-factor authentication via email or authenticator app" },
       { category: "New Feature", text: "Scheduled video publishing" },
@@ -165,6 +179,40 @@ const releases: Release[] = [
 const categoryClass = (category: ChangeCategory) =>
   category.toLowerCase().replace("/", "-").replace(" ", "-");
 
+function LanguageDisclosure({ text, languages }: { text: string; languages: string[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const listId = useId();
+
+  return (
+    <div className="release-change-text release-languages" data-expanded={expanded}>
+      <div className="release-languages-summary">
+        <span>{text}</span>
+        <button
+          type="button"
+          className="release-languages-toggle"
+          aria-label={expanded ? "Hide languages" : "Show all languages"}
+          aria-expanded={expanded}
+          aria-controls={listId}
+          onClick={() => setExpanded((value) => !value)}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <circle cx="3" cy="8" r="1.25" />
+            <circle cx="8" cy="8" r="1.25" />
+            <circle cx="13" cy="8" r="1.25" />
+          </svg>
+        </button>
+      </div>
+      <div className="release-languages-panel" id={listId} aria-hidden={!expanded} inert={!expanded}>
+        <div className="release-languages-inner">
+          <div className="release-languages-list">
+            {languages.map((language) => <span key={language}>{language}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ReleaseNotesTimeline() {
   const sections: TimelineSectionItem[] = releases.map((release) => ({
     label: (
@@ -189,7 +237,11 @@ export default function ReleaseNotesTimeline() {
               <span className={`release-category release-category-${categoryClass(change.category)}`}>
                 {change.category}
               </span>
-              <span className="release-change-text">{change.text}</span>
+              {change.languages ? (
+                <LanguageDisclosure text={change.text} languages={change.languages} />
+              ) : (
+                <span className="release-change-text">{change.text}</span>
+              )}
             </li>
           ))}
         </ul>
