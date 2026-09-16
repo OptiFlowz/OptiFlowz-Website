@@ -22,12 +22,24 @@ type Release = {
 
 const releases: Release[] = [
   {
-    version: "Version 1.2.0",
+    version: "Version 1.2.1",
     status: "Coming soon",
     changes: [
       { category: "New Feature", text: "Live streaming with live chat" },
-      { category: "Improvement", text: "Better and more comprehensive role system" },
+      { category: "New Feature", text: "Record your screen, camera, or both directly from the platform" },
+      { category: "New Feature", text: "Video trimming and cropping tools" },
       { category: "Improvement", text: "Detailed platform settings for owners and administrators" },
+      { category: "New Feature", text: "Follow channels and receive notifications about new content" },
+      { category: "New Feature", text: "Channel posts for sharing updates beyond video" },
+      { category: "New Feature", text: "A new course playlist type for structured learning" },
+      { category: "UI/UX", text: "Further interface improvements and visual polish" },
+    ],
+  },
+  {
+    version: "Version 1.2.0",
+    status: "Latest",
+    changes: [
+      { category: "Improvement", text: "Better and more comprehensive role system" },
       {
         category: "Improvement",
         text: "Platform localization in 40 languages, with more coming soon",
@@ -52,7 +64,6 @@ const releases: Release[] = [
   },
   {
     version: "Version 1.1.8",
-    status: "Latest",
     changes: [
       { category: "New Feature", text: "Interactive video transcripts with clickable timestamps for quick navigation" },
       { category: "New Feature", text: "Floating mini player that keeps videos playing as you browse other pages" },
