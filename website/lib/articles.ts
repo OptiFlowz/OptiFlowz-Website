@@ -127,7 +127,7 @@ export function getShowcaseArticles(): ArticleItem[] {
     const selectedArticles = [
         articlesById.get("optiflowz-is-now-an-official-hostinger-partner"),
         latestPlatformUpdate,
-        articlesById.get("why-your-business-website-should-be-built-like-a-platform"),
+        articlesById.get("healthplus-website-by-optiflowz"),
     ];
 
     return selectedArticles.filter(

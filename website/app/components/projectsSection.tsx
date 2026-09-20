@@ -386,7 +386,7 @@ export default function ProjectsSection() {
             </div>
             <div className="project-card">
               <Image
-                src="/secho-mockup-v3.webp"
+                src="/secho-mockup-v4.webp"
                 alt="SECHO Membership System"
                 className="mockup-image"
                 width={1920}
