@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { prepareMacbook14 } from "./prepareMacbook14";
+import { createMacbookCameraFitter } from "./fitMacbookCamera";
 
 export type MacbookSceneControls = {
   dispose: () => void;
@@ -58,6 +59,7 @@ export function mountMacbookScene(
   let exitProgress = 0;
   let cameraDistance = 24;
   let compactDistances: number[] = [];
+  let cameraFitter: ReturnType<typeof createMacbookCameraFitter> | undefined;
   let lidHinge: THREE.Group | undefined;
   let openHingeAngle = 0;
   let uprightHingeAngle = 0;
@@ -99,31 +101,9 @@ export function mountMacbookScene(
   }
 
   function fitCamera() {
-    if (!fitPoints.length) return;
-    const projected = new THREE.Vector3();
-    const findDistance = (yaws: number[], horizontalLimit: number) => {
-      const fits = (distance: number) => {
-        for (const yaw of yaws) {
-          for (const pitch of [-MAX_MOUSE_PITCH, MAX_MOUSE_PITCH]) {
-            positionCamera(yaw, pitch, distance);
-            for (const point of fitPoints) {
-              projected.copy(point).project(camera);
-              if (Math.abs(projected.x) > horizontalLimit || Math.abs(projected.y) > 0.92 || Math.abs(projected.z) > 1) return false;
-            }
-          }
-        }
-        return true;
-      };
-      let near = 8;
-      let far = 24;
-      while (!fits(far) && far < 600) far *= 1.5;
-      for (let step = 0; step < 16; step++) {
-        const distance = (near + far) / 2;
-        if (fits(distance)) far = distance;
-        else near = distance;
-      }
-      return far;
-    };
+    if (!cameraFitter) return;
+    const findDistance = (yaws: number[], horizontalLimit: number) =>
+      cameraFitter!.findDistance(yaws, horizontalLimit, camera.aspect);
 
     if (compactViewport.matches) {
       // On phones, move closer as the turn narrows instead of reserving the
@@ -166,6 +146,8 @@ export function mountMacbookScene(
   let display: THREE.MeshBasicMaterial | undefined;
   let disposed = false;
   let loaded = false;
+  let warming = false;
+  let warmupGeneration = 0;
   let visible = false;
   let contextLost = false;
   let frame = 0;
@@ -230,14 +212,14 @@ export function mountMacbookScene(
   }
 
   function requestRender() {
-    if (!frame && loaded && visible && !document.hidden && !contextLost && !disposed) {
+    if (!frame && loaded && !warming && visible && !document.hidden && !contextLost && !disposed) {
       frame = window.requestAnimationFrame(render);
     }
   }
 
   function render(time: number) {
     frame = 0;
-    if (disposed || !loaded || !visible || document.hidden || contextLost) return;
+    if (disposed || !loaded || warming || !visible || document.hidden || contextLost) return;
     const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
     if (reducedMotion.matches || !finePointer.matches) {
@@ -255,7 +237,7 @@ export function mountMacbookScene(
   }
 
   function queueVideoFrame() {
-    if (!hasVideoFrameCallback || videoFrame !== undefined || video.paused || !visible || document.hidden || disposed || contextLost) return;
+    if (warming || !hasVideoFrameCallback || videoFrame !== undefined || video.paused || !visible || document.hidden || disposed || contextLost) return;
     videoFrame = video.requestVideoFrameCallback(() => {
       videoFrame = undefined;
       showVideo();
@@ -270,7 +252,7 @@ export function mountMacbookScene(
   }
 
   function showVideo() {
-    if (display && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && display.map !== videoTexture) {
+    if (!warming && display && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && display.map !== videoTexture) {
       display.map = videoTexture;
       display.needsUpdate = true;
     }
@@ -336,6 +318,7 @@ export function mountMacbookScene(
   function onContextLost(event: Event) {
     event.preventDefault();
     contextLost = true;
+    warmupGeneration++;
     cancelVideoFrame();
     onReady(false);
   }
@@ -343,13 +326,7 @@ export function mountMacbookScene(
   function onContextRestored() {
     contextLost = false;
     if (!loaded) return;
-    try {
-      createEnvironment();
-      syncVisibility();
-      onReady(true);
-    } catch {
-      onReady(false);
-    }
+    void warmAndReveal().catch(() => { if (!disposed) onReady(false); });
   }
 
   const resizeObserver = new ResizeObserver(resize);
@@ -374,7 +351,7 @@ export function mountMacbookScene(
   async function loadModel() {
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const [modelResult, posterResult] = await Promise.allSettled([
-      loader.loadAsync("/models/macbook/macbook-pro-14.glb"),
+      loader.loadAsync("/models/macbook/macbook-pro-14.ccd3d18d.glb"),
       new THREE.TextureLoader().loadAsync("/video-platform/platform-tour-poster.webp"),
     ]);
     if (modelResult.status === "fulfilled") rememberResources(modelResult.value.scene);
@@ -422,6 +399,10 @@ export function mountMacbookScene(
       });
     }
     new THREE.Box3().setFromPoints(fitPoints).getCenter(cameraTarget);
+    cameraFitter = createMacbookCameraFitter(fitPoints, cameraTarget, {
+      fov: CAMERA_FOV, cameraHeight: CAMERA_HEIGHT, maxPitch: MAX_MOUSE_PITCH,
+      near: camera.near, far: camera.far,
+    });
     // The real closed lid fits inside the chassis footprint and existing
     // padding. Preserve the entry framing: rotated local AABB corners contain
     // empty space below the floor and would unnecessarily shrink the laptop.
@@ -429,14 +410,75 @@ export function mountMacbookScene(
     fitCamera();
     scene.add(model);
     loaded = true;
-    if (contextLost) return;
-    createEnvironment();
-    showVideo();
-    syncVisibility();
-    // Reveal only the finished real model, already in its current scroll pose.
-    updateCamera();
-    renderer.render(scene, camera);
-    onReady(true);
+    if (!contextLost) await warmAndReveal();
+  }
+
+  // Yield between GPU setup phases so loading does not monopolize the first
+  // scroll. Compile both screen variants: VideoTexture uses a different shader
+  // from the poster even though both occupy the same display material.
+  const yieldToBrowser = () => new Promise<void>((resolve) => window.setTimeout(resolve, 0));
+
+  async function warmAndReveal() {
+    const generation = ++warmupGeneration;
+    const isCurrent = () => !disposed && !contextLost && generation === warmupGeneration;
+    try {
+      warming = true;
+      cancelVideoFrame();
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      await yieldToBrowser();
+      if (!isCurrent()) return;
+      createEnvironment();
+      await yieldToBrowser();
+      if (!isCurrent()) return;
+      await renderer.compileAsync(scene, camera);
+      if (!isCurrent() || !display) return;
+      const initialMap = display.map;
+      let videoCompilation: Promise<THREE.Object3D>;
+      try {
+        display.map = videoTexture;
+        display.needsUpdate = true;
+        videoCompilation = renderer.compileAsync(scene, camera);
+      } finally {
+        // Preserve the poster even if context loss interrupts compilation.
+        display.map = initialMap;
+        display.needsUpdate = true;
+      }
+      await videoCompilation;
+      if (!isCurrent()) return;
+
+      // Upload only textures used by the prepared model, not superseded materials.
+      const activeTextures = new Set<THREE.Texture>();
+      scene.traverse((child) => {
+        if (!(child instanceof THREE.Mesh)) return;
+        for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
+          for (const value of Object.values(material)) {
+            if (value instanceof THREE.Texture && !(value instanceof THREE.VideoTexture)) activeTextures.add(value);
+          }
+        }
+      });
+      let batchStarted = performance.now();
+      for (const texture of activeTextures) {
+        renderer.initTexture(texture);
+        if (performance.now() - batchStarted > 6) {
+          await yieldToBrowser();
+          if (!isCurrent()) return;
+          batchStarted = performance.now();
+        }
+      }
+      await yieldToBrowser();
+      if (!isCurrent()) return;
+      // Reveal only the finished real model, already in its current scroll pose.
+      updateLid();
+      updateCamera();
+      renderer.render(scene, camera);
+      warming = false;
+      syncVisibility();
+      onReady(true);
+    } catch (error) {
+      // A restored context owns newer resources; stale work must not dispose it.
+      if (isCurrent()) throw error;
+    }
   }
 
   void loadModel().catch(() => {
@@ -454,6 +496,7 @@ export function mountMacbookScene(
     },
     dispose() {
       disposed = true;
+      warmupGeneration++;
       window.cancelAnimationFrame(frame);
       cancelVideoFrame();
       resizeObserver.disconnect();

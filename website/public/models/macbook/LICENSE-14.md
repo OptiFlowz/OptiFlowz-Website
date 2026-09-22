@@ -1,6 +1,6 @@
 # Macbook Pro 14 Space Gray
 
-`macbook-pro-14.glb` is **Macbook Pro 14 Space Gray** by **appleyss**.
+`macbook-pro-14.ccd3d18d.glb` is **Macbook Pro 14 Space Gray** by **appleyss**.
 
 - Author: https://sketchfab.com/appleyss
 - Original model: https://sketchfab.com/3d-models/macbook-pro-14-space-gray-95b968f6e3054642be42093ea56f90b8
@@ -15,7 +15,8 @@ October 30, 2021. The original Sketchfab metadata, checked September 22, 2026,
 states: “Author must be credited. Commercial use is allowed.” Objaverse preserves
 the individual object's Creative Commons license.
 
-The GLB is copied without modification. The website changes the display material
+The delivered model uses lossless geometry and image compression, preserving
+its original geometry and texture pixels. The website changes the display material
 to show OptiFlowz platform content, adjusts keyboard, aluminium, bezel and camera materials,
 and positions the open laptop in a scroll-controlled view.
 These presentation changes are not part of the original model.

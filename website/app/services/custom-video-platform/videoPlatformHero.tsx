@@ -7,7 +7,7 @@ import { ArrowSVG } from "@/app/constants";
 import MacbookShowcase from "./macbookShowcase";
 
 export default function VideoPlatformHero() {
-  preload("/models/macbook/macbook-pro-14.glb", { as: "fetch", crossOrigin: "anonymous" });
+  preload("/models/macbook/macbook-pro-14.ccd3d18d.glb", { as: "fetch", crossOrigin: "anonymous" });
   const heroRef = useRef<HTMLElement>(null);
 
   return (

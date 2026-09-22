@@ -189,7 +189,7 @@ export default function MacbookShowcase({ heroRef }: Props) {
     <div className={`${styles.showcase} ${isReady ? styles.ready : ""} ${hasFailed ? styles.failed : ""}`}>
       <div className={styles.deviceFrame}>
         <div ref={poweredByRef} className={styles.poweredBy} aria-hidden="true">
-          <Image src="/video-platform/powered-by-optiflowz.svg" width={1934} height={141}
+          <Image src="/video-platform/powered-by-optiflowz.fa79794a.svg" width={1934} height={141}
             alt="Powered by the OptiFlowz Video Platform" loading="eager" />
         </div>
         <div ref={stageRef} className={styles.stage} role="img" aria-hidden={hasFailed}
