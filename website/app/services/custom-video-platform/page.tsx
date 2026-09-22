@@ -4,6 +4,7 @@ import ReusableTimelineSection, { TimelineSectionItem } from "@/app/components/r
 import { ArrowSVG } from "../../constants";
 import FadeInOnScroll from "@/app/components/fadeInOnScroll";
 import VideoPlatformHero from "./videoPlatformHero";
+import VideoPlatformFeatures from "./videoPlatformFeatures";
 
 export const metadata: Metadata = {
   title: "OptiFlowz Video Platform",
@@ -99,17 +100,19 @@ export default function Pricing() {
   return (
     <main className="pp-main video-platform-page">
       <VideoPlatformHero />
-      <FadeInOnScroll delay={200} threshold={0.01}>
-        <ReusableTimelineSection
-          intro={{
-            heading: "Current Features",
-            subheading:
-              "Don't worry, we're always updating Video Platform to be even better!",
-          }}
-          sections={sections}
-          dotIcon={ArrowSVG}
-        />
-      </FadeInOnScroll>
+      <VideoPlatformFeatures>
+        <FadeInOnScroll delay={200} threshold={0.01}>
+          <ReusableTimelineSection
+            intro={{
+              heading: "Current Features",
+              subheading:
+                "Don't worry, we're always updating Video Platform to be even better!",
+            }}
+            sections={sections}
+            dotIcon={ArrowSVG}
+          />
+        </FadeInOnScroll>
+      </VideoPlatformFeatures>
       <FadeInOnScroll delay={300}>
         <section>
           <h2 className="smallTitle">Video Platform release notes</h2>

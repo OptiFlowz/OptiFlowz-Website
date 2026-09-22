@@ -2735,40 +2735,61 @@ main{
 
 .video-platform-page{
   gap: 2rem;
+  padding-top: 0;
 }
 
 .pp-main section.video-platform-hero{
-  width: min(var(--contentWidth), calc(100vw - 40px));
-  display: flex;
-  align-items: center;
-  gap: clamp(2.5rem, 4vw, 4rem);
-  padding: clamp(2rem, 4vw, 3.5rem) 0 4rem;
+  z-index: 1;
+  width: min(1440px, calc(100vw - 40px));
+  min-height: var(--macbook-scene-height, 185svh);
+  height: auto;
+  display: block;
+  padding: calc(120px + clamp(2rem, 4vw, 3.5rem)) 0 0;
   background: transparent;
   border-radius: 0;
   isolation: isolate;
 }
 
-.pp-main section.video-platform-hero::before{
-  content: none;
+.pp-main section.video-platform-hero::before{ content: none; }
+
+/* Keep the grid's lead-in fixed and end it just below the complete first
+   feature, including its stacked mobile layout. */
+.video-platform-features{
+  position: relative;
+  width: 100%;
+  isolation: isolate;
 }
 
-.video-platform-hero::after{
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: -8%;
+.grid-wrapper.video-platform-features-grid{
+  display: block;
+  top: -280px;
   left: 50%;
-  width: min(900px, 84vw);
-  height: 500px;
+  width: 100vw;
+  height: calc(280px + var(--video-platform-first-feature-bottom, 600px) + clamp(64px, 6vw, 96px));
   transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(51, 140, 255, 0.14), transparent 67%);
-  filter: blur(26px);
+  z-index: -1;
   pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, #000 260px, #000 calc(100% - 300px), transparent);
+}
+
+.video-platform-features-grid span:nth-child(2){
+  background-image: radial-gradient(ellipse 65% 100% at center, transparent 10%, var(--background));
+}
+
+.video-platform-sticky{
+  position: sticky;
+  top: 96px;
+  width: 100%;
+  height: min(800px, calc(100svh - 116px));
+  margin-top: clamp(2.5rem, 4vw, 4rem);
+  isolation: isolate;
 }
 
 .video-platform-hero-copy{
+  position: relative;
+  z-index: 3;
   width: min(1060px, calc(100% - 32px));
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2782,20 +2803,15 @@ main{
   line-height: 0.98;
   letter-spacing: -0.045em;
   text-wrap: balance;
-  opacity: 0;
-  transform: translateY(28px) scale(0.985);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pp-main .video-platform-lede{
   max-width: 720px;
   margin-top: 1.8rem;
-  opacity: 0;
+  opacity: 0.8;
   font-size: clamp(1.1rem, 1.6vw, 1.3rem);
   line-height: 1.45;
   text-wrap: balance;
-  transform: translateY(24px);
-  transition: opacity 0.75s 0.18s ease, transform 0.75s 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .video-platform-actions{
@@ -2803,76 +2819,12 @@ main{
   justify-content: center;
   gap: 0.85rem;
   margin-top: 2rem;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s 0.28s ease, transform 0.7s 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .video-platform-actions .button{
   justify-content: center;
   min-width: 190px;
   padding-block: 12px;
-}
-
-.video-platform-hero.is-ready h1,
-.video-platform-hero.is-ready .video-platform-lede,
-.video-platform-hero.is-ready .video-platform-actions{
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.video-platform-hero-media{
-  --video-hero-scale: 0.86;
-  --video-hero-opacity: 0.72;
-  --video-hero-radius: 30px;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3000 / 1991;
-  border-radius: var(--video-hero-radius);
-  opacity: var(--video-hero-opacity);
-  transform: scale(var(--video-hero-scale));
-  transform-origin: center;
-  transition: border-radius 0.16s linear;
-  will-change: transform, opacity, border-radius;
-}
-
-.video-platform-hero-media-frame{
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: inherit;
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(34px) scale(0.975);
-  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.46), 0 0 70px rgba(51, 140, 255, 0.1);
-  transition:
-    opacity 0.85s 0.32s ease,
-    filter 0.85s 0.32s ease,
-    transform 0.9s 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, filter, transform;
-}
-
-.video-platform-hero-media.is-loaded .video-platform-hero-media-frame{
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0) scale(1);
-}
-
-.video-platform-hero-media-frame::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-  pointer-events: none;
-}
-
-.video-platform-hero-media-frame img{
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* RELEASE NOTES TIMELINE */
@@ -3500,12 +3452,6 @@ main{
 
   .blog-grid-row-motion{
     --blog-row-scale: 1 !important;
-  }
-
-  .video-platform-hero-media{
-    --video-hero-scale: 1 !important;
-    --video-hero-opacity: 1 !important;
-    --video-hero-radius: 18px !important;
   }
 }
 
@@ -4349,16 +4295,9 @@ main{
     gap: 3rem;
     padding-bottom: 50px;
   }
-  .pp-main section.video-platform-hero{
-    gap: 2.75rem;
-    padding-top: 2rem;
-  }
-  .video-platform-hero h1{
-    font-size: clamp(3rem, 11vw, 5rem);
-  }
-  .pp-main .video-platform-lede{
-    max-width: 620px;
-  }
+  .pp-main section.video-platform-hero{ padding-top: 152px; }
+  .video-platform-hero h1{ font-size: clamp(3rem, 11vw, 5rem); }
+  .pp-main .video-platform-lede{ max-width: 620px; }
   .release-notes-timeline .projects-content{
     gap: 3.5rem;
   }
@@ -4558,31 +4497,18 @@ main{
   .hero h1{
     font-size: 8.5vw;
   }
-  .pp-main section.video-platform-hero{
-    width: calc(100vw - 24px);
-    gap: 2.75rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-  }
-  .video-platform-hero-copy{
-    width: 100%;
-  }
-  .video-platform-hero h1{
-    font-size: clamp(2.65rem, 13.2vw, 4rem);
-    line-height: 0.98;
-  }
-  .pp-main .video-platform-lede{
-    margin-top: 1.35rem;
-    font-size: 1.05rem;
-  }
+  .pp-main section.video-platform-hero{ width: calc(100vw - 24px); }
+  .pp-main section.video-platform-hero{ padding-top: 136px; }
+  .video-platform-hero-copy{ width: 100%; }
+  .video-platform-hero h1{ font-size: clamp(2.65rem, 13.2vw, 4rem); }
+  .pp-main .video-platform-lede{ margin-top: 1.35rem; font-size: 1.05rem; }
   .video-platform-actions{
     width: 100%;
     flex-direction: column;
+    gap: 0.85rem;
     margin-top: 1.6rem;
   }
-  .video-platform-actions .button{
-    width: 100%;
-  }
+  .video-platform-actions .button{ width: 100%; }
   .contact-card.is-collapsed{
     width: 100%;
     max-width: none;
@@ -4788,9 +4714,7 @@ main{
 
   .video-platform-hero h1,
   .video-platform-lede,
-  .video-platform-actions,
-  .video-platform-hero-media,
-  .video-platform-hero-media-frame {
+  .video-platform-actions {
     transition: none;
   }
 
@@ -4798,17 +4722,6 @@ main{
   .video-platform-lede,
   .video-platform-actions {
     opacity: 1;
-    transform: none;
-  }
-
-  .video-platform-hero-media {
-    opacity: 1;
-    transform: none;
-  }
-
-  .video-platform-hero-media-frame {
-    opacity: 1;
-    filter: none;
     transform: none;
   }
 
@@ -4860,4 +4773,21 @@ main{
     transform: none;
     transition: none;
   }
+}
+
+@media (max-width: 700px){
+  .pp-main section.video-platform-hero{ min-height: var(--macbook-scene-height, 160svh); }
+  .video-platform-sticky{ height: calc(92vw + 68px); max-height: calc(100svh - 116px); }
+}
+
+@media (width < 500px){
+  .video-platform-sticky{
+    width: 100vw;
+    margin-left: calc((100% - 100vw) / 2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (max-height: 560px){
+  .pp-main section.video-platform-hero{ min-height: 0; height: auto; padding-bottom: 2rem; }
+  .video-platform-sticky{ position: relative; top: auto; }
 }
