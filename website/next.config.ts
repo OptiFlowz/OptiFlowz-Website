@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // Content-hashed scene assets can be reused across visits without a download.
+      ...[
+        "/models/macbook/macbook-pro-14.ccd3d18d.glb",
+        "/video-platform/powered-by-optiflowz.fa79794a.svg",
+      ].map((source) => ({
+        source,
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      })),
       {
         source: "/fonts/:path*",
         headers: [
