@@ -7,11 +7,12 @@ import styles from "./macbookShowcase.module.css";
 
 type Props = {
   heroRef: RefObject<HTMLElement | null>;
+  revealAllowed: boolean;
 };
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 const ease = (value: number) => { const t = clamp(value); return t * t * (3 - 2 * t); };
 
-export default function MacbookShowcase({ heroRef }: Props) {
+export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const poweredByRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -20,9 +21,16 @@ export default function MacbookShowcase({ heroRef }: Props) {
   const exitProgressRef = useRef(0);
   const userPaused = useRef(false);
   const userPlayed = useRef(false);
+  const revealAllowedRef = useRef(revealAllowed);
+  const syncPlaybackRef = useRef<(() => void) | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [hasFailed, setHasFailed] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    revealAllowedRef.current = revealAllowed;
+    syncPlaybackRef.current?.();
+  }, [revealAllowed]);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -121,10 +129,11 @@ export default function MacbookShowcase({ heroRef }: Props) {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     video.muted = true;
     const syncPlayback = () => {
-      if (canPresent && inView && !document.hidden && !userPaused.current && (!reducedMotion.matches || userPlayed.current)) {
+      if (canPresent && revealAllowedRef.current && inView && !document.hidden && !userPaused.current && (!reducedMotion.matches || userPlayed.current)) {
         void video.play().catch(() => { /* The play button remains available if autoplay is blocked. */ });
       } else video.pause();
     };
+    syncPlaybackRef.current = syncPlayback;
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
     video.addEventListener("play", onPlay);
@@ -161,6 +170,7 @@ export default function MacbookShowcase({ heroRef }: Props) {
       });
     return () => {
       disposed = true;
+      syncPlaybackRef.current = null;
       playbackObserver.disconnect();
       document.removeEventListener("visibilitychange", syncPlayback);
       reducedMotion.removeEventListener("change", syncPlayback);
@@ -186,7 +196,7 @@ export default function MacbookShowcase({ heroRef }: Props) {
   }
 
   return (
-    <div className={`${styles.showcase} ${isReady ? styles.ready : ""} ${hasFailed ? styles.failed : ""}`}>
+    <div className={`${styles.showcase} ${isReady ? styles.ready : ""} ${hasFailed ? styles.failed : ""} ${revealAllowed && (isReady || hasFailed) ? styles.revealed : ""}`}>
       <div className={styles.deviceFrame}>
         <div ref={poweredByRef} className={styles.poweredBy} aria-hidden="true">
           <Image src="/video-platform/powered-by-optiflowz.fa79794a.svg" width={1934} height={141}

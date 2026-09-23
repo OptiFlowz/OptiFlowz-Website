@@ -2827,6 +2827,41 @@ main{
   padding-block: 12px;
 }
 
+/* Match the About Us entrance, while keeping the measured copy container still. */
+.video-platform-hero-copy > h1,
+.video-platform-hero-copy > .video-platform-lede,
+.video-platform-hero-copy > .video-platform-actions{
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity .75s ease,
+    transform .75s cubic-bezier(.22, 1, .36, 1);
+}
+
+.video-platform-hero-copy > h1{
+  transform: translateY(28px) scale(.985);
+  transition-duration: .8s;
+}
+
+.video-platform-hero-copy > .video-platform-lede{
+  transition-delay: .18s;
+}
+
+.video-platform-hero-copy > .video-platform-actions{
+  transition-delay: .36s;
+}
+
+.video-platform-hero.is-loaded .video-platform-hero-copy > h1,
+.video-platform-hero.is-loaded .video-platform-hero-copy > .video-platform-lede,
+.video-platform-hero.is-loaded .video-platform-hero-copy > .video-platform-actions{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.video-platform-hero.is-loaded .video-platform-hero-copy > .video-platform-lede{
+  opacity: .8;
+}
+
 /* RELEASE NOTES TIMELINE */
 
 .release-notes-page{
@@ -4712,17 +4747,17 @@ main{
     filter: none;
   }
 
-  .video-platform-hero h1,
-  .video-platform-lede,
-  .video-platform-actions {
+  .video-platform-hero .video-platform-hero-copy > h1,
+  .video-platform-hero .video-platform-hero-copy > .video-platform-lede,
+  .video-platform-hero .video-platform-hero-copy > .video-platform-actions {
+    opacity: 1;
+    transform: none;
+    filter: none;
     transition: none;
   }
 
-  .video-platform-hero h1,
-  .video-platform-lede,
-  .video-platform-actions {
-    opacity: 1;
-    transform: none;
+  .video-platform-hero .video-platform-hero-copy > .video-platform-lede {
+    opacity: .8;
   }
 
   .about-hero-statement h1,

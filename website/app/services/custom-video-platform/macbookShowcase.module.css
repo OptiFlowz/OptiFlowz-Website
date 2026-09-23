@@ -7,14 +7,18 @@
 .deviceFrame {
   position: absolute;
   inset: 0 0 68px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.22, 1, .36, 1);
 }
+
+.revealed .deviceFrame { opacity: 1; transform: translateY(0); }
 
 .stage {
   position: absolute;
   inset: 0;
   z-index: 2;
   opacity: 0;
-  transition: opacity 350ms ease;
   touch-action: pan-y pinch-zoom;
 }
 
@@ -93,5 +97,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .deviceFrame { transform: none; transition: none; }
   .stage, .bottomBar button { transition: none; }
 }

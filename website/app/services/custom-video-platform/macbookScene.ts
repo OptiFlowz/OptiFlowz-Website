@@ -15,8 +15,9 @@ const INITIAL_YAW = THREE.MathUtils.degToRad(-38);
 // A long lens keeps the near chassis edge close to the screen's apparent width.
 const CAMERA_FOV = 8;
 const CAMERA_HEIGHT = 1.15;
-const MAX_MOUSE_YAW = THREE.MathUtils.degToRad(2.5);
-const MAX_MOUSE_PITCH = THREE.MathUtils.degToRad(0.6);
+// Retain the existing framing margins to keep the laptop at its current size.
+const FRAMING_YAW_MARGIN = THREE.MathUtils.degToRad(2.5);
+const FRAMING_PITCH_MARGIN = THREE.MathUtils.degToRad(0.6);
 
 function fitDemoToDisplay(texture: THREE.Texture) {
   // The 1,200px capture was padded to 1,316px with 58px white side gutters.
@@ -26,7 +27,7 @@ function fitDemoToDisplay(texture: THREE.Texture) {
   texture.offset.set((1 - visibleFraction) / 2, 1 - visibleFraction);
 }
 
-/** An upright MacBook with a scroll-driven orbit and restrained pointer parallax. */
+/** An upright MacBook with a scroll-driven orbit and closing lid. */
 export function mountMacbookScene(
   host: HTMLElement,
   video: HTMLVideoElement,
@@ -52,8 +53,6 @@ export function mountMacbookScene(
   const compactViewport = window.matchMedia("(width < 500px)");
   const camera = new THREE.PerspectiveCamera(CAMERA_FOV, 1.62, 0.1, 1000);
   const cameraTarget = new THREE.Vector3(0, 3.55, -0.75);
-  const mouseOrbit = new THREE.Vector2();
-  const targetMouseOrbit = new THREE.Vector2();
   const fitPoints: THREE.Vector3[] = [];
   let scrollProgress = 0;
   let exitProgress = 0;
@@ -74,10 +73,10 @@ export function mountMacbookScene(
     );
   }
 
-  function positionCamera(yaw: number, pitch: number, distance: number) {
+  function positionCamera(yaw: number, distance: number) {
     camera.position.set(
       cameraTarget.x + Math.sin(yaw) * distance,
-      CAMERA_HEIGHT + Math.sin(pitch) * distance,
+      CAMERA_HEIGHT,
       cameraTarget.z + Math.cos(yaw) * distance,
     );
     camera.lookAt(cameraTarget);
@@ -86,7 +85,7 @@ export function mountMacbookScene(
 
   function updateCamera() {
     const progress = reducedMotion.matches ? 1 : scrollProgress;
-    const yaw = INITIAL_YAW * (1 - progress) + mouseOrbit.x;
+    const yaw = INITIAL_YAW * (1 - progress);
     let distance = cameraDistance;
     if (compactViewport.matches && compactDistances.length) {
       const sample = progress * (compactDistances.length - 1);
@@ -97,7 +96,7 @@ export function mountMacbookScene(
         sample - index,
       );
     }
-    positionCamera(yaw, mouseOrbit.y, distance);
+    positionCamera(yaw, distance);
   }
 
   function fitCamera() {
@@ -110,13 +109,13 @@ export function mountMacbookScene(
       // widest diagonal for every pose. Keep the lens and closing scale fixed.
       compactDistances = Array.from({ length: 17 }, (_, step) => {
         const yaw = INITIAL_YAW * (1 - step / 16);
-        return findDistance([yaw - MAX_MOUSE_YAW, yaw, yaw + MAX_MOUSE_YAW], 0.97);
+        return findDistance([yaw - FRAMING_YAW_MARGIN, yaw, yaw + FRAMING_YAW_MARGIN], 0.97);
       });
     } else {
       compactDistances = [];
       // Preserve the existing fixed desktop framing for the complete turn.
       cameraDistance = findDistance(Array.from({ length: 9 }, (_, step) =>
-        THREE.MathUtils.lerp(INITIAL_YAW - MAX_MOUSE_YAW, MAX_MOUSE_YAW, step / 8),
+        THREE.MathUtils.lerp(INITIAL_YAW - FRAMING_YAW_MARGIN, FRAMING_YAW_MARGIN, step / 8),
       ), 0.92);
     }
     updateCamera();
@@ -136,7 +135,6 @@ export function mountMacbookScene(
   const geometries = new Set<THREE.BufferGeometry>();
   const materials = new Set<THREE.Material>();
   const textures = new Set<THREE.Texture>();
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   const videoTexture = new THREE.VideoTexture(video);
   videoTexture.colorSpace = THREE.SRGBColorSpace;
   videoTexture.flipY = true;
@@ -152,7 +150,6 @@ export function mountMacbookScene(
   let contextLost = false;
   let frame = 0;
   let videoFrame: number | undefined;
-  let lastTime = 0;
   const hasVideoFrameCallback = typeof video.requestVideoFrameCallback === "function";
 
   function rememberResources(object: THREE.Object3D) {
@@ -217,23 +214,13 @@ export function mountMacbookScene(
     }
   }
 
-  function render(time: number) {
+  function render() {
     frame = 0;
     if (disposed || !loaded || warming || !visible || document.hidden || contextLost) return;
-    const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
-    lastTime = time;
-    if (reducedMotion.matches || !finePointer.matches) {
-      mouseOrbit.set(0, 0);
-      targetMouseOrbit.set(0, 0);
-    } else {
-      mouseOrbit.lerp(targetMouseOrbit, 1 - Math.exp(-7 * delta));
-      if (mouseOrbit.distanceToSquared(targetMouseOrbit) < 1e-8) mouseOrbit.copy(targetMouseOrbit);
-    }
     updateLid();
     updateCamera();
     renderer.render(scene, camera);
-    if (mouseOrbit.distanceToSquared(targetMouseOrbit) > 1e-8
-      || (!hasVideoFrameCallback && !video.paused)) requestRender();
+    if (!hasVideoFrameCallback && !video.paused) requestRender();
   }
 
   function queueVideoFrame() {
@@ -261,10 +248,6 @@ export function mountMacbookScene(
   function syncVisibility() {
     if (document.hidden || !visible) {
       cancelVideoFrame();
-      mouseOrbit.set(0, 0);
-      targetMouseOrbit.set(0, 0);
-      updateCamera();
-      lastTime = 0;
       return;
     }
     showVideo();
@@ -291,27 +274,7 @@ export function mountMacbookScene(
   }
 
   function onMotionChange() {
-    if (reducedMotion.matches || !finePointer.matches) {
-      mouseOrbit.set(0, 0);
-      targetMouseOrbit.set(0, 0);
-      updateCamera();
-    }
-    requestRender();
-  }
-
-  function onPointerMove(event: PointerEvent) {
-    if (event.pointerType !== "mouse" || !finePointer.matches || reducedMotion.matches
-      || !loaded || !visible || document.hidden || contextLost || disposed) return;
-    const bounds = host.getBoundingClientRect();
-    if (!bounds.width || !bounds.height) return;
-    const x = THREE.MathUtils.clamp((event.clientX - bounds.left) / bounds.width * 2 - 1, -1, 1);
-    const y = THREE.MathUtils.clamp(1 - (event.clientY - bounds.top) / bounds.height * 2, -1, 1);
-    targetMouseOrbit.set(x * MAX_MOUSE_YAW, y * MAX_MOUSE_PITCH);
-    requestRender();
-  }
-
-  function onPointerLeave() {
-    targetMouseOrbit.set(0, 0);
+    updateCamera();
     requestRender();
   }
 
@@ -339,10 +302,6 @@ export function mountMacbookScene(
   window.addEventListener("resize", syncVisibility);
   document.addEventListener("visibilitychange", syncVisibility);
   reducedMotion.addEventListener("change", onMotionChange);
-  finePointer.addEventListener("change", onMotionChange);
-  host.addEventListener("pointermove", onPointerMove, { passive: true });
-  host.addEventListener("pointerleave", onPointerLeave);
-  window.addEventListener("blur", onPointerLeave);
   for (const event of ["loadeddata", "play", "pause", "seeked"]) video.addEventListener(event, onVideoChange);
   renderer.domElement.addEventListener("webglcontextlost", onContextLost);
   renderer.domElement.addEventListener("webglcontextrestored", onContextRestored);
@@ -400,7 +359,7 @@ export function mountMacbookScene(
     }
     new THREE.Box3().setFromPoints(fitPoints).getCenter(cameraTarget);
     cameraFitter = createMacbookCameraFitter(fitPoints, cameraTarget, {
-      fov: CAMERA_FOV, cameraHeight: CAMERA_HEIGHT, maxPitch: MAX_MOUSE_PITCH,
+      fov: CAMERA_FOV, cameraHeight: CAMERA_HEIGHT, maxPitch: FRAMING_PITCH_MARGIN,
       near: camera.near, far: camera.far,
     });
     // The real closed lid fits inside the chassis footprint and existing
@@ -504,10 +463,6 @@ export function mountMacbookScene(
       window.removeEventListener("resize", syncVisibility);
       document.removeEventListener("visibilitychange", syncVisibility);
       reducedMotion.removeEventListener("change", onMotionChange);
-      finePointer.removeEventListener("change", onMotionChange);
-      host.removeEventListener("pointermove", onPointerMove);
-      host.removeEventListener("pointerleave", onPointerLeave);
-      window.removeEventListener("blur", onPointerLeave);
       for (const event of ["loadeddata", "play", "pause", "seeked"]) video.removeEventListener(event, onVideoChange);
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
       renderer.domElement.removeEventListener("webglcontextrestored", onContextRestored);
