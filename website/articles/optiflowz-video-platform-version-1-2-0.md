@@ -47,8 +47,8 @@ excerpt: "Version 1.2.0 brings localization in 40 languages, expanded roles, per
 
 ---
 
-## Coming next in version 1.2.1
+## Continue with version 1.3.0
 
-> The next update will focus on content creation and channel engagement. Planned features include live streaming with live chat; recording your screen, camera, or both directly from the platform; video trimming and cropping; and detailed platform settings for owners and administrators. Channel following and notifications, channel posts, a new course playlist type, and further interface improvements are also coming in version 1.2.1.
+> [Version 1.3.0 is now available](/optiflowz-video-platform-version-1-3-0), bringing live streaming, built-in screen and camera recording, video trimming and cropping, channel posts, and a refreshed interface. Live chat, detailed platform settings, channel following and notifications, and customizable channel home pages are planned for version 1.3.1.
 
 > See the [release notes](/services/custom-video-platform/release-notes) for the full version history and upcoming changes.

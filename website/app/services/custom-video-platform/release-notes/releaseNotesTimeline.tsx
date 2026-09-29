@@ -22,22 +22,43 @@ type Release = {
 
 const releases: Release[] = [
   {
-    version: "Version 1.2.1",
+    version: "Version 1.3.1",
     status: "Coming soon",
     changes: [
-      { category: "New Feature", text: "Live streaming with live chat" },
+      { category: "New Feature", text: "Live chat for real-time conversations during live streams" },
+      { category: "Improvement", text: "Detailed platform settings for owners and administrators" },
+      { category: "New Feature", text: "Follow channels and receive notifications about new videos and comment replies" },
+      { category: "New Feature", text: "Customizable channel home pages" },
+      { category: "UI/UX", text: "Further interface improvements and visual polish" },
+    ],
+  },
+  {
+    version: "Version 1.3.0",
+    status: "Latest",
+    changes: [
+      { category: "New Feature", text: "Live streaming directly from the platform" },
       { category: "New Feature", text: "Record your screen, camera, or both directly from the platform" },
       { category: "New Feature", text: "Video trimming and cropping tools" },
-      { category: "Improvement", text: "Detailed platform settings for owners and administrators" },
-      { category: "New Feature", text: "Follow channels and receive notifications about new content" },
-      { category: "New Feature", text: "Channel posts for sharing updates beyond video" },
-      { category: "New Feature", text: "A new course playlist type for structured learning" },
+      { category: "New Feature", text: "Channel posts with likes, dislikes, and comments" },
+      { category: "UI/UX", text: "Tabbed account page with Watch Later, Liked Videos, Continue Watching, Saved Playlists, and My Certificates" },
+      { category: "Improvement", text: "Crop your profile photo when uploading" },
+      { category: "UI/UX", text: "Improved video settings on mobile" },
+      { category: "UI/UX", text: "Refreshed interface with sidebar navigation, more consistent page layouts, updated icons, and smoother animations" },
+      { category: "Improvement", text: "Resizable floating mini player" },
+      { category: "Infrastructure", text: "Optimized build size and reduced initial JavaScript and CSS loads, delivering an 88% improvement in page-load speed" },
+      {
+        category: "Improvement",
+        text: "10 new interface languages, bringing platform localization to 50 languages",
+        languages: [
+          "Bosnian", "Catalan", "Georgian", "Armenian", "Bengali",
+          "Urdu", "Tamil", "Malay", "Filipino", "Swahili",
+        ],
+      },
       { category: "UI/UX", text: "Further interface improvements and visual polish" },
     ],
   },
   {
     version: "Version 1.2.0",
-    status: "Latest",
     changes: [
       { category: "Improvement", text: "Better and more comprehensive role system" },
       {
