@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const canonicalPath = `/${article.id}`;
     const publishedTime = getPublishedTime(article.date);
     const socialImage = {
-        url: article.banner,
+        url: article.bannerPoster ?? article.banner,
         alt: article.title,
     };
 
@@ -110,7 +110,7 @@ export default async function Article({params}: Props){
         "@type": "BlogPosting",
         headline: articleData.title,
         description,
-        image: getAbsoluteUrl(articleData.banner),
+        image: getAbsoluteUrl(articleData.bannerPoster ?? articleData.banner),
         datePublished: publishedTime,
         dateModified: publishedTime,
         mainEntityOfPage: articleUrl,

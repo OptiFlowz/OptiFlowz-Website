@@ -4,6 +4,7 @@ export type ArticleItem = {
     date: string,
     category: string,
     banner: string,
+    bannerPoster?: string,
     excerpt?: string,
     seoTitle?: string,
     seoDescription?: string

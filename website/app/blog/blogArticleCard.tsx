@@ -34,6 +34,7 @@ export default function BlogArticleCard({ article, featured = false }: BlogArtic
       <div className="blog-card-image">
         <Image
           src={article.banner}
+          unoptimized={article.banner.endsWith(".gif") || article.banner.endsWith("-animated.webp")}
           alt=""
           width={1200}
           height={750}
