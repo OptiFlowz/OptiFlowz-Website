@@ -23,6 +23,14 @@
 }
 
 .stage canvas { display: block; width: 100%; height: 100%; }
+.stage video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Blend the recorded studio background into the hero's distant glow. */
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 90%, transparent);
+}
 .ready .stage { opacity: 1; }
 
 .poweredBy {
@@ -91,6 +99,12 @@
 .bottomBar button svg path { stroke-width: 0; }
 .bottomBar button:hover svg { animation: none; }
 .bottomBar button:focus-visible { outline: 2px solid #6aaaff; outline-offset: 4px; }
+
+@media (max-width: 1024px) {
+  /* The brand is already composited behind the lid in the recorded scene. */
+  .poweredBy { display: none; }
+  .showcase:not(.failed) .bottomBar { display: none; }
+}
 
 @media (max-width: 700px) {
   .bottomBar { gap: 16px; bottom: 16px; }
