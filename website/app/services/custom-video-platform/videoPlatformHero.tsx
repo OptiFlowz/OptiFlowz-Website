@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { preload } from "react-dom";
 import { ArrowSVG } from "@/app/constants";
 import MacbookShowcase from "./macbookShowcase";
 
 export default function VideoPlatformHero() {
-  preload("/models/macbook/macbook-pro-14.ccd3d18d.glb", { as: "fetch", crossOrigin: "anonymous" });
   const heroRef = useRef<HTMLElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);

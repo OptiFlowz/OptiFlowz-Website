@@ -149,7 +149,7 @@ export default function Header() {
   return (
     <>
       <header className={`siteHeader ${isScrolled ? "scrolled" : ""}`}>
-        <Link href="/" onClick={closeMenu}>
+        <Link href="/" className="headerBrand noLineHover" onClick={closeMenu} aria-label="OptiFlowz home">
           <Image
             className="headerLogo"
             src="/logo.webp"
@@ -158,6 +158,10 @@ export default function Header() {
             height={48}
             priority
           />
+          <span className="headerBrandCopy">
+            <strong>OptiFlowz</strong>
+            <small>Digital Solutions</small>
+          </span>
         </Link>
 
         <nav>
@@ -250,7 +254,7 @@ export default function Header() {
               <Image src="/logo.webp" alt="OptiFlowz" width={42} height={42} />
               <span>
                 <strong>OptiFlowz</strong>
-                <small>Digital experiences</small>
+                <small>Digital Solutions</small>
               </span>
             </Link>
             <button

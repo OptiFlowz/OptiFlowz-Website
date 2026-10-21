@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import Image from "next/image";
 import type { MacbookSceneControls } from "./macbookScene";
+import { mountMacbookVideo } from "./macbookVideo";
 import styles from "./macbookShowcase.module.css";
 
 type Props = {
@@ -41,8 +42,9 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 560px)");
     let frame = 0;
     let lastTime = 0;
-    let target = 0;
-    let exitTarget = 0;
+    let targetPhase = 0;
+    let phase = progressRef.current + exitProgressRef.current;
+    let initialized = false;
     let stickyTop = 96;
     let stickyMargin = 0;
     let entryRange = 1;
@@ -71,17 +73,18 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
       frame = 0;
       const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 1 / 60;
       lastTime = time;
-      progressRef.current += (target - progressRef.current) * (1 - Math.exp(-12 * dt));
-      exitProgressRef.current += (exitTarget - exitProgressRef.current) * (1 - Math.exp(-12 * dt));
-      if (Math.abs(target - progressRef.current) < 0.0001) progressRef.current = target;
-      if (Math.abs(exitTarget - exitProgressRef.current) < 0.0001) exitProgressRef.current = exitTarget;
+      // One continuous timeline prevents a lingering closing value from
+      // overriding the turn when scrolling quickly back across both phases.
+      phase += (targetPhase - phase) * (1 - Math.exp(-12 * dt));
+      if (Math.abs(targetPhase - phase) < 0.0001) phase = targetPhase;
+      progressRef.current = clamp(phase);
+      exitProgressRef.current = clamp(phase - 1);
       paint();
-      if (progressRef.current !== target || exitProgressRef.current !== exitTarget) frame = requestAnimationFrame(animate);
+      if (phase !== targetPhase) frame = requestAnimationFrame(animate);
       else lastTime = 0;
     }
     function syncScroll() {
-      target = readProgress();
-      exitTarget = readExitProgress();
+      targetPhase = readProgress() + readExitProgress();
       if (!frame) frame = requestAnimationFrame(animate);
     }
     function resetProgress() {
@@ -95,11 +98,18 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
       if (hero!.style.getPropertyValue("--macbook-scene-height") !== sceneHeight) {
         hero!.style.setProperty("--macbook-scene-height", sceneHeight);
       }
-      target = readProgress();
-      exitTarget = readExitProgress();
-      progressRef.current = target;
-      exitProgressRef.current = exitTarget;
-      paint();
+      targetPhase = readProgress() + readExitProgress();
+      if (!initialized || motion.matches) {
+        phase = targetPhase;
+        progressRef.current = clamp(phase);
+        exitProgressRef.current = clamp(phase - 1);
+        initialized = true;
+        paint();
+      } else {
+        // Mobile browser chrome can emit resize events during a swipe. Update
+        // the destination without snapping the displayed pose to it.
+        syncScroll();
+      }
     }
     const resize = new ResizeObserver(resetProgress);
     resize.observe(hero);
@@ -126,6 +136,9 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
     let disposed = false;
     let inView = false;
     let canPresent = false;
+    let generation = 0;
+    const responsiveVideo = window.matchMedia("(max-width: 1024px)");
+    const smallVideo = window.matchMedia("(width < 500px)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     video.muted = true;
     const syncPlayback = () => {
@@ -145,31 +158,57 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
       syncPlayback();
     }, { threshold: 0.05 });
     playbackObserver.observe(stage);
-    import("./macbookScene")
-      .then(({ mountMacbookScene }) => {
-        if (disposed) return;
-        sceneRef.current = mountMacbookScene(stage, video, (ready) => {
-          if (!disposed) {
-            setIsReady(ready);
-            setHasFailed(!ready);
-            canPresent = true;
-            syncPlayback();
-            const staticView = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 560px)").matches;
-            sceneRef.current?.setScrollProgress(staticView ? 1 : ease(progressRef.current), staticView ? 0 : ease(exitProgressRef.current));
-          }
-        });
+    function mountPresentation() {
+      const currentGeneration = ++generation;
+      sceneRef.current?.dispose();
+      sceneRef.current = null;
+      canPresent = false;
+      video!.pause();
+      const syncPose = () => {
         const staticView = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 560px)").matches;
-        sceneRef.current.setScrollProgress(staticView ? 1 : ease(progressRef.current), staticView ? 0 : ease(exitProgressRef.current));
-      })
-      .catch(() => {
-        if (!disposed) {
-          setHasFailed(true);
-          canPresent = true;
-          syncPlayback();
+        sceneRef.current?.setScrollProgress(staticView ? 1 : ease(progressRef.current), staticView ? 0 : ease(exitProgressRef.current));
+      };
+      const onReady = (ready: boolean) => {
+        if (disposed || currentGeneration !== generation) return;
+        setIsReady(ready);
+        setHasFailed(!ready);
+        canPresent = !responsiveVideo.matches || !ready;
+        if (!ready && !video!.getAttribute("src")) {
+          video!.src = "/video-platform/platform-tour.mp4";
+          video!.load();
         }
-      });
+        syncPlayback();
+        syncPose();
+      };
+      if (responsiveVideo.matches) {
+        video!.removeAttribute("src");
+        video!.load();
+        sceneRef.current = mountMacbookVideo(stage!, onReady);
+        syncPose();
+        return;
+      }
+      video!.src = "/video-platform/platform-tour.mp4";
+      video!.load();
+      import("./macbookScene")
+      .then(({ mountMacbookScene }) => {
+        if (disposed || currentGeneration !== generation) return;
+        sceneRef.current = mountMacbookScene(stage!, video!, onReady);
+        syncPose();
+      })
+      .catch(() => onReady(false));
+    }
+    function changePresentation() {
+      setIsReady(false);
+      setHasFailed(false);
+      mountPresentation();
+    }
+    mountPresentation();
+    responsiveVideo.addEventListener("change", changePresentation);
+    smallVideo.addEventListener("change", changePresentation);
     return () => {
       disposed = true;
+      responsiveVideo.removeEventListener("change", changePresentation);
+      smallVideo.removeEventListener("change", changePresentation);
       syncPlaybackRef.current = null;
       playbackObserver.disconnect();
       document.removeEventListener("visibilitychange", syncPlayback);
@@ -204,7 +243,7 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
         </div>
         <div ref={stageRef} className={styles.stage} role="img" aria-hidden={hasFailed}
           aria-label="A 14-inch Space Black MacBook Pro displaying the OptiFlowz platform. Scroll to rotate it toward you, then close the lid as it leaves the screen." />
-        <video ref={videoRef} className={styles.videoSource} src="/video-platform/platform-tour.mp4"
+        <video ref={videoRef} className={styles.videoSource}
           poster="/video-platform/platform-tour-poster.webp" muted loop playsInline preload="metadata"
           aria-hidden={!hasFailed} aria-label="OptiFlowz video platform demonstration" />
       </div>
