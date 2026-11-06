@@ -40,6 +40,7 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
     const copy = hero?.querySelector<HTMLElement>(".video-platform-hero-copy");
     if (!hero || !stage || !sticky || !copy) return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 560px)");
+    const responsiveVideo = window.matchMedia("(max-width: 1024px)");
     let frame = 0;
     let lastTime = 0;
     let targetPhase = 0;
@@ -75,7 +76,10 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
       lastTime = time;
       // One continuous timeline prevents a lingering closing value from
       // overriding the turn when scrolling quickly back across both phases.
-      phase += (targetPhase - phase) * (1 - Math.exp(-12 * dt));
+      // Video seeking adds decode latency on mobile; keep its smoothing short
+      // and time-based so fast swipes stay responsive at different frame rates.
+      const response = responsiveVideo.matches ? 24 : 12;
+      phase += (targetPhase - phase) * (1 - Math.exp(-response * dt));
       if (Math.abs(targetPhase - phase) < 0.0001) phase = targetPhase;
       progressRef.current = clamp(phase);
       exitProgressRef.current = clamp(phase - 1);
