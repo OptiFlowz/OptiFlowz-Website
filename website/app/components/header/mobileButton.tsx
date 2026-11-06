@@ -1,11 +1,15 @@
+import type { RefObject } from "react";
+
 type Props = {
     onClick: () => void;
     isOpen: boolean;
+    buttonRef: RefObject<HTMLButtonElement | null>;
 }
 
-export default function MobileMenuButton({onClick, isOpen}: Props){
+export default function MobileMenuButton({onClick, isOpen, buttonRef}: Props){
     return (
         <button
+            ref={buttonRef}
             type="button"
             className={`mobileMenuButton hamburger ${isOpen ? "open" : ""}`}
             onClick={onClick}

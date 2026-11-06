@@ -21,7 +21,6 @@ export function mountMacbookVideo(
   let displayedFrame = 0;
   let pendingFrame: number | null = null;
   let hasPresented = false;
-  const motion = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 560px)");
   const fps = 30;
 
   function present() {
@@ -36,20 +35,17 @@ export function mountMacbookVideo(
     if (disposed || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || video.seeking) return;
     const lastFrame = Math.min(180, Math.round(video.duration * fps) - 1);
     const targetFrame = Math.min(lastFrame, Math.max(0, Math.round(targetTime * fps)));
-    // Advance from the last decoded pose, not the last requested currentTime.
-    // Bound catch-up after a fast swipe or slow decode to two adjacent frames.
-    // The first pose is sought while hidden, so page restoration never flashes
-    // the initial laptop angle before jumping to the restored scroll position.
-    const nextFrame = !hasPresented || motion.matches ? targetFrame
-      : displayedFrame + Math.max(-2, Math.min(2, targetFrame - displayedFrame));
-    if (nextFrame === displayedFrame) {
+    // The scroll controller already smooths the pose. Decode its latest target
+    // directly: stepping through old poses makes latency grow with swipe speed.
+    // Keep one seek in flight and pick up the newest target after it completes.
+    if (targetFrame === displayedFrame) {
       present();
       return;
     }
-    pendingFrame = nextFrame;
+    pendingFrame = targetFrame;
     // Seek inside a frame rather than onto a timestamp boundary that decoders
     // can round to the previous frame, especially when reversing direction.
-    video.currentTime = (nextFrame + 0.1) / fps;
+    video.currentTime = (targetFrame + 0.1) / fps;
   }
   function schedule() {
     if (!disposed && !frame) frame = requestAnimationFrame(seek);
