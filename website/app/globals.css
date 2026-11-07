@@ -265,33 +265,20 @@ body::before,
   z-index: -1;
   pointer-events: none;
   background-image: radial-gradient(circle, rgba(145, 181, 230, .22) 1px, transparent 1.45px);
-  background-size: 12px 12px;
+  background-size: 13px 13px;
   mask-size: 100% 1000px;
   mask-repeat: repeat-y;
   mask-image:
     radial-gradient(ellipse at 2% 68%, #000b, transparent 52%),
     radial-gradient(ellipse at 98% 16%, #0009, transparent 48%),
     radial-gradient(ellipse at 85% 100%, #0006, transparent 45%);
-  animation: ambient-dots-drift 16s ease-in-out infinite alternate;
-}
-
-@keyframes ambient-dots-drift{
-  from{ background-position: -6px -4px; }
-  to{ background-position: 6px 8px; }
 }
 
 @media (max-width: 650px){
   body::before,
   .site-footer::after{
-    background-size: 11px 11px;
+    background-size: 12px 12px;
     opacity: .7;
-  }
-}
-
-@media (prefers-reduced-motion: reduce){
-  body::before,
-  .site-footer::after{
-    animation: none;
   }
 }
 
@@ -1051,8 +1038,6 @@ header{
   padding: 0;
   background-color: transparent;
   border-radius: var(--bR);
-  -webkit-backdrop-filter: blur(0);
-  backdrop-filter: blur(0);
   margin-inline: auto;
   margin-top: 22px;
   width: calc(100% - 88px);
@@ -1063,9 +1048,6 @@ header{
     max-width .48s cubic-bezier(.22, 1, .36, 1),
     padding .48s cubic-bezier(.22, 1, .36, 1),
     margin-top .48s cubic-bezier(.22, 1, .36, 1),
-    background-color .38s ease,
-    backdrop-filter .38s ease,
-    -webkit-backdrop-filter .38s ease,
     box-shadow .38s ease;
 }
 
@@ -1074,9 +1056,6 @@ header.scrolled{
   max-width: 1050px;
   padding: 14px 18px;
   margin-top: 15px;
-  background-color: rgba(8, 10, 16, .48);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
   box-shadow: 0 16px 45px rgba(0, 0, 0, .28);
 }
 
@@ -1101,25 +1080,23 @@ header.scrolled .headerLogo{
   height: 40px;
 }
 
-header::before{
-  content: '';
+/* Keep the header glass on its own layer so the dropdown can blur the page behind it. */
+header.siteHeader::before{
+  content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  padding: 1px;
-  border-radius: var(--bR);
-  background: linear-gradient(60deg, var(--borderC1), var(--borderC2));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: inherit;
+  background-color: var(--header-glass, rgba(8, 10, 16, .48));
   opacity: 0;
   transition: opacity .38s ease;
 }
 
-header.scrolled::before{
-  opacity: 0;
+header.siteHeader.scrolled::before{
+  opacity: 1;
+  -webkit-backdrop-filter: blur(var(--header-blur, 14px));
+  backdrop-filter: blur(var(--header-blur, 14px));
 }
 
 header nav{
@@ -1205,39 +1182,32 @@ header nav a.active::before{
   position: absolute;
   top: calc(100% + 18px);
   left: 50%;
-  transform: translateX(-50%) translateY(-8px) scale(.97);
-  transform-origin: 50% 0%;
-  width: min(440px, calc(100vw - 80px));
-  padding: 16px;
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(44, 80, 137, .16), transparent 54%),
-    rgba(4, 6, 13, .96);
-  border: 1px solid rgba(255,255,255,.06);
-  opacity: 0;
+  width: min(400px, calc(100vw - 80px));
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  pointer-events: none;
-  filter: blur(6px);
-  clip-path: inset(0 7% 100% 7% round 30px);
-  will-change: opacity, filter, transform, clip-path;
-  transition:
-    opacity .34s ease,
-    transform .56s cubic-bezier(.22,1,.36,1),
-    filter .42s ease,
-    clip-path .56s cubic-bezier(.22,1,.36,1);
+  padding: 9px;
+  border-radius: 24px;
+  background: rgba(8, 10, 16, .92);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -5px);
+  transition: opacity .2s ease, transform .24s ease, visibility 0s .24s;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .navDropdownMenu{
+    background: rgba(8, 10, 16, .66);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
 }
 
 .navDropdown.open .navDropdownMenu{
   opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0) scale(1);
-  filter: blur(0);
-  clip-path: inset(0 0 0 0 round 30px);
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, .5),
-    inset 0 1px 0 rgba(255,255,255,.04);
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition-delay: 0s;
 }
 
 .navDropdownMenu::before{
@@ -1249,61 +1219,86 @@ header nav a.active::before{
 }
 
 .navDropdownMenu a{
-  min-height: 76px;
   display: grid;
-  grid-template-columns: 88px minmax(0, 1fr) 26px;
+  grid-template-columns: 76px minmax(0, 1fr) 20px;
   align-items: center;
-  gap: 13px;
-  padding: 12px 16px;
-  border-radius: 20px;
-  background: linear-gradient(110deg, rgba(255,255,255,.1), rgba(255,255,255,.065));
+  gap: 14px;
+  padding: 12px;
+  border-radius: 16px;
   font-size: 1.05rem;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateY(12px) scale(.975);
-  filter: blur(4px);
-  transition:
-    background-color .18s ease,
-    transform .5s cubic-bezier(.22,1,.36,1),
-    opacity .36s ease,
-    filter .42s ease;
-}
-
-.navDropdown.open .navDropdownMenu a{
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.navDropdown.open .navDropdownMenu a:nth-child(1){
-  transition-delay: 0s, .07s, .07s, .07s;
-}
-
-.navDropdown.open .navDropdownMenu a:nth-child(2){
-  transition-delay: 0s, .13s, .13s, .13s;
-}
-
-.navDropdown.open .navDropdownMenu a:nth-child(3){
-  transition-delay: 0s, .19s, .19s, .19s;
-}
-
-.navDropdown.open .navDropdownMenu a:nth-child(4){
-  transition-delay: 0s, .14s, .14s, .14s;
+  font-weight: 600;
+  transition: background-color .18s ease;
 }
 
 .navDropdownMenu a::before{
   display: none;
 }
 
+@media (prefers-reduced-motion: no-preference){
+  .navDropdown.open .navDropdownMenu > a{
+    --row-delay: .06s;
+    animation: service-row-enter .38s cubic-bezier(.22,1,.36,1) var(--row-delay) backwards;
+  }
+
+  .navDropdown.open .navDropdownMenu > a:nth-child(2){ --row-delay: .13s; }
+  .navDropdown.open .navDropdownMenu > a:nth-child(3){ --row-delay: .20s; }
+
+  .navDropdown.open .navServiceThumbFrame{
+    mask-image: linear-gradient(to right, #000 44%, transparent 56%);
+    mask-size: 240% 100%;
+    mask-repeat: no-repeat;
+    animation: service-thumb-reveal .42s cubic-bezier(.25,.65,.35,1) var(--row-delay) backwards;
+  }
+
+  .navDropdown.open .navDropdownMenu a + a::after{
+    transform-origin: left;
+    animation: service-divider-enter .32s ease-out .25s backwards;
+  }
+
+  .navDropdown.open .navDropdownMenu a:nth-child(3)::after{
+    animation-delay: .38s;
+  }
+}
+
+@keyframes service-row-enter{
+  from{ opacity: 0; transform: translateY(8px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+@keyframes service-thumb-reveal{
+  from{ mask-position: 100% 0; }
+  to{ mask-position: 0 0; }
+}
+
+@keyframes service-divider-enter{
+  from{ opacity: 0; transform: scaleX(0); }
+  to{ opacity: 1; transform: scaleX(1); }
+}
+
+.navDropdownMenu a + a::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 102px;
+  right: 12px;
+  height: 1px;
+  background: rgba(255,255,255,.15);
+  pointer-events: none;
+}
+
 .navDropdownMenu a:hover,
+.navDropdownMenu a:focus-visible{
+  background-color: rgba(255,255,255,.08);
+}
+
 .navDropdownMenu a.active{
-  background-color: rgba(255,255,255,.16);
-  filter: brightness(1.08);
+  color: #a9ceff;
+  background-color: rgba(51,140,255,.10);
 }
 
 .navServiceThumbFrame{
-  width: 88px;
-  height: 50px;
+  width: 76px;
+  aspect-ratio: 16 / 9;
   border-radius: 9px;
   overflow: hidden;
 }
@@ -1328,16 +1323,25 @@ header nav a.active::before{
 .navServiceArrow{
   display: grid;
   place-items: center;
+  opacity: .6;
 }
 
 .navServiceArrow svg{
-  width: 22px;
-  height: 22px;
-  transition: transform .2s ease;
+  width: 18px;
+  height: 18px;
 }
 
-.navDropdownMenu a:hover .navServiceArrow svg{
-  transform: translateX(4px);
+.navDropdownMenu a:is(:hover, :focus-visible, .active) .navServiceArrow{
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference){
+  .navServiceArrow{
+    transition: opacity .18s ease;
+  }
+  .navDropdownMenu a:is(:hover, :focus-visible) .navServiceArrow svg{
+    animation: arrowJump .3s ease;
+  }
 }
 
 /* HAMBUERGER BUTTON */
@@ -1445,7 +1449,7 @@ header .mobileMenuButton.open span:nth-child(3){
   z-index: -1;
   pointer-events: none;
   background-image: radial-gradient(circle, rgba(145, 181, 230, .18) .9px, transparent 1.4px);
-  background-size: 12px 12px;
+  background-size: 13px 13px;
   mask-image:
     radial-gradient(ellipse at 100% 12%, #000b, transparent 65%),
     radial-gradient(ellipse at 5% 100%, #0008, transparent 58%);
@@ -3793,6 +3797,22 @@ main{
   background: rgba(6, 9, 16, 0.86);
 }
 
+.home-main{
+  position: relative;
+}
+
+.home-main::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: calc(50% - 50vw);
+  width: 72vw;
+  height: clamp(240px, 34vw, 500px);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at bottom right, var(--background) 46%, transparent 100%);
+}
+
 .home-blog-highlights{
   display: flex;
   flex-direction: column;
@@ -4770,6 +4790,7 @@ main{
 
 @media (prefers-reduced-motion: reduce) {
   header,
+  header.siteHeader::before,
   .headerLogo,
   .navDropdownMenu,
   .navDropdownMenu a,
@@ -4862,15 +4883,11 @@ main{
     padding: 22px clamp(20px, 4vw, 32px);
     gap: 24px;
     border-radius: 0;
-    background-color: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    --header-glass: rgba(0, 0, 0, .6);
+    --header-blur: 16px;
     box-shadow: none;
   }
   header.siteHeader.scrolled{
-    background-color: rgba(0, 0, 0, .6);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
   }
   header.siteHeader::before{ border-radius: 0; }
