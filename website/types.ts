@@ -11,5 +11,7 @@ export type ArticleItem = {
 }
 
 export type ArticleData = ArticleItem & {
+    displayDate: string,
+    cover: { src: string, alt: string },
     contentHtml: string
 }

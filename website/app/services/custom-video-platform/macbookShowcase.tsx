@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import Image from "next/image";
+import PlaybackIcon from "../../components/playbackIcon";
 import type { MacbookSceneControls } from "./macbookScene";
 import { mountMacbookVideo } from "./macbookVideo";
 import styles from "./macbookShowcase.module.css";
@@ -253,11 +254,7 @@ export default function MacbookShowcase({ heroRef, revealAllowed }: Props) {
       </div>
       <div className={styles.bottomBar}>
         <button className="button white" type="button" onClick={toggleVideo} aria-label={isPlaying ? "Pause platform demo" : "Play platform demo"}>
-          {isPlaying ? (
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="4" y="3" width="2.5" height="10" rx="0.7" /><rect x="9.5" y="3" width="2.5" height="10" rx="0.7" /></svg>
-          ) : (
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m5 2.7 8 5.3-8 5.3V2.7Z" /></svg>
-          )}
+          <PlaybackIcon playing={isPlaying} />
           {isPlaying ? "Pause demo" : "Play demo"}
         </button>
       </div>
