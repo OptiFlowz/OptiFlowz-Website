@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "narrate": "node scripts/narration/generate.mjs",
+    "predev": "npm run narrate",
+    "prebuild": "npm run narrate"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

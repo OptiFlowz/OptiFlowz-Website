@@ -1,9 +1,14 @@
 import { articleExists, getArticleData, getArticleIds } from "@/lib/articles";
 import { ArticleData, ArticleItem } from "@/types";
 import type { Metadata } from "next";
+import Image from "next/image";
+import ArticleListener from "./articleListener";
+import ArticleReadingProgress from "./articleReadingProgress";
+import articleAudio from "@/lib/articleAudio.json";
 import { notFound } from "next/navigation";
 import FadeInOnScroll from "../components/fadeInOnScroll";
 
+const recordings: Record<string, { src: string, duration: number }> = articleAudio;
 const siteUrl = "https://optiflowz.com";
 
 type Props = {
@@ -104,6 +109,7 @@ export default async function Article({params}: Props){
     const articleData = await getArticleData(articleSlug);
     const description = getArticleDescription(articleData);
     const publishedTime = getPublishedTime(articleData.date);
+    const recording = recordings[articleSlug];
     const articleUrl = getAbsoluteUrl(`/${articleData.id}`);
     const jsonLd = {
         "@context": "https://schema.org",
@@ -130,20 +136,11 @@ export default async function Article({params}: Props){
         },
     };
     
-    const addCategotyTag = () => {
-        const categoryHref = `/blog?category=${encodeURIComponent(articleData.category)}#blog-categories`;
-
-        return articleData.contentHtml
-            .replace(
-                /<\/h1>/,
-                `</h1><div class="article-meta" style="display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:9px"><a href="${categoryHref}" class="article-category" style="margin:0">Category: ${articleData.category}</a>`
-            )
-            .replace(/<h3>/, '<h3 style="margin:0">')
-            .replace(/<\/h3>/, "</h3></div>");
-    }
+    const categoryHref = `/blog?category=${encodeURIComponent(articleData.category)}#blog-categories`;
 
     return(
         <main className="article-main">
+            <ArticleReadingProgress key={articleSlug} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -151,7 +148,17 @@ export default async function Article({params}: Props){
                 }}
             />
             <FadeInOnScroll threshold={0} className="flex flex-col items-center">
-                <article dangerouslySetInnerHTML={{__html: addCategotyTag()}} />
+                <article className="w-full">
+                    <h1>{articleData.title}</h1>
+                    <div className="article-meta">
+                        <a href={categoryHref} className="article-category">Category: {articleData.category}</a>
+                        <time dateTime={publishedTime}>{articleData.displayDate}</time>
+                    </div>
+                    <Image className="article-cover" src={articleData.cover.src} alt={articleData.cover.alt}
+                        width={800} height={450} unoptimized loading="eager" />
+                    {recording && <ArticleListener key={recording.src} {...recording} />}
+                    <div id="article-body" className="article-body" dangerouslySetInnerHTML={{ __html: articleData.contentHtml }} />
+                </article>
             </FadeInOnScroll>
         </main>
     )

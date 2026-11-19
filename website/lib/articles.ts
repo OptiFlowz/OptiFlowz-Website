@@ -1,3 +1,4 @@
+import { parseArticleBody } from "./articleBody.mjs";
 import { ArticleData, ArticleItem } from "@/types";
 import fs from "fs";
 import matter from "gray-matter";
@@ -140,16 +141,15 @@ export async function getArticleData(id: ArticleItem["id"]): Promise<ArticleData
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
     const articleMetadata = matterResult.data as Omit<ArticleItem, "id">;
-    const processed = await remark()
-        .use(html)
-        .process(matterResult.content);
-
-    const htmlContent = processed.toString();
+    const markdown = remark().use(html);
+    const { document, displayDate, cover } = parseArticleBody(matterResult.content, articleMetadata);
 
     return {
         id,
         ...articleMetadata,
         excerpt: articleMetadata.excerpt ?? createArticleExcerpt(matterResult.content),
-        contentHtml: htmlContent,
+        displayDate,
+        cover,
+        contentHtml: markdown.stringify(document),
     };
 }

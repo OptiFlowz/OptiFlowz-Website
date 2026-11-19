@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Article narration
+
+Each article uses a static MP3 recorded with the Kokoro English voice Heart. Run
+`npm run narrate` after editing Markdown to preview the new recording. The same
+step runs before development and production builds. It reuses recordings whose
+spoken text and voice settings match. On the first cache miss it installs the
+isolated generator dependencies and downloads the speech model. Commit the new
+files in `public/article-audio` and `lib/articleAudio.json` with the article so
+subsequent builds can reuse them.
